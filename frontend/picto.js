@@ -49,3 +49,4 @@ import { FontAwesome } from '@expo/vector-icons';
 //Picto "mes ventes et mes achats"
 import { FontAwesome } from '@expo/vector-icons';
 <FontAwesome name="shopping-cart" size={24} color="black" />
+
