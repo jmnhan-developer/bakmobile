@@ -47,7 +47,7 @@ function ProductScreens(){
                 </View>
             </View>
             <Icon   style={{marginLeft:80}}
-                    name='heart'
+                    name='heart-o'
                     color='#82589F'
                     size={20}
               />
