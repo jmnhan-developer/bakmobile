@@ -35,55 +35,14 @@ export default function SecondFilterScreen() {
             title: 'Autres',
           }
       ];
-
-
-      const Item = ({ title }) => (
-        <View style={styles.item}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      );
-
-      
-        const renderItem = ({ item }) => (
-          <Item title={item.title} />
-        )
-
+      var listButton2= DATA.map(function(e,i){
+        return ( <Button title={e.title} onPress={() => setDisplaySecondFilter(true)}/>)})
 
   return (
       <View>
         <Text style={styles.titlePage}>Choisissez une sous-catégorie</Text>
-    
-         <View style={styles.container}>
-      
-          <SafeAreaView style={styles.container}>
-          <FlatList
-           horizontal={true}
-           data={DATA.slice(0,2)}
-           renderItem={renderItem}
-           keyExtractor={item => item.id}
-           />
-           <FlatList
-           horizontal={true}
-           data={DATA.slice(2,4)}
-           renderItem={renderItem}
-           keyExtractor={item => item.id}
-           />
-           <FlatList
-           horizontal={true}
-           data={DATA.slice(4,6)}
-           renderItem={renderItem}
-           keyExtractor={item => item.id}
-           />
-           <FlatList
-           horizontal={true}
-           data={DATA.slice(6,8)}
-           renderItem={renderItem}
-           keyExtractor={item => item.id}
-           />
-          </SafeAreaView>
-    </View>
-
-      <StatusBar style="auto" />
+             {listButton2}
+        <StatusBar style="auto" />
     
     </View>
   );

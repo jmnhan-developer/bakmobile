@@ -1,13 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useReducer,useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-native';
 import SecondFilterScreen from './SecondFilterScreen'
+
+
 export default function FilterScreen() {
 
+const [DisplaySecondFilter, setDisplaySecondFilter] =useState(false);
+const [colorButton,setColorButton]=useState('orange');
+
+var changeColor = () => {
+    setColorButton('green');
+}
     const DATA = [
         {
             title: 'Se déplacer',
-            color:'green'
+            color:'orange'
         },
         {
             title: 'S habiller',
@@ -17,7 +25,6 @@ export default function FilterScreen() {
             title: 'Se baigner',
             color:'orange'
         },
-   
         {
             title: 'Dormir',
             color:'orange'
@@ -33,72 +40,55 @@ export default function FilterScreen() {
           }
       ];
 
+      if(DisplaySecondFilter==true){
+          
+        var secondFilter= (<SecondFilterScreen/>)
+      }else{
+        var secondFilter=(<Text></Text>);
+      }
 
-      const Item = ({ title }) => (
-        <View style={styles.item}>
-          <Text style={styles.title} >{title}</Text>
-        </View>
-      );
 
-      
-        const renderItem = ({ item }) => (
-   <Item title={item.title} />
-        )
+var listButton1= DATA.map(function(e,i){
+    return ( <Button title={e.title} 
+        
+        onPress={() =>{ 
+
+        setDisplaySecondFilter(true); changeColor()}} 
+         
+        style={styles.listButton} 
+        
+        color={colorButton} />)
+ })
 
 
   return (
       <View>
-        <Text style={styles.titlePage}>Choisissez une catégorie</Text>
-    
-         <View style={styles.container}>
-      
-          <SafeAreaView style={styles.container}>
-          <FlatList
-           horizontal={true}
-           data={DATA.slice(0,2)}
-           renderItem={renderItem}
-           
-           />
-           <FlatList
-           horizontal={true}
-           data={DATA.slice(2,4)}
-           renderItem={renderItem}
-           
-           />
-           <FlatList
-           horizontal={true}
-           data={DATA.slice(4,6)}
-           renderItem={renderItem}
-           
-           />
-          <SecondFilterScreen/>
-          </SafeAreaView>
-    </View>
 
-      <StatusBar style="auto" />
+           <Text style={styles.titlePage} >Choisissez une catégorie</Text>
+             {listButton1}
+             {secondFilter}
+           <StatusBar style="auto" />
+
+      </View>
     
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
   
-    container: {
-    marginTop:5 ,
+      container: {
+      marginTop:5 ,
   },
   titlePage:{
+
       marginTop:40,
       marginLeft:75,
       fontSize:20
   },
-  item: {
-    width:150,
-    backgroundColor: 'orange',
-    padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
-    
-},title: {
-    fontSize: 16,
+  listButton:{
+
+      marginBottom:30
+      
   }
+
 })
