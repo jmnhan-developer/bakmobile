@@ -105,6 +105,7 @@ var BottomNavigator = createBottomTabNavigator({
           data={DATA}
           renderItem={renderItem}
         />
+        {BottomNavigator}
       </SafeAreaView>
     );
   }
