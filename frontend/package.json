@@ -8,21 +8,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@expo/vector-icons": "^12.0.1",
+    "@react-native-picker/picker": "^1.9.4",
+    "bootstrap": "^4.5.3",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
-    "react-native-drop-down-item": "^1.1.0",
     "react-native-elements": "^3.0.0-alpha.1",
-    "react-native-material-dropdown": "^0.11.1",
-    "react-native-modal-dropdown-with-flatlist": "^0.7.1",
-    "react-native-responsive-dimensions": "^3.1.1",
+    "react-native-picker-select": "^8.0.4",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
-    "reactstrap": "^8.7.1",
-    "reinput": "^3.7.2"
+    "reactstrap": "^8.7.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
