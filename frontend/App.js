@@ -1,12 +1,21 @@
-import React from 'react';
-import { FlatList, SafeAreaView, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image,FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
+
 import RNPickerSelect from 'react-native-picker-select';
 
+import SellScreen from './Screens/SellScreen'
+import FilterScreen from './Screens/FilterScreen'
+import HomeScreen from './Screens/HomeScreen'
+import MessageScreen from './Screens/MessageScreen'
+import ProfileScreen from './Screens/ProfileScreen'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import createAppContainer  from 'react-navigation';
+import createBottomTabNavigator from 'react-navigation-tabs';
+import createStackNavigator from 'react-navigation-stack';
 
 
 const styles = StyleSheet.create({
