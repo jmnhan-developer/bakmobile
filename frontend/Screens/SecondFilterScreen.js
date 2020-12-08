@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-export default function SecondFilterScreen() {
+function SecondFilterScreen({navigation}) {
 
 
 
@@ -36,7 +37,7 @@ export default function SecondFilterScreen() {
           }
       ];
       var listButton2= DATA.map(function(e,i){
-        return ( <Button title={e.title} onPress={() => setDisplaySecondFilter(true)}/>)})
+        return ( <Button title={e.title} onPress= {() => navigation.navigate('Product')} color='orange'/>)})
 
   return (
       <View>
@@ -69,3 +70,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   }
 })
+
+export default withNavigation(SecondFilterScreen);

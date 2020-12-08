@@ -4,21 +4,30 @@ import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-nat
 import FilterScreen from './Screens/FilterScreen'
 import ProfileScreen from './Screens/ProfileScreen'
 import SellScreen from './Screens/SellScreen'
-
+import BasketScreens from './Screens/BasketScreens'
+import ProductScreens from './Screens/ProductScreens'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import { FontAwesome } from '@expo/vector-icons'; 
 import {createAppContainer } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
+var StackNavigator = createStackNavigator({ 
+
+  Filter:  FilterScreen,  
+  Product: ProductScreens,
+  Basket: BasketScreens
+
+}, 
+{headerMode: 'none'}
+);  
 
 
 
 var BottomNavigator = createBottomTabNavigator({
   
   Sell: SellScreen,
-  Filter:FilterScreen,
+  Filter: StackNavigator,
   Profile: ProfileScreen,
-
-
   
 },
   {
@@ -53,7 +62,8 @@ var BottomNavigator = createBottomTabNavigator({
 
   export default function App () {
     return (
-      
+
     <Navigation/> 
+
       )
   }

@@ -4,72 +4,70 @@ import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-nat
 import SecondFilterScreen from './SecondFilterScreen'
 
 
-export default function FilterScreen() {
+export default function FilterScreen({navigation}) {
 
 const [DisplaySecondFilter, setDisplaySecondFilter] =useState(false);
-const [colorButton,setColorButton]=useState('orange');
-
+const [colorButton1,setColorButton1]=useState('orange');
+const [colorButton2,setColorButton2]=useState('orange');
+const [colorButton3,setColorButton3]=useState('orange');
+const [colorButton4,setColorButton4]=useState('orange');
+const [colorButton5,setColorButton5]=useState('orange');
+const [colorButton6,setColorButton6]=useState('orange');
 var changeColor = () => {
     setColorButton('green');
 }
-    const DATA = [
-        {
-            title: 'Se déplacer',
-            color:'orange'
-        },
-        {
-            title: 'S habiller',
-            color:'orange'
-        },
-        {
-            title: 'Se baigner',
-            color:'orange'
-        },
-        {
-            title: 'Dormir',
-            color:'orange'
-          },
-          {
-            title: 'Accessoires',
-            color:'orange'
-
-          },
-          {
-            title: 'Autre',
-            color:'orange'
-          }
-      ];
-
+ 
       if(DisplaySecondFilter==true){
-          
         var secondFilter= (<SecondFilterScreen/>)
       }else{
+
         var secondFilter=(<Text></Text>);
+
       }
 
-
-var listButton1= DATA.map(function(e,i){
-    return ( <Button title={e.title} 
-        
-        onPress={() =>{ 
-
-        setDisplaySecondFilter(true); changeColor()}} 
-         
-        style={styles.listButton} 
-        
-        color={colorButton} />)
- })
 
 
   return (
       <View>
-
            <Text style={styles.titlePage} >Choisissez une catégorie</Text>
-             {listButton1}
-             {secondFilter}
-           <StatusBar style="auto" />
+          
+          
+         
+        <Button title='Se déplacer'
+        onPress={() =>{ 
+        setDisplaySecondFilter(true); setColorButton1('green')}} 
+        color={colorButton1} />
+      
+        
+        <Button title='S habiller'
+        onPress={() =>{ 
+        setDisplaySecondFilter(true); setColorButton2('green')}} 
+        color={colorButton2} />  
+        
+        <Button title='Se baigner'  
+        onPress={() =>{ 
+        setDisplaySecondFilter(true); setColorButton3('green')}} 
+        color={colorButton3} />  
 
-      </View>
+        <Button title='Dormir'
+        onPress={() =>{ 
+        setDisplaySecondFilter(true); setColorButton4('green')}} 
+        color={colorButton4} /> 
+
+        <Button title='Accessoires' 
+        onPress={() =>{ 
+        setDisplaySecondFilter(true); setColorButton5('green')}} 
+        color={colorButton5} />  
+
+        <Button title='Autre'
+        onPress={() =>{ 
+        setDisplaySecondFilter(true); setColorButton6('green')}} 
+        color={colorButton6} />  
+        {secondFilter} 
+          </View>
+          
+   
+     
     
   );
 }
@@ -85,10 +83,6 @@ const styles = StyleSheet.create({
       marginLeft:75,
       fontSize:20
   },
-  listButton:{
-
-      marginBottom:30
-      
-  }
+  
 
 })

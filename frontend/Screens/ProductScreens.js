@@ -5,21 +5,26 @@ import { Card, ListItem, Button,  } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-function ProductScreens(){
+
+
+function ProductScreens({navigation}){
+
+
     return (
         <View style={styles.container}>
 
         <Card 
-          containerStyle={{marginTop:50}}
+          containerStyle={{marginTop:50, borderEndColor:"white"}}
+          wrapperStyle={{borderColor:'white'}}
          >
           
-          <Card.Image style={styles.image} 
-          source={require('./assets/loutre.jpg')} />
+          {/* <Image style={styles.image} 
+          source={require('./assets/loutre.jpg')}/> */}
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
-          <Image
+           {/* <Image
           style={styles.avatar}
           source={require('./assets/flag-uk.png')}
-          />
+          />  */}
             <View style={{marginLeft:10}}>
             <Text >Axel Barateau</Text>
                 <View style={{flexDirection: 'row'}}>
@@ -72,7 +77,10 @@ function ProductScreens(){
           <Button
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
-            title='Acheter' />
+            title='Acheter'
+            onPress= {() => navigation.navigate('Basket')}
+            
+            />
         </Card>
     </View>
 
@@ -86,7 +94,7 @@ container: {
 },
 
 image: {
-    width: 400,
+    width: 355,
     height: 400,
 },
 
