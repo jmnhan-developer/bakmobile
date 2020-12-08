@@ -50,17 +50,3 @@ import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 <FontAwesome name="shopping-cart" size={24} color="black" />
 
-<<<<<<< HEAD
-//Picto facebook
-import { FontAwesome } from '@expo/vector-icons';
-<FontAwesome name="facebook-f" size={24} color="black" />
-
-//Picto Instagram
-import { FontAwesome } from '@expo/vector-icons';
-<FontAwesome name="instagram" size={24} color="black" />
-
-//Picto Twitter
-import { FontAwesome } from '@expo/vector-icons';
-<FontAwesome name="twitter" size={24} color="black" />
-=======
->>>>>>> 162e7ef94c78cee6fd6b1fe3ebb6900633baf1ae
