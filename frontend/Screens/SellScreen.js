@@ -4,7 +4,7 @@ import {Button, Input} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 
 
-export default function App() {
+export default function SellScreen() {
   const [selectedValue, setSelectedValue] = useState("");
   return (
     <View style={styles.container}>
