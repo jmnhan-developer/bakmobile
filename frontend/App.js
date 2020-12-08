@@ -1,58 +1,84 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { FontAwesome } from '@expo/vector-icons';
-import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-native';
-import { Button, Input } from 'react-native-elements';
 
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-native';
+import FilterScreen from './Screens/FilterScreen'
+import ProfileScreen from './Screens/ProfileScreen'
+import SellScreen from './Screens/SellScreen'
+import BasketScreens from './Screens/BasketScreens'
+import ProductScreens from './Screens/ProductScreens'
+import {createBottomTabNavigator} from 'react-navigation-tabs'
+import { FontAwesome } from '@expo/vector-icons'; 
+import {createAppContainer } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import HomeScreens from './Screens/HomeScreens'
+import ResultScreens from './Screens/ResultScreens';
 
-function SignUpScreens() {
-  const [userEmail, setUserEmail] = useState('');
-  return (
-    
-    <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
+import photo from '../frontend/reducers/Pic.reducer';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers}  from 'redux';
 
-      <Text style={{marginBottom: 20}}>INSCRIPTION</Text>
+const store = createStore(combineReducers({photo}));
 
-      <ScrollView>
+var StackNavigator = createStackNavigator({ 
 
-        <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
+  
+  Filter:  FilterScreen,  
+  Product: ProductScreens,
+  Result:ResultScreens,
+  Basket: BasketScreens
 
-          <Input name="gender" placeholder='Madame ou Monsieur' />
-          <Input name="firstName" placeholder='Nom' />
-          <Input name="lastName" placeholder='Prénom' />
-          <Input name="mail" placeholder='e-mail' />
-          <Input name="password" placeholder='Mot de passe' />
-          <Input name="PhoneNumb" placeholder='Tél.' />
-          <Input name="Address" placeholder='Adresse' />
-          <Input name="Zip" placeholder='CP' />
-          <Input name="City" placeholder='Ville' />
-          <Icon style={{display: 'flex', justifyContent: 'center'}}>
-            <FontAwesome name="facebook-f" size={24} color="black" />
-            <FontAwesome name="instagram" size={24} color="black" />
-            <FontAwesome name="twitter" size={24} color="black" />
-          </Icon>
-          <Button style={{marginTop:20}}
-            title="M'inscrire"
-            buttonStyle={{ backgroundColor: "#eb4d4b"}}
-            type="solid"
-          />
+}, 
+{headerMode: 'none'}
+);  
+
+var BottomNavigator = createBottomTabNavigator({
+  
+  Home:HomeScreens,
+  Sell: SellScreen,
+  Filter: StackNavigator,
+  Profile: ProfileScreen,
+  
+ },
+  {
+   defaultNavigationOptions: ({ navigation }) => ({
+     tabBarIcon: ({ tintColor }) => {
+      var iconName;
+         if (navigation.state.routeName == 'Home') {
+        iconName = 'home';
+       }
+         else if (navigation.state.routeName == 'Sell') {
+        iconName = 'plus';
+       } else if (navigation.state.routeName == 'Filter') {
+         iconName = 'search';
+       } else if (navigation.state.routeName == 'Profile') {
+         iconName = 'user-o';
+      }
+       return <FontAwesome name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+     tabBarOptions: {
+      activeTintColor: '#eb4d4b',
+      inactiveTintColor: '#FFFFFF',
+      style: {
+       backgroundColor: '#130f40',
+      }
+    }
+   
+
+  });
+
+ 
 
           <Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text>
 
-        </KeyboardAvoidingView>
+const Navigation = createAppContainer(BottomNavigator);
 
-      </ScrollView>
+export default function App(){
+    return (
 
-    </View>
-  )
+      <Provider store={store}>
+        <Navigation/> 
+      </Provider>
+
+      )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-export default SignUpScreens;

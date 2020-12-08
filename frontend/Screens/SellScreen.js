@@ -4,8 +4,38 @@ import {Button, Input} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 
 
-export default function App() {
-  const [selectedValue, setSelectedValue] = useState("");
+export default function App(props) {
+  const [selectedValueCategory, setSelectedValueCategory] = useState("");
+  const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
+  const [selectedValueState, setSelectedValueState] = useState("");
+
+  
+  // console.log("selectedValue", selectedValue)
+  const [titleInput , setTitleInput ] = useState("");
+  console.log("title", titleInput)
+  const [desc , setDesc ] = useState("");
+  const [brand , setBrand ] = useState("");
+  const [price , setPrice ] = useState("");
+  const [shippingFees , setShippingFees ] = useState("");
+
+
+
+
+  var handleClick = async () => {
+    
+    console.log('ceci est le titre post handleclick=', titleInput);
+    const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}`
+    });
+                               
+    console.log("dataArticle",dataArticle)
+    const dataAnnonce = await dataArticle.json()
+    console.log("dataAnnonce", dataAnnonce)
+
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView style={{width: '90%'}}>
@@ -19,54 +49,55 @@ export default function App() {
               }            
           title="Ajouter des photos"
           type="outline"
-          onPress={() => {navigation.navigate('AddPicScreen')}}
+          onPress={() => {handleClick()}}
         />
       
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
+          onChangeText={(val) => setTitleInput(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder="Descrition de l'annonce"
+          onChangeText={(val) => setDesc(val)}
+        />
+        <Input style = {{ width: '90%'}}
+          placeholder="Marque"
+          onChangeText={(val) => setBrand(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder='Prix'
+          onChangeText={(val) => setPrice(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
+          onChangeText={(val) => setShippingFees(val)}
         />
 
+        
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={selectedValueCategory}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValueCategory(itemValue)}
         >
           <Picker.Item label="Catégorie" value="Catégorie" />
           <Picker.Item label="Se déplacer" value="Se déplacer" />
           <Picker.Item label="Manger" value="Manger" />
           <Picker.Item label="Dormir" value="Dormir" />
         </Picker>
+
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={selectedValueSubCategory}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValueSubCategory(itemValue)}
         >
           <Picker.Item label="Sous catégorie" value="Sous catégorie" />
           <Picker.Item label="Poussettes" value="Poussettes" />
           <Picker.Item label="Nacelle" value="Nacelle" />
         </Picker>
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={selectedValueState}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-        >
-          <Picker.Item label="Marque" value="Marque" />
-          <Picker.Item label="Yoyo" value="Yoyo" />
-          <Picker.Item label="Bébé Confort" value="Bébé Confort" />
-        </Picker>
-        <Picker
-          selectedValue={selectedValue}
-          style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValueState(itemValue)}
         >
           <Picker.Item label="Etat" value="Etat" />
           <Picker.Item label="Neuf" value="Neuf" />
@@ -78,7 +109,7 @@ export default function App() {
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#009788"}}
-          onPress={() => {navigation.navigate('ValidationScreen')}}
+          onPress={() => handleClick()}
         />
 
       </ScrollView>

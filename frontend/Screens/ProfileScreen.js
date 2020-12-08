@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     },
     item: {
       paddingTop: 10,
-      fontFamily: 'sans-serif-light',
       fontSize: 18,
       height: 44,
       borderBottomColor: '#82589F',

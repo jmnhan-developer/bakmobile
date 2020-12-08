@@ -1,32 +1,38 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
-import RNPickerSelect from 'react-native-picker-select';
-
-
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+export default function BasketScreens({navigation}) {
 
-
-
-export default function App() {
-
-  state = {user: ''}
-  updateUser = (user) => {
-     this.setState({ user: user })
+  const [selectedValue, setSelectedValue] = useState(false);
+  var userData
+  if(selectedValue==true) {
+     userData= <View style={{flexDirection:'column', justifyContent:'flex-start', margin:10}}>
+     <Text>Axel</Text>
+     <Text>Barateau</Text>
+     <Text>axel@live.fr</Text>
+     <Text>adresse</Text>
+     <Text>code postale</Text>
+     <Text>ville</Text>
+ </View> 
   }
+
 
   return(
 
     <Card containerStyle={{marginTop:50}}>
+    
       <Button
         icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
         containerStyle={{alignItems:"flex-start"}}
         type="clear"
+        onPress= {() => navigation.navigate('Product')}
       />
-      <Card.Image source={require('./assets/loutre.jpg')}
-      style={{width:400, height:300}} />
+      {/* <Image source={require('./assets/loutre.jpg')}
+      style={{width:355, height:300}} /> */}
 
         <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
             <Text>Articles : Poussette</Text>
@@ -39,38 +45,27 @@ export default function App() {
         <View style={{flexDirection:'row-reverse', marginTop: 10}}>
             <Text> Total : 218€ </Text>
         </View>
-        {/* <Picker style={styles.container}
-          selectedValue={selectedValue}
-          style={{height: 50, width: 100}}
-          onValueChange={(itemValue, itemIndex) =>
-            setSelectedValue(itemValue)
-          }>
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker> */}
-        {/* <RNPickerSelect
-        onValueChange={(value) => console.log(value)}
-        items={[
-            { label: 'Football', value: 'football' },
-            { label: 'Baseball', value: 'baseball' },
-            { label: 'Hockey', value: 'hockey' },
-        ]}
-        placeholder={"ggg"} 
-           /> */}
-         <Picker selectedValue = {this.state.user} onValueChange = {this.updateUser}>
-               <Picker.Item label = "Steve" value = "steve" />
-               <Picker.Item label = "Ellen" value = "ellen" />
-               <Picker.Item label = "Maria" value = "maria" />
-            </Picker>
-            <Text style = {styles.text}>{this.state.user}</Text>
-
+        <DropDownPicker
+            items={[
+                {label: 'Item 1', value: 'item1'},
+                {label: 'Item 2', value: 'item2'},
+                {label: 'Item 2', value: 'item2'},
+            ]}
+            defaultIndex={0}
+            defaultNull
+            placeholder="Choisissez votre mode de livraison"
+            containerStyle={{height: 40, margin:10}}
+            onChangeItem={() => {setSelectedValue(true)}}
+        />
+        {userData}
+       
       <Button
-        icon={<Icon name='code' color='#ffffff' />}
-        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-        title='VIEW NOW' />
+        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:'#82589F'}}
+        title='Finaliser le paiement' />
     </Card>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -79,3 +74,5 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+
