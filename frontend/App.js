@@ -23,32 +23,33 @@ var StackNavigator = createStackNavigator({
 
 
 
+
 var BottomNavigator = createBottomTabNavigator({
   
   Sell: SellScreen,
   Filter: StackNavigator,
   Profile: ProfileScreen,
   
-},
+ },
   {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ tintColor }) => {
-        var iconName;
-        if (navigation.state.routeName == 'Sell') {
-          iconName = 'plus';
-        } else if (navigation.state.routeName == 'Filter') {
-          iconName = 'search';
-        } else if (navigation.state.routeName == 'Profile') {
-          iconName = 'user-o';
-        }
-        return <FontAwesome name={iconName} size={25} color={tintColor} />;
+   defaultNavigationOptions: ({ navigation }) => ({
+     tabBarIcon: ({ tintColor }) => {
+      var iconName;
+       if (navigation.state.routeName == 'Sell') {
+        iconName = 'plus';
+       } else if (navigation.state.routeName == 'Filter') {
+         iconName = 'search';
+       } else if (navigation.state.routeName == 'Profile') {
+         iconName = 'user-o';
+      }
+       return <FontAwesome name={iconName} size={25} color={tintColor} />;
       },
     }),
-    tabBarOptions: {
+     tabBarOptions: {
       activeTintColor: '#eb4d4b',
       inactiveTintColor: '#FFFFFF',
       style: {
-        backgroundColor: '#130f40',
+       backgroundColor: '#130f40',
       }
     }
    
