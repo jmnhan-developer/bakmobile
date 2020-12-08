@@ -78,7 +78,7 @@ export default function App(props) {
         <Picker
           selectedValue={selectedValue}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Sous catégorie" value="Sous catégorie" />
           <Picker.Item label="Poussettes" value="Poussettes" />
@@ -87,7 +87,7 @@ export default function App(props) {
         <Picker
           selectedValue={selectedValue}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Marque" value="Marque" />
           <Picker.Item label="Yoyo" value="Yoyo" />
@@ -96,7 +96,7 @@ export default function App(props) {
         <Picker
           selectedValue={selectedValue}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Etat" value="Etat" />
           <Picker.Item label="Neuf" value="Neuf" />
