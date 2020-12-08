@@ -1,162 +1,115 @@
-import React, { useState, useEffect, useRef} from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import {connect} from 'react-redux';
-
-import { Camera } from 'expo-camera';
 
 
-import { withNavigationFocus } from 'react-navigation';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import React, {useState} from 'react';
+import { View, Text, StyleSheet, ScrollView, Image,FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import { Card, ListItem, Button,  } from 'react-native-elements'
 
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconIonic from 'react-native-vector-icons/Ionicons';
+import RNPickerSelect from 'react-native-picker-select';
 
-import {Button, Overlay} from 'react-native-elements';
+import SellScreen from './Screens/SellScreen'
+import FilterScreen from './Screens/FilterScreen'
+import HomeScreen from './Screens/HomeScreen'
+import MessageScreen from './Screens/MessageScreen'
+import ProfileScreen from './Screens/ProfileScreen'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import createAppContainer  from 'react-navigation';
+import createBottomTabNavigator from 'react-navigation-tabs';
+import createStackNavigator from 'react-navigation-stack';
 
-function SnapScreen(props) {
 
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [flash, setFlash] = useState(Camera.Constants.FlashMode.torch);
+const styles = StyleSheet.create({
+    container: {
+     flex: 1,
+     paddingTop: 150,
+     color:'#D6A2E8',
+     fontFamily: 'sans-serif-light',
+    },
+    item: {
+      paddingTop: 10,
+      fontFamily: 'sans-serif-light',
+      fontSize: 18,
+      height: 44,
+      borderBottomColor: '#82589F',
+      color:'#82589F',
+      borderBottomWidth:1,
+    },
+    icon: {
+      padding:300,
+    }
+  });
   
-  var camera = useRef(null);
- 
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {  
-    (async () => {
-        const { status } = await Camera.requestPermissionsAsync();
-        setHasPermission(status === 'granted');
-    })();
-  }, []);
-  
-  var cameraDisplay;
-  if(hasPermission && props.isFocused){
-    cameraDisplay = <Camera 
-      style={{ flex: 1 }}
-      type={type}
-      flashMode={flash}
-      ref={ref => (camera = ref)}
-    >
-       <View    
-        style={{
-          flex: 1,
-          backgroundColor: 'transparent',
-          flexDirection: 'row',
-        }}>
-          <TouchableOpacity
-            style={{
-            
-                alignSelf: 'flex-end',
-                alignItems: 'center',
-            }}
-            onPress={() => {
-                setType(
-                    type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-            }}
-          >
-           <IconIonic
-            name="md-reverse-camera"
-            size={20}
-            color="#ffffff"
-            /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-          </TouchableOpacity>
-
-           <TouchableOpacity
-            style={{
-            
-                alignSelf: 'flex-end',
-                alignItems: 'center',
-            }}
-            onPress={() => {
-                setFlash(
-                  flash === Camera.Constants.FlashMode.torch
-                    ? Camera.Constants.FlashMode.off
-                    : Camera.Constants.FlashMode.torch
-                );
-              }}
-            >
-            <IconFontAwesome
-            name="flash"
-            size={20}
-            color="#ffffff"
-            /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
-           </TouchableOpacity>
-
-        </View>
-    </Camera>
-  } else {
-    cameraDisplay = <View style={{ flex: 1 }}></View>
-  }
-
- 
-  return (
-    <View style={{flex: 1}}>
-        <Overlay isVisible={visible}  width="auto" height="auto">
-            <Text>Loading</Text>
-        </Overlay>
-        
-        {cameraDisplay}
-        <Button
-            icon={
-                <IconFontAwesome
-                name="save"
-                size={20}
-                color="#ffffff"
-                />
-            } 
-            title="Snap"
-            buttonStyle={{backgroundColor: "#009788"}}
-            type="solid"
-            onPress={async () => { 
-                setVisible(true);
-                if (camera) {
-                    let photo = await camera.takePictureAsync({quality : 0.7});
-                    setVisible(false);
-                    // console.log(photo)
-
-                    var data = new FormData();
-                    data.append('avatar', {
-                      uri: photo.uri,
-                      type: 'image/jpeg',
-                      name: 'avatar.jpg',
-                    });
-                    const dataPhoto = await fetch("http://172.17.1.116:3000/upload", {
-                    method: 'POST',
-                    body: data
-                    })
-                    
-                    const bodyImage = await dataPhoto.json()
-                    console.log("bodyImage",bodyImage)
-                    // console.log(bodyImage)
-                    props.onIncreaseClick(bodyImage.url)
-                    // if(body.result == true){
-                    //   props.addToken(body.token)
-                    //   setUserExists(true)
-                      
-                    // } else {
-                    //   setErrorsSignup(body.error)
-                    // }
-                  }   
-            }}
-        />
-
+  const Item = ({ title }) => (
+    <View style={styles.item}>
+      <Text>{title}</Text>
     </View>
   );
-}
+  
+  const DATA=[
+    {label: 'Mon Profil',icon:'user-circle-o'},
+    {label: 'Mon évaluation',icon:'star'},
+    {label: 'Mes favoris',icon:'heart-o'},
+    {label: 'Mes articles en vente',icon:'shopping-cart'},
+    {label: 'Mes articles achetés',icon:'shopping-cart'},
+    {label: 'Porte Monnaie',icon:'euro'},
+  ]
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onIncreaseClick: function(url) { 
-        dispatch( {type: 'increase', photoUrl: url } ) 
+var BottomNavigator = createBottomTabNavigator({
+  Home: HomeScreen,
+  Chercher: FilterScreen,
+  Vente: SellScreen,
+  Message:MessageScreen,
+  Profile:ProfileScreen
+
+},
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ tintColor }) => {
+        var iconName;
+        if (navigation.state.routeName == 'Home') {
+          iconName = 'home';
+        } else if (navigation.state.routeName == 'Chercher') {
+          iconName = 'search';
+        } else if  (navigation.state.routeName == 'Vente') {
+          iconName = 'plus';
+        } else if (navigation.state.routeName == 'Message') {
+          iconName = 'envelope-o';
+        } else if (navigation.state.routeName == 'Profile') {
+          iconName = 'user-o';
+        }
+
+        return <FontAwesome name={iconName} size={24} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: '#eb4d4b',
+      inactiveTintColor: '#FFFFFF',
+      style: {
+        backgroundColor: '#130f40',
+      }
     }
-  }
-}
+   
 
-export default connect(
-    null, 
-    mapDispatchToProps
-)(withNavigationFocus(SnapScreen));
+  });
+
+
+// export default Navigation = createAppContainer(BottomNavigator);
+
+  const ProfileMenuScreen = () => {
+    const renderItem = ({ item }) => (
+      <Item title={item.label} />
+    );
+    return (
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+        />
+        {BottomNavigator}
+      </SafeAreaView>
+    );
+  }
+  
+  export default ProfileMenuScreen;
+
 
