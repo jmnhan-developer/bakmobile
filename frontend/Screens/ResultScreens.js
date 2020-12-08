@@ -1,11 +1,11 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-native';
-import { Button, Input, Card, SearchBar, Image } from 'react-native-elements';
+import { View, Text, ScrollView } from 'react-native';
+import { Button, Image } from 'react-native-elements';
 
 
-function HomeScreens() {
+function ResultScreens() {
   
   var dataList = [
     {url:'https://picsum.photos/201', brand:'Aubert', size:'M', price:"10"},
@@ -35,15 +35,14 @@ function HomeScreens() {
 
 
   return (
-    <View style={{flex: 1, marginTop:25 }}>
-      <SearchBar
-      containerStyle={{backgroundColor:'white'}}
-      lightTheme='true'
-      placeholder="Rechercher" backgroundColor='light-grey' />
+    <View>
+      <Button style={{marginTop:25, width:200, marginLeft:204}} title="Affiner ma recherche" buttonStyle={{ backgroundColor: "#eb4d4b"}}type="solid"/>
 
-      <Text style={{fontSize:20, textAlign:"center", marginTop:5, marginBottom:5}}>Les derniers articles mis en vente</Text>
+      <Text style={{fontSize:18, textAlign:"center", marginTop:10, marginBottom:5}}>Les résultats de votre recherche pour:</Text>
 
-      <ScrollView>
+      <Text style={{fontSize:18, textAlign:"center", marginTop:5, marginBottom:5}}>"XXXX"</Text>
+
+      <ScrollView> 
         <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>
           {lastArticles}
         </View>
@@ -52,4 +51,4 @@ function HomeScreens() {
   )
 }
 
-export default HomeScreens;
+export default ResultScreens;
