@@ -3,14 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native
 import { Card, ListItem, Button,  } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 
-
-
-
-
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
-
 
 export default function BasketScreens({navigation}) {
 

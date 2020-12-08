@@ -10,22 +10,31 @@ import {createBottomTabNavigator} from 'react-navigation-tabs'
 import { FontAwesome } from '@expo/vector-icons'; 
 import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import HomeScreens from './Screens/HomeScreens'
+import ResultScreens from './Screens/ResultScreens';
 
 var StackNavigator = createStackNavigator({ 
 
+  
   Filter:  FilterScreen,  
   Product: ProductScreens,
+  Result:ResultScreens,
   Basket: BasketScreens
 
 }, 
 {headerMode: 'none'}
 );  
+// var StackNavigator2 = createStackNavigator ({
 
+//   Home: HomeScreens,
+  
+// })
 
 
 
 var BottomNavigator = createBottomTabNavigator({
   
+  Home:HomeScreens,
   Sell: SellScreen,
   Filter: StackNavigator,
   Profile: ProfileScreen,
@@ -35,7 +44,10 @@ var BottomNavigator = createBottomTabNavigator({
    defaultNavigationOptions: ({ navigation }) => ({
      tabBarIcon: ({ tintColor }) => {
       var iconName;
-       if (navigation.state.routeName == 'Sell') {
+         if (navigation.state.routeName == 'Home') {
+        iconName = 'home';
+       }
+         else if (navigation.state.routeName == 'Sell') {
         iconName = 'plus';
        } else if (navigation.state.routeName == 'Filter') {
          iconName = 'search';

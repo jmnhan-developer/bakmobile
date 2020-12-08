@@ -17,7 +17,12 @@ function ProductScreens({navigation}){
           containerStyle={{marginTop:50, borderEndColor:"white"}}
           wrapperStyle={{borderColor:'white'}}
          >
-          
+        <Button
+        icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
+        containerStyle={{alignItems:"flex-start"}}
+        type="clear"
+        onPress= {() => navigation.navigate('Result')}
+      />
           {/* <Image style={styles.image} 
           source={require('./assets/loutre.jpg')}/> */}
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>

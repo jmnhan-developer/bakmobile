@@ -37,7 +37,7 @@ function SecondFilterScreen({navigation}) {
           }
       ];
       var listButton2= DATA.map(function(e,i){
-        return ( <Button title={e.title} onPress= {() => navigation.navigate('Product')} color='orange'/>)})
+        return ( <Button title={e.title} onPress= {() => navigation.navigate('Result')} color='orange'/>)})
 
   return (
       <View>
