@@ -6,13 +6,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
-<<<<<<< HEAD
-=======
 
 function ProductScreens({navigation}){
 
 
->>>>>>> ea2268c577fb007466c41edc2a0cb9779ab2630d
     return (
         <View style={styles.container}>
 

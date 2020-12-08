@@ -12,7 +12,7 @@ import IconIonic from 'react-native-vector-icons/Ionicons';
 
 import {Button, Overlay} from 'react-native-elements';
 
-function SnapScreen(props) {
+function AddPicScreen(props) {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -160,5 +160,5 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     null, 
     mapDispatchToProps
-)(withNavigationFocus(SnapScreen));
+)(withNavigationFocus(AddPicScreen));
 
