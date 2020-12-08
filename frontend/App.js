@@ -92,8 +92,6 @@ function SnapScreen(props) {
   }
 
  
-  
-
   return (
     <View style={{flex: 1}}>
         <Overlay isVisible={visible}  width="auto" height="auto">
