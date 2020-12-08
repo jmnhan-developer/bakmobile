@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
 import RNPickerSelect from 'react-native-picker-select';
-
-
-
+import {createStackNavigator} from 'react-navigation-stack';
+import {createAppContainer } from 'react-navigation';
+// import ProductScreens from './ProductScreens'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
 
-export default function App() {
+export default function BasketScreens() {
 
   state = {user: ''}
   updateUser = (user) => {
@@ -20,13 +20,15 @@ export default function App() {
   return(
 
     <Card containerStyle={{marginTop:50}}>
+    
       <Button
         icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
         containerStyle={{alignItems:"flex-start"}}
         type="clear"
+        
       />
-      <Card.Image source={require('./assets/loutre.jpg')}
-      style={{width:400, height:300}} />
+      {/* <Card.Image source={require('./assets/loutre.jpg')}
+      style={{width:400, height:300}} /> */}
 
         <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
             <Text>Articles : Poussette</Text>
@@ -63,14 +65,25 @@ export default function App() {
                <Picker.Item label = "Maria" value = "maria" />
             </Picker>
             <Text style = {styles.text}>{this.state.user}</Text>
-
+      
       <Button
         icon={<Icon name='code' color='#ffffff' />}
         buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-        title='VIEW NOW' />
+        title='VIEW NOW' 
+        />
     </Card>
   )
 }
+
+// StackNavigator = createStackNavigator({ 
+//   Basket:  BasketScreen,  
+//   Product: ProductScreens
+// }, 
+// {headerMode: 'none'}
+// );
+
+// const Navigation2 = createAppContainer(StackNavigator);
+
 
 const styles = StyleSheet.create({
   container: {

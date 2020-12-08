@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-nat
 import FilterScreen from './Screens/FilterScreen'
 import ProfileScreen from './Screens/ProfileScreen'
 import SellScreen from './Screens/SellScreen'
+
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import { FontAwesome } from '@expo/vector-icons'; 
 import {createAppContainer } from 'react-navigation';
@@ -16,6 +17,8 @@ var BottomNavigator = createBottomTabNavigator({
   Sell: SellScreen,
   Filter:FilterScreen,
   Profile: ProfileScreen,
+
+
   
 },
   {
@@ -42,10 +45,15 @@ var BottomNavigator = createBottomTabNavigator({
    
 
   });
+
+ 
+
+
   const Navigation = createAppContainer(BottomNavigator);
 
   export default function App () {
     return (
-     <Navigation/>
+      
+    <Navigation/> 
       )
   }
