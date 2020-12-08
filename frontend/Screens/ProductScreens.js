@@ -6,15 +6,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 function ProductScreens(){
+
+  var loutre = require('./assets/loutre.jpg')
+
     return (
         <View style={styles.container}>
 
         <Card 
-          containerStyle={{marginTop:50}}
+          containerStyle={{marginTop:50, borderEndColor:"white"}}
+          wrapperStyle={{borderColor:'white'}}
          >
           
-          <Card.Image style={styles.image} 
-          source={require('./assets/loutre.jpg')} />
+          <Image style={styles.image} 
+          source={require('./assets/loutre.jpg')}/>
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
           <Image
           style={styles.avatar}
@@ -86,7 +90,7 @@ container: {
 },
 
 image: {
-    width: 400,
+    width: 355,
     height: 400,
 },
 

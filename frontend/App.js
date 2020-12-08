@@ -1,120 +1,70 @@
-
-
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image,FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, Picker} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
+import DropDownPicker from 'react-native-dropdown-picker';
 
-import RNPickerSelect from 'react-native-picker-select';
 
-import SellScreen from './Screens/SellScreen'
-import FilterScreen from './Screens/FilterScreen'
-import HomeScreen from './Screens/HomeScreen'
-import MessageScreen from './Screens/MessageScreen'
-import ProfileScreen from './Screens/ProfileScreen'
+
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-import createAppContainer  from 'react-navigation';
-import createBottomTabNavigator from 'react-navigation-tabs';
-import createStackNavigator from 'react-navigation-stack';
 
+
+
+
+export default function App() {
+
+  const [selectedValue, setSelectedValue] = useState(false);
+
+  if(selectedValue==true)
+
+
+  return(
+
+    <Card containerStyle={{marginTop:50}}>
+      <Button
+        icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
+        containerStyle={{alignItems:"flex-start"}}
+        type="clear"
+      />
+      <Image source={require('./assets/loutre.jpg')}
+      style={{width:355, height:300}} />
+
+        <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
+            <Text>Articles : Poussette</Text>
+            <Text>Prix : 199€</Text>
+        </View>
+        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+            <Text>Marques : Bébé Confort</Text>
+            <Text>Frais de Port : 19€</Text>
+        </View>    
+        <View style={{flexDirection:'row-reverse', marginTop: 10}}>
+            <Text> Total : 218€ </Text>
+        </View>
+        <DropDownPicker
+            items={[
+                {label: 'Item 1', value: 'item1'},
+                {label: 'Item 2', value: 'item2'},
+                {label: 'Item 2', value: 'item2'},
+            ]}
+            defaultIndex={0}
+            defaultNull
+            placeholder="Choisissez votre mode de livraison"
+            containerStyle={{height: 40, margin:10}}
+            onChangeItem={() => {setSelectedValue(true)}}
+        />
+       
+      <Button
+        icon={<Icon name='code' color='#ffffff' />}
+        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+        title='VIEW NOW' />
+    </Card>
+  )
+}
 
 const styles = StyleSheet.create({
-    container: {
-     flex: 1,
-     paddingTop: 150,
-     color:'#D6A2E8',
-     fontFamily: 'sans-serif-light',
-    },
-    item: {
-      paddingTop: 10,
-      fontFamily: 'sans-serif-light',
-      fontSize: 18,
-      height: 44,
-      borderBottomColor: '#82589F',
-      color:'#82589F',
-      borderBottomWidth:1,
-    },
-    icon: {
-      padding:300,
-    }
-  });
-  
-  const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text>{title}</Text>
-    </View>
-  );
-  
-  const DATA=[
-    {label: 'Mon Profil',icon:'user-circle-o'},
-    {label: 'Mon évaluation',icon:'star'},
-    {label: 'Mes favoris',icon:'heart-o'},
-    {label: 'Mes articles en vente',icon:'shopping-cart'},
-    {label: 'Mes articles achetés',icon:'shopping-cart'},
-    {label: 'Porte Monnaie',icon:'euro'},
-  ]
-
-var BottomNavigator = createBottomTabNavigator({
-  Home: HomeScreen,
-  Chercher: FilterScreen,
-  Vente: SellScreen,
-  Message:MessageScreen,
-  Profile:ProfileScreen
-
-},
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ tintColor }) => {
-        var iconName;
-        if (navigation.state.routeName == 'Home') {
-          iconName = 'home';
-        } else if (navigation.state.routeName == 'Chercher') {
-          iconName = 'search';
-        } else if  (navigation.state.routeName == 'Vente') {
-          iconName = 'plus';
-        } else if (navigation.state.routeName == 'Message') {
-          iconName = 'envelope-o';
-        } else if (navigation.state.routeName == 'Profile') {
-          iconName = 'user-o';
-        }
-
-        return <FontAwesome name={iconName} size={24} color={tintColor} />;
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: '#eb4d4b',
-      inactiveTintColor: '#FFFFFF',
-      style: {
-        backgroundColor: '#130f40',
-      }
-    }
-   
-
-  });
-
-
-// export default Navigation = createAppContainer(BottomNavigator);
-
-  const ProfileMenuScreen = () => {
-    const renderItem = ({ item }) => (
-      <Item title={item.label} />
-    );
-    return (
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-        />
-        {BottomNavigator}
-      </SafeAreaView>
-    );
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    alignItems: "center"
   }
-  
-  export default ProfileMenuScreen;
-
-
-
-
-
-
-
+});
