@@ -4,8 +4,32 @@ import {Button, Input} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 
 
-export default function SellScreen() {
+export default function App(props) {
   const [selectedValue, setSelectedValue] = useState("");
+  // console.log("selectedValue", selectedValue)
+  const [titleInput , setTitleInput ] = useState("");
+  console.log("title", titleInput)
+  const [desc , setDesc ] = useState("");
+  const [price , setPrice ] = useState("");
+  const [shippingFees , setShippingFees ] = useState("");
+
+
+
+  var handleClick = async () => {
+    
+    console.log('ceci est le titre post handleclick=', titleInput);
+    const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: `title=${titleInput}&desc=${desc}&price=${price}&shippingFees=${shippingFees}`
+    });
+                               
+    console.log(dataArticle)
+    const dataAnnonce = await dataArticle.json()
+    console.log("dataAnnonce", dataAnnonce)
+
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView style={{width: '90%'}}>
@@ -19,36 +43,42 @@ export default function SellScreen() {
               }            
           title="Ajouter des photos"
           type="outline"
-          onPress={() => {navigation.navigate('AddPicScreen')}}
+          onPress={() => {handleClick()}}
         />
       
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
+          onChangeText={(val) => setTitleInput(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder="Descrition de l'annonce"
+          onChangeText={(val) => setDesc(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder='Prix'
+          onChangeText={(val) => setPrice(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
+          onChangeText={(val) => setShippingFees(val)}
         />
 
+        
         <Picker
           selectedValue={selectedValue}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Catégorie" value="Catégorie" />
           <Picker.Item label="Se déplacer" value="Se déplacer" />
           <Picker.Item label="Manger" value="Manger" />
           <Picker.Item label="Dormir" value="Dormir" />
         </Picker>
+
         <Picker
           selectedValue={selectedValue}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Sous catégorie" value="Sous catégorie" />
           <Picker.Item label="Poussettes" value="Poussettes" />
@@ -57,7 +87,7 @@ export default function SellScreen() {
         <Picker
           selectedValue={selectedValue}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Marque" value="Marque" />
           <Picker.Item label="Yoyo" value="Yoyo" />
@@ -66,7 +96,7 @@ export default function SellScreen() {
         <Picker
           selectedValue={selectedValue}
           style={{ width: '70%'}}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
           <Picker.Item label="Etat" value="Etat" />
           <Picker.Item label="Neuf" value="Neuf" />
@@ -78,7 +108,7 @@ export default function SellScreen() {
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#009788"}}
-          onPress={() => {navigation.navigate('ValidationScreen')}}
+          onPress={() => handleClick()}
         />
 
       </ScrollView>
