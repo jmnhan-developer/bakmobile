@@ -7,8 +7,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function ProductScreens(){
 
-  var loutre = require('./assets/loutre.jpg')
-
     return (
         <View style={styles.container}>
 
