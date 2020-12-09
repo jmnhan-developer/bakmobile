@@ -11,14 +11,9 @@ import {createAppContainer }  from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
-<<<<<<< HEAD
-
-import product from '../frontend/reducers/Article.reducer';
-=======
 import AddPicScreen from './Screens/AddPicScreen'
 import ProfileMenuScreen from './Screens/ProfileMenuScreen'
-
->>>>>>> ad52b48eec0c50495b22e233fa3be517dd66549e
+import product from '../frontend/reducers/Article.reducer';
 import photo from '../frontend/reducers/Pic.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
