@@ -12,11 +12,12 @@ import {createAppContainer }  from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
+import AddPicScreen from './Screens/AddPicScreen';
 
 
 import product from '../frontend/reducers/Article.reducer';
 
-import AddPicScreen from './Screens/AddPicScreen'
+
 import ProfileMenuScreen from './Screens/ProfileMenuScreen'
 import SignUpScreen from './Screens/SignupScreens'
 
@@ -52,7 +53,14 @@ var StackNavigatorSearch = createStackNavigator({
 }, 
 {headerMode: 'none'}
 );  
+  
+var stackNavigatorSell =  createStackNavigator({  
+ 
+  Sell: SellScreen,
+  AddPic: AddPicScreen,
 
+},
+{headerMode: 'none'})
 var StackNavigatorProfile = createStackNavigator({ 
 
   Menu: ProfileMenuScreen,
@@ -68,7 +76,7 @@ var StackNavigatorProfile = createStackNavigator({
 var BottomNavigator = createBottomTabNavigator({
   
   Home:StackNavigatorHome,
-  Vendre: SellScreen,
+  Vendre: stackNavigatorSell,
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,
   
