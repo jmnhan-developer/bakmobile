@@ -67,9 +67,10 @@ var StackNavigatorProfile = createStackNavigator({
 var BottomNavigator = createBottomTabNavigator({
   
   Home:StackNavigatorHome,
-  Sell: SellScreen,
-  Filter: StackNavigatorSearch,
-  Profile: StackNavigatorProfile,
+  Vendre: SellScreen,
+  Rechercher: StackNavigatorSearch,
+  'Mon Profil': StackNavigatorProfile,
+  
   
  },
   {
@@ -79,21 +80,21 @@ var BottomNavigator = createBottomTabNavigator({
          if (navigation.state.routeName == 'Home') {
         iconName = 'home';
        }
-         else if (navigation.state.routeName == 'Sell') {
+         else if (navigation.state.routeName == 'Vendre') {
         iconName = 'plus';
-       } else if (navigation.state.routeName == 'Filter') {
+       } else if (navigation.state.routeName == 'Rechercher') {
          iconName = 'search';
-       } else if (navigation.state.routeName == 'Profile') {
+       } else if (navigation.state.routeName == 'Mon Profil') {
          iconName = 'user-o';
       }
        return <FontAwesome name={iconName} size={25} color={tintColor} />;
       },
     }),
      tabBarOptions: {
-      activeTintColor: '#eb4d4b',
+      activeTintColor: '#82589F',
       inactiveTintColor: '#FFFFFF',
       style: {
-       backgroundColor: '#130f40',
+       backgroundColor: '#D6A2E8',
       }
     }
    
