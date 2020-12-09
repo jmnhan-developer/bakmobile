@@ -12,6 +12,8 @@ import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
+import AddPicScreen from './Screens/AddPicScreen'
+
 
 var StackNavigator = createStackNavigator({ 
 
@@ -24,13 +26,6 @@ var StackNavigator = createStackNavigator({
 }, 
 {headerMode: 'none'}
 );  
-// var StackNavigator2 = createStackNavigator ({
-
-//   Home: HomeScreens,
-  
-// })
-
-
 
 var BottomNavigator = createBottomTabNavigator({
   
@@ -74,6 +69,7 @@ var BottomNavigator = createBottomTabNavigator({
   const Navigation = createAppContainer(BottomNavigator);
 
   export default function App () {
+    
     return (
 
     <Navigation/> 
