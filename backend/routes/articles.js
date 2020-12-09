@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 var articleModel = require('../models/articles');
 
+
+var uniqid = require('uniqid');
+const fs = require('fs')
+var cloudinary = require('cloudinary').v2;
+
+cloudinary.config({ 
+  cloud_name: 'cedric', 
+  api_key: '544843767135618', 
+  api_secret: 'FRzV3kMqg2-g8mpCduExkzLFY1o' 
+});
+
+
 router.post('/create-article', async function(req, res, next) {
     let newArticle = new articleModel({
         title:req.body.title,
@@ -35,4 +47,24 @@ router.get('/get-all-articles', async function(req, res, next) {
 });
 
 
-module.exports = router;
+router.post('/upload', async function(req, res, next) {
+// console.log("hello1")
+  var imagePath = './tmp/ '+uniqid()+'avatar.jpg'
+  // console.log("hello2",imagePath)
+
+  var resultCopy = await req.files.avatar.mv(imagePath);
+    console.log("fichiers",req.files.avatar)
+    console.log("hello3")
+
+  if(!resultCopy) {    
+    var resultCloudinary = await cloudinary.uploader.upload(imagePath);
+    res.json(resultCloudinary);
+    console.log("hello4",resultCloudinary)
+  } else {
+    res.json( {error:resultCopy} );
+  } 
+
+  fs.unlinkSync(imagePath);
+});
+
+module.exports = router; 
