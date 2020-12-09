@@ -29,8 +29,9 @@ router.post('/create-article', async function(req, res, next) {
 
 
 router.get('/get-all-articles', async function(req, res, next) {
-    let articles = await articleModel.find()
-    res.json({articles});
+    let products = await articleModel.find()
+    console.log(products)
+    res.json({products});
   
 });
 
