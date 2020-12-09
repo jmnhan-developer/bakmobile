@@ -23,9 +23,9 @@ const store = createStore(combineReducers({photo}));
 var StackNavigator = createStackNavigator({ 
 
   
-  Filter:  FilterScreen,  
+  Rechercher:  FilterScreen,  
   Product: ProductScreens,
-  Result:ResultScreens,
+  Result: ResultScreens,
   Basket: BasketScreens
 
 }, 
@@ -35,9 +35,9 @@ var StackNavigator = createStackNavigator({
 var BottomNavigator = createBottomTabNavigator({
   
   Home:HomeScreens,
-  Sell: SellScreen,
-  Filter: StackNavigator,
-  Profile: ProfileScreen,
+  Vendre: SellScreen,
+  Rechercher: StackNavigator,
+  "Mon Profil" : ProfileScreen,
   
  },
   {
@@ -47,21 +47,22 @@ var BottomNavigator = createBottomTabNavigator({
          if (navigation.state.routeName == 'Home') {
         iconName = 'home';
        }
-         else if (navigation.state.routeName == 'Sell') {
+        else if (navigation.state.routeName == 'Rechercher') {
+        iconName = 'search';
+        
+       } else if (navigation.state.routeName == 'Vendre') {
         iconName = 'plus';
-       } else if (navigation.state.routeName == 'Filter') {
-         iconName = 'search';
-       } else if (navigation.state.routeName == 'Profile') {
+       } else if (navigation.state.routeName == 'Mon Profil') {
          iconName = 'user-o';
       }
        return <FontAwesome name={iconName} size={25} color={tintColor} />;
       },
     }),
      tabBarOptions: {
-      activeTintColor: '#eb4d4b',
+      activeTintColor: '#82589F',
       inactiveTintColor: '#FFFFFF',
       style: {
-       backgroundColor: '#130f40',
+       backgroundColor: '#D6A2E8',
       }
     }
    
@@ -81,8 +82,6 @@ export default function App(){
       </Provider>
 
       )
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> c75556de82d0a5c978d268667094d15905752319
+
