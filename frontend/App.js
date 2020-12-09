@@ -14,7 +14,7 @@ import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
 import AddPicScreen from './Screens/AddPicScreen'
 import ProfileMenuScreen from './Screens/ProfileMenuScreen'
-
+import SignUpScreen from './Screens/SignupScreens'
 import photo from '../frontend/reducers/Pic.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
@@ -24,27 +24,46 @@ import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
 
 const store = createStore(combineReducers({photo}));
 
-var StackNavigator = createStackNavigator({ 
+
+var StackNavigatorHome= createStackNavigator({
+   
+  Home:HomeScreens,
+  Product:ProductScreens
+
+},{headerMode: 'none'}
+);
+
+var StackNavigatorSearch = createStackNavigator({ 
 
   
   Filter:  FilterScreen,  
+  Result: ResultScreens, 
   Product: ProductScreens,
-  Result:ResultScreens,
-  Basket: BasketScreens,
-  ProfileUser:ProfileScreen,
-  ArticleBought: ProfileBoughtArticleScreen,
-  ArticleSell: ProfileSellingArticleScreen
-
+  Basket: BasketScreens, 
+  SignUp: SignUpScreen, 
+  
 }, 
 {headerMode: 'none'}
 );  
 
+var StackNavigatorProfile = createStackNavigator({ 
+
+  Menu: ProfileMenuScreen,
+  ProfileUser:ProfileScreen, 
+  ArticleBought: ProfileBoughtArticleScreen, 
+  ArticleSell: ProfileSellingArticleScreen
+  
+}, 
+{headerMode: 'none'}
+);  
+
+
 var BottomNavigator = createBottomTabNavigator({
   
-  Home:HomeScreens,
+  Home:StackNavigatorHome,
   Sell: SellScreen,
-  Filter: StackNavigator,
-  Profile: ProfileMenuScreen,
+  Filter: StackNavigatorSearch,
+  Profile: StackNavigatorProfile,
   
  },
   {

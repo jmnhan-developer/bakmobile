@@ -21,7 +21,7 @@ function ProductScreens({navigation}){
         icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
         containerStyle={{alignItems:"flex-start"}}
         type="clear"
-        onPress= {() => navigation.navigate('Result')}
+        onPress= {() => navigation.goBack()}
       />
           {/* <Image style={styles.image} 
           source={require('./assets/loutre.jpg')}/> */}
@@ -83,7 +83,7 @@ function ProductScreens({navigation}){
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
             title='Acheter'
-            onPress= {() => navigation.navigate('Basket')}
+            onPress= {() => navigation.navigate('SignUp')}
             
             />
         </Card>
