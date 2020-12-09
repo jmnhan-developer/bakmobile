@@ -6,10 +6,12 @@ import {connect} from 'react-redux';
 
 import { withNavigationFocus } from 'react-navigation';
 
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 
-import {Button, Overlay} from 'react-native-elements';
+import {Button, Overlay, Image} from 'react-native-elements';
 
 function AddPicScreen(props) {
 
@@ -35,13 +37,26 @@ function AddPicScreen(props) {
       type={type}
       flashMode={flash}
       ref={ref => (camera = ref)}
-    >
+      >
+      
        <View    
         style={{
           flex: 1,
           backgroundColor: 'transparent',
           flexDirection: 'row',
         }}>
+          <TouchableOpacity
+          style={{
+          alignSelf: 'flex-start',
+          alignItems: 'center',
+          }}>
+          <Button
+            icon={<Icon name="long-arrow-left" color="white" size={24} style={{marginTop:20}}/>}
+            containerStyle={{alignItems:"flex-start"} }
+            type="clear"
+            onPress= {() => props.navigation.navigate('Sell')}
+          />
+          </TouchableOpacity>
           <TouchableOpacity
             style={{
             
@@ -84,22 +99,51 @@ function AddPicScreen(props) {
             /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
            </TouchableOpacity>
 
+          
+
         </View>
     </Camera>
   } else {
     cameraDisplay = <View style={{ flex: 1 }}></View>
   }
 
- 
+ console.log("coucou Store" , props.addPhoto)
   
 
   return (
     <View style={{flex: 1}}>
+        
         <Overlay isVisible={visible}  width="auto" height="auto">
             <Text>Loading</Text>
         </Overlay>
         
         {cameraDisplay}
+
+        <View style={{ flexDirection:'row', marginTop:2, marginBottom:2,justifyContent:"space-between"}}>
+          <View>
+            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:70}}/>
+            
+          </View>
+          <View>
+          <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:70}}/>
+            
+          </View>
+          <View>
+          <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:70}}/>
+           
+          </View>
+
+          <View>
+          <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:70}}/>
+           
+          </View>
+
+          <View>
+          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:70}}/>
+           
+          </View>
+        </View>
+
         <Button
             icon={
                 <IconFontAwesome
@@ -108,7 +152,7 @@ function AddPicScreen(props) {
                 color="#ffffff"
                 />
             } 
-            title="Snap"
+            title="     Prise de photos"
             buttonStyle={{backgroundColor: "#009788"}}
             type="solid"
             onPress={async () => { 
@@ -116,7 +160,7 @@ function AddPicScreen(props) {
                 if (camera) {
                     let photo = await camera.takePictureAsync({quality : 0.7});
                     setVisible(false);
-                    // console.log(photo)
+                    // console.log("photo prise",photo)
 
                     var data = new FormData();
                     data.append('avatar', {
@@ -131,6 +175,7 @@ function AddPicScreen(props) {
                     
                     const bodyImage = await dataPhoto.json()
                     console.log("bodyImage",bodyImage)
+                    
                     // console.log(bodyImage)
                     props.onIncreaseClick(bodyImage.url)
                     // if(body.result == true){
@@ -148,6 +193,10 @@ function AddPicScreen(props) {
   );
 }
 
+function mapStateToProps(state) {
+  return { addPhoto: state.photo }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     onIncreaseClick: function(url) { 
@@ -157,7 +206,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    null, 
+    mapStateToProps, 
     mapDispatchToProps
 )(withNavigationFocus(AddPicScreen));
 

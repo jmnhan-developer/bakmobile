@@ -28,7 +28,8 @@ var StackNavigator = createStackNavigator({
   Product: ProductScreens,
   Result:ResultScreens,
   Basket: BasketScreens,
-  AddPic: AddPicScreen
+  AddPic: AddPicScreen,
+  Sell: SellScreen
 
 }, 
 {headerMode: 'none'}

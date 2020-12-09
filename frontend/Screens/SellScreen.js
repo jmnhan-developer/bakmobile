@@ -12,7 +12,6 @@ export default function App({navigation}) {
   
   // console.log("selectedValue", selectedValue)
   const [titleInput , setTitleInput ] = useState("");
-  console.log("title", titleInput)
   const [desc , setDesc ] = useState("");
   const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
