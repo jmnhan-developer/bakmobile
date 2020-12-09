@@ -81,4 +81,8 @@ export default function App(){
       </Provider>
 
       )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c75556de82d0a5c978d268667094d15905752319
