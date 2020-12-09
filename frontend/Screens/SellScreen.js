@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity } from 'react-native';
 import {Button, Input} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { SafeAreaView } from 'react-navigation';
+
 
 
 export default function App(props) {
@@ -10,14 +13,12 @@ export default function App(props) {
   const [selectedValueState, setSelectedValueState] = useState("");
 
   
-  // console.log("selectedValue", selectedValue)
   const [titleInput , setTitleInput ] = useState("");
-  console.log("title", titleInput)
+  
   const [desc , setDesc ] = useState("");
   const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
   const [shippingFees , setShippingFees ] = useState("");
-
 
 
 
@@ -40,14 +41,15 @@ export default function App(props) {
     <View style={styles.container}>
       <ScrollView style={{width: '90%'}}>
 
-        <Text style={{marginTop:40,textAlign: 'center'}}>Jusqu'à 6 photos</Text>
+        {/* <Text style={{marginTop:40,textAlign: 'center'}}>Jusqu'à 6 photos</Text> */}
 
         <Button
-          buttonStyle={{marginTop:40, marginBottom:40}}
+          buttonStyle={{marginTop:60, marginBottom:40, borderColor:"#82589F"}}
+          titleStyle={{fontSize:25, color:"#82589F"}}
           icon={
-              <FontAwesome name="camera" size={24}  color="#009788"/>
+              <FontAwesome name="camera" size={24}  color="#82589F"/>
               }            
-          title="Ajouter des photos"
+          title=" Ajouter des photos"
           type="outline"
           onPress={() => {handleClick()}}
         />
@@ -73,43 +75,60 @@ export default function App(props) {
           onChangeText={(val) => setShippingFees(val)}
         />
 
-        
-        <Picker
-          selectedValue={selectedValueCategory}
-          style={{ width: '70%'}}
-          onValueChange={(itemValue) => setSelectedValueCategory(itemValue)}
-        >
-          <Picker.Item label="Catégorie" value="Catégorie" />
-          <Picker.Item label="Se déplacer" value="Se déplacer" />
-          <Picker.Item label="Manger" value="Manger" />
-          <Picker.Item label="Dormir" value="Dormir" />
-        </Picker>
+        <DropDownPicker 
+            zIndex={5000}
+            items={[
+              {label: 'Se déplacer', value: 'Se déplacer'},
+              {label: 'Manger', value: 'Manger'},
+              {label: 'Dormir', value: 'Dormir'},
+              ]}
+              defaultNull
+              placeholder="Catégorie"
+              containerStyle={{height: 60, margin:10}}
+              onChangeItem={itemValue => setSelectedValueCategory(itemValue.value)}
+              
 
-        <Picker
-          selectedValue={selectedValueSubCategory}
-          style={{ width: '70%'}}
-          onValueChange={(itemValue) => setSelectedValueSubCategory(itemValue)}
-        >
-          <Picker.Item label="Sous catégorie" value="Sous catégorie" />
-          <Picker.Item label="Poussettes" value="Poussettes" />
-          <Picker.Item label="Nacelle" value="Nacelle" />
-        </Picker>
-        <Picker
-          selectedValue={selectedValueState}
-          style={{ width: '70%'}}
-          onValueChange={(itemValue) => setSelectedValueState(itemValue)}
-        >
-          <Picker.Item label="Etat" value="Etat" />
-          <Picker.Item label="Neuf" value="Neuf" />
-          <Picker.Item label="Bon Etat" value="Bon Etat" />
-          <Picker.Item label="Etat d'usage" value="Etat d'usage" />
-        </Picker>
+                  />
+        
+          <DropDownPicker
+            zIndex={4000}
+            items={[
+              {label: 'Poussettes', value: 'Poussettes'},
+              {label: 'Nacelle', value: 'Nacelle'},
+              ]}
+              defaultNull
+              placeholder="Sous-catégorie"
+              containerStyle={{height: 60, margin:10}}
+              onChangeItem={itemValue => setSelectedValueSubCategory(itemValue.value)}
+              
+               
+               />
+          
+          
+          <DropDownPicker
+            zIndex={3000}
+            items={[
+              {label: 'Neuf', value: 'Neuf'},
+              {label: 'Bon état', value: 'Bon état'},
+              {label: "Etat d'usage", value:  "Etat d'usage"},
+              ]}
+              defaultNull
+              placeholder="Etat"
+              
+              containerStyle={{height: 60, margin:10, marginBottom:80}}
+              onChangeItem={itemValue => setSelectedValueState(itemValue.value)}
+             
+                  />
+
+
+        
 
         <Button            
           title="Ajoute ton annonce"
           type="solid"
-          buttonStyle={{backgroundColor: "#009788"}}
+          buttonStyle={{backgroundColor: "#82589F"}}
           onPress={() => handleClick()}
+          containerStyle={{marginBottom: 20}}
         />
 
       </ScrollView>
@@ -125,4 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  container2: {
+    flex:1,
+  }
 });
