@@ -2,17 +2,10 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
-import ProfileScreen from './Screens/ProfileScreen'
-
-
-
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-
-
-export default function App() {
+export default function BasketScreens({navigation}) {
 
   const [selectedValue, setSelectedValue] = useState(false);
   var userData
@@ -31,13 +24,15 @@ export default function App() {
   return(
 
     <Card containerStyle={{marginTop:50}}>
+    
       <Button
         icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
         containerStyle={{alignItems:"flex-start"}}
         type="clear"
+        onPress= {() => navigation.navigate('Product')}
       />
-      <Image source={require('./assets/loutre.jpg')}
-      style={{width:355, height:300}} />
+      {/* <Image source={require('./assets/loutre.jpg')}
+      style={{width:355, height:300}} /> */}
 
         <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
             <Text>Articles : Poussette</Text>
@@ -71,6 +66,7 @@ export default function App() {
   )
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -78,3 +74,5 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+

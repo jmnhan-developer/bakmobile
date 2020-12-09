@@ -5,7 +5,7 @@ import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-
 import { Button, Input, Card, SearchBar, Image } from 'react-native-elements';
 
 
-function HomeScreens() {
+function HomeScreens({navigation}) {
   
   var dataList = [
     {url:'https://picsum.photos/201', brand:'Aubert', size:'M', price:"10"},

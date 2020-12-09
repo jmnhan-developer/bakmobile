@@ -5,9 +5,10 @@ import { Card, ListItem, Button,  } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-function ProductScreens(){
 
-  var loutre = require('./assets/loutre.jpg')
+
+function ProductScreens({navigation}){
+
 
     return (
         <View style={styles.container}>
@@ -16,14 +17,19 @@ function ProductScreens(){
           containerStyle={{marginTop:50, borderEndColor:"white"}}
           wrapperStyle={{borderColor:'white'}}
          >
-          
-          <Image style={styles.image} 
-          source={require('./assets/loutre.jpg')}/>
+        <Button
+        icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
+        containerStyle={{alignItems:"flex-start"}}
+        type="clear"
+        onPress= {() => navigation.navigate('Result')}
+      />
+          {/* <Image style={styles.image} 
+          source={require('./assets/loutre.jpg')}/> */}
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
-          <Image
+           {/* <Image
           style={styles.avatar}
           source={require('./assets/flag-uk.png')}
-          />
+          />  */}
             <View style={{marginLeft:10}}>
             <Text >Axel Barateau</Text>
                 <View style={{flexDirection: 'row'}}>
@@ -76,7 +82,10 @@ function ProductScreens(){
           <Button
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
-            title='Acheter' />
+            title='Acheter'
+            onPress= {() => navigation.navigate('Basket')}
+            
+            />
         </Card>
     </View>
 

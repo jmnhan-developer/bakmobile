@@ -3,9 +3,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, ScrollView } from 'react-native';
 import { Button, Image } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 
-
-function ResultScreens() {
+function ResultScreens({navigation}) {
   
   var dataList = [
     {url:'https://picsum.photos/201', brand:'Aubert', size:'M', price:"10"},
@@ -51,4 +51,4 @@ function ResultScreens() {
   )
 }
 
-export default ResultScreens;
+export default withNavigation (ResultScreens);

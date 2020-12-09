@@ -4,6 +4,27 @@ import { FontAwesome } from '@expo/vector-icons';
 import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-native';
 import { Button, Input, Card, SearchBar, Image } from 'react-native-elements';
 
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-native';
+import FilterScreen from './Screens/FilterScreen'
+import ProfileScreen from './Screens/ProfileScreen'
+import SellScreen from './Screens/SellScreen'
+import BasketScreens from './Screens/BasketScreens'
+import ProductScreens from './Screens/ProductScreens'
+import {createBottomTabNavigator} from 'react-navigation-tabs'
+import { FontAwesome } from '@expo/vector-icons'; 
+import {createAppContainer } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import HomeScreens from './Screens/HomeScreens'
+import ResultScreens from './Screens/ResultScreens';
+
+import photo from '../frontend/reducers/Pic.reducer';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers}  from 'redux';
+
+const store = createStore(combineReducers({photo}));
+
+var StackNavigator = createStackNavigator({ 
 
 function FilterScreens() {
   

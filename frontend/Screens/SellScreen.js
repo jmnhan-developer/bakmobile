@@ -5,13 +5,19 @@ import { FontAwesome } from '@expo/vector-icons';
 
 
 export default function App(props) {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValueCategory, setSelectedValueCategory] = useState("");
+  const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
+  const [selectedValueState, setSelectedValueState] = useState("");
+
+  
   // console.log("selectedValue", selectedValue)
   const [titleInput , setTitleInput ] = useState("");
   console.log("title", titleInput)
   const [desc , setDesc ] = useState("");
+  const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
   const [shippingFees , setShippingFees ] = useState("");
+
 
 
 
@@ -21,10 +27,10 @@ export default function App(props) {
     const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&desc=${desc}&price=${price}&shippingFees=${shippingFees}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}`
     });
                                
-    console.log(dataArticle)
+    console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
     console.log("dataAnnonce", dataAnnonce)
 
@@ -55,6 +61,10 @@ export default function App(props) {
           onChangeText={(val) => setDesc(val)}
         />
         <Input style = {{ width: '90%'}}
+          placeholder="Marque"
+          onChangeText={(val) => setBrand(val)}
+        />
+        <Input style = {{ width: '90%'}}
           placeholder='Prix'
           onChangeText={(val) => setPrice(val)}
         />
@@ -65,9 +75,9 @@ export default function App(props) {
 
         
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={selectedValueCategory}
           style={{ width: '70%'}}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValueCategory(itemValue)}
         >
           <Picker.Item label="Catégorie" value="Catégorie" />
           <Picker.Item label="Se déplacer" value="Se déplacer" />
@@ -76,27 +86,18 @@ export default function App(props) {
         </Picker>
 
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={selectedValueSubCategory}
           style={{ width: '70%'}}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValueSubCategory(itemValue)}
         >
           <Picker.Item label="Sous catégorie" value="Sous catégorie" />
           <Picker.Item label="Poussettes" value="Poussettes" />
           <Picker.Item label="Nacelle" value="Nacelle" />
         </Picker>
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={selectedValueState}
           style={{ width: '70%'}}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
-        >
-          <Picker.Item label="Marque" value="Marque" />
-          <Picker.Item label="Yoyo" value="Yoyo" />
-          <Picker.Item label="Bébé Confort" value="Bébé Confort" />
-        </Picker>
-        <Picker
-          selectedValue={selectedValue}
-          style={{ width: '70%'}}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue) => setSelectedValueState(itemValue)}
         >
           <Picker.Item label="Etat" value="Etat" />
           <Picker.Item label="Neuf" value="Neuf" />
