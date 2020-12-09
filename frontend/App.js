@@ -12,7 +12,7 @@ import {createAppContainer }  from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
-
+import SignIn from './Screens/SignupScreens'
 
 import product from '../frontend/reducers/Article.reducer';
 
@@ -26,9 +26,10 @@ import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
 import ProfileBoughtArticleScreen from './Screens/ProfileBoughtArticleScreen'
 import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
+import SigninScreens from './Screens/SigninScreens';
+import token from './reducers/Token.reducer'
 
-
-const store = createStore(combineReducers({photo,product}));
+const store = createStore(combineReducers({photo,product,token}));
 
 
 var StackNavigatorHome= createStackNavigator({
@@ -47,6 +48,7 @@ var StackNavigatorSearch = createStackNavigator({
   Product: ProductScreens,
   Basket: BasketScreens, 
   SignUp: SignUpScreen, 
+  SignIn:SigninScreens
   
 }, 
 {headerMode: 'none'}

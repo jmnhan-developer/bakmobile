@@ -3,9 +3,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import { connect } from 'react-redux';
 
-
-function SignUpScreens({navigation}) {
+function SignUpScreens({onSubmitToken,navigation}) {
 
   const [gender, setGender]=useState('')
   const [firstName, setFirstName]=useState('')
@@ -21,7 +21,7 @@ function SignUpScreens({navigation}) {
 
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.179:3000/users/sign-up", {
+    const dataUsers = await fetch("http://192.168.1.54:3000/users/sign-up", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
@@ -30,10 +30,11 @@ function SignUpScreens({navigation}) {
     console.log("dataUsersXXX", dataUsers)
     
     const dataConsumers = await dataUsers.json()
-    console.log("dataConsumersjson-Result", dataConsumers.result, dataConsumers.error)
+    // console.log("dataConsumersjson-Result", dataConsumers.result, dataConsumers.error)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
-
+    console.log(dataConsumers.saveUser.token)
+    onSubmitToken(dataConsumers.saveUser.token)
   }
    if(isConnect==true)
    {
@@ -106,4 +107,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreens;
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitToken: function (token) {
+      dispatch({ type: 'informationFromSignUp', token:token})
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUpScreens);
+
+

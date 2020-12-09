@@ -1,13 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 
+function SigninScreens({navigation,onSubmitToken}) {
 
-function SigninScreens() {
+  const [email, setMail]=useState('')
+  const [password, setPassword]=useState('')
+  const [isConnect,setIsConnect]=useState(false)
+  const [isNotConnect,setIsNotConnect]=useState('')
 
+  var handleClick =async () => {
+
+    const dataUsers = await fetch("http://192.168.1.54:3000/users/sign-in", {
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:`email=${email}&password=${password}`
+    });
+
+    // console.log("dataUsersXXX", dataUsers)
+    
+    const dataConsumers = await dataUsers.json()
+    console.log("dataConsumersjson-Result", dataConsumers.error)
+    setIsConnect(dataConsumers.result)
+    setIsNotConnect(dataConsumers.error)
+    onSubmitToken(dataConsumers.token)
+    console.log('token from SignIn------',dataConsumers.token,dataConsumers.error)
+  }
+   if(isConnect==true)
+   {
+      navigation.navigate('Basket');
+   }
   
 
   return (
@@ -20,8 +46,8 @@ function SigninScreens() {
         <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
 
 
-          <Input name="mail" placeholder='e-mail' />
-          <Input name="password" placeholder='Mot de passe' />
+          <Input name="email" placeholder='e-mail' onChangeText={(val) =>setMail(val)} />
+          <Input name="password" placeholder='Mot de passe' onChangeText={(val) =>setPassword(val)} />
 
           <Icon>
             <FontAwesome name="facebook-f" size={24} color="black" />
@@ -32,8 +58,10 @@ function SigninScreens() {
             title="Me connecter"
             buttonStyle={{ backgroundColor: "#eb4d4b"}}
             type="solid"
+            onPress={()=>handleClick()}
           />
-
+           <Text>{isNotConnect}</Text>
+           <TouchableOpacity onPress={()=>navigation.navigate('SignUp')}><Text>Créer un compte</Text></TouchableOpacity>
         </KeyboardAvoidingView>
 
       </ScrollView>
@@ -50,4 +78,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SigninScreens;
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitToken: function (token) {
+      dispatch({ type: 'informationFromSignIn', token:token})
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SigninScreens);

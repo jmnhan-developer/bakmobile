@@ -80,8 +80,7 @@ function ProductScreens({navigation,productId}){
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
             title='Acheter'
-            onPress= {() => navigation.navigate('SignUp')}
-            
+            onPress= {() => navigation.navigate('SignIn')}
             />
         </Card>
     </View>
