@@ -13,6 +13,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
 
+
 import photo from '../frontend/reducers/Pic.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
@@ -76,7 +77,7 @@ export default function App(){
     return (
 
       <Provider store={store}>
-        <Navigation/> 
+        <Navigation/>
       </Provider>
 
       )
