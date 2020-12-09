@@ -18,16 +18,15 @@ function ProductScreens({navigation,productId}){
         icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
         containerStyle={{alignItems:"flex-start"}}
         type="clear"
-        onPress= {() => navigation.navigate('Result')}
+        onPress= {() => navigation.goBack()}
       />
           <Image style={styles.image} 
           source={{uri:productId.images}}
           />
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
-           {/* <Image
+           <Image
           style={styles.avatar}
-          source={require('./assets/flag-uk.png')}
-          />  */}
+          /> 
             <View style={{marginLeft:10}}>
             <Text >Axel Barateau</Text>
                 <View style={{flexDirection: 'row'}}>
@@ -81,7 +80,7 @@ function ProductScreens({navigation,productId}){
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
             title='Acheter'
-            onPress= {() => navigation.navigate('Basket')}
+            onPress= {() => navigation.navigate('SignUp')}
             
             />
         </Card>

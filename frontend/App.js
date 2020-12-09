@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-native';
 import FilterScreen from './Screens/FilterScreen'
@@ -11,39 +12,74 @@ import {createAppContainer }  from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
-import AddPicScreen from './Screens/AddPicScreen'
-import ProfileMenuScreen from './Screens/ProfileMenuScreen'
+import AddPicScreen from './Screens/AddPicScreen';
+
+
 import product from '../frontend/reducers/Article.reducer';
+
+
+import ProfileMenuScreen from './Screens/ProfileMenuScreen'
+import SignUpScreen from './Screens/SignupScreens'
+
+
 import photo from '../frontend/reducers/Pic.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
 import ProfileBoughtArticleScreen from './Screens/ProfileBoughtArticleScreen'
 import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
+import WalletScreens from './Screens/WalletScreens'
 
 
 const store = createStore(combineReducers({photo,product}));
 
-var StackNavigator = createStackNavigator({ 
+
+var StackNavigatorHome= createStackNavigator({
+   
+  Home:HomeScreens,
+  Product:ProductScreens
+
+},{headerMode: 'none'}
+);
+
+var StackNavigatorSearch = createStackNavigator({ 
 
   
   Filter:  FilterScreen,  
+  Result: ResultScreens, 
   Product: ProductScreens,
-  Result:ResultScreens,
-  Basket: BasketScreens,
-  ProfileUser:ProfileScreen,
-  ArticleBought: ProfileBoughtArticleScreen,
-  ArticleSell: ProfileSellingArticleScreen
+  Basket: BasketScreens, 
+  SignUp: SignUpScreen, 
+  
+}, 
+{headerMode: 'none'}
+);  
+  
+var stackNavigatorSell =  createStackNavigator({  
+ 
+  Sell: SellScreen,
+  AddPic: AddPicScreen,
 
+},
+{headerMode: 'none'})
+var StackNavigatorProfile = createStackNavigator({ 
+
+  Menu: ProfileMenuScreen,
+  ProfileUser:ProfileScreen, 
+  ArticleBought: ProfileBoughtArticleScreen, 
+  ArticleSell: ProfileSellingArticleScreen,
+  MyWallet:WalletScreens
 }, 
 {headerMode: 'none'}
 );  
 
+
 var BottomNavigator = createBottomTabNavigator({
   
-  Home:HomeScreens,
-  Sell: SellScreen,
-  Filter: StackNavigator,
-  Profile: ProfileMenuScreen,
+  Home:StackNavigatorHome,
+  Vendre: stackNavigatorSell,
+  Rechercher: StackNavigatorSearch,
+  'Mon Profil': StackNavigatorProfile,
+  
   
  },
   {
@@ -53,21 +89,21 @@ var BottomNavigator = createBottomTabNavigator({
          if (navigation.state.routeName == 'Home') {
         iconName = 'home';
        }
-         else if (navigation.state.routeName == 'Sell') {
+         else if (navigation.state.routeName == 'Vendre') {
         iconName = 'plus';
-       } else if (navigation.state.routeName == 'Filter') {
+       } else if (navigation.state.routeName == 'Rechercher') {
          iconName = 'search';
-       } else if (navigation.state.routeName == 'Profile') {
+       } else if (navigation.state.routeName == 'Mon Profil') {
          iconName = 'user-o';
       }
        return <FontAwesome name={iconName} size={25} color={tintColor} />;
       },
     }),
      tabBarOptions: {
-      activeTintColor: '#eb4d4b',
+      activeTintColor: '#82589F',
       inactiveTintColor: '#FFFFFF',
       style: {
-       backgroundColor: '#130f40',
+       backgroundColor: '#D6A2E8',
       }
     }
    

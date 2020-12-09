@@ -5,7 +5,7 @@ import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-
 import { Button, Input } from 'react-native-elements';
 
 
-function SignUpScreens() {
+function SignUpScreens({navigation}) {
 
   const [gender, setGender]=useState('')
   const [firstName, setFirstName]=useState('')
@@ -16,26 +16,34 @@ function SignUpScreens() {
   const [address, setAddress]=useState('')
   const [postalCode, setPostalCode]=useState('')
   const [city, setCity]=useState('')
+  const [isConnect,setIsConnect]=useState(false)
+  const [isNotConnect,setIsNotConnect]=useState('')
 
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.24:3000/users/sign-up", {
+    const dataUsers = await fetch("http://172.17.1.179:3000/users/sign-up", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
     });
 
     console.log("dataUsersXXX", dataUsers)
+    
     const dataConsumers = await dataUsers.json()
-    console.log("dataConsumersjson", dataConsumers)
+    console.log("dataConsumersjson-Result", dataConsumers.result, dataConsumers.error)
+    setIsConnect(dataConsumers.result)
+    setIsNotConnect(dataConsumers.error)
 
   }
-
+   if(isConnect==true)
+   {
+      navigation.navigate('Basket');
+   }
   return (
     <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
-
+      
       <Text style={{marginBottom: 20}}>INSCRIPTION</Text>
-
+       
       <ScrollView>
 
         <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
@@ -79,7 +87,7 @@ function SignUpScreens() {
             onPress={() => handleClick()
            }
           />
-
+            <Text>{isNotConnect}</Text>
           <Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text>
 
         </KeyboardAvoidingView>

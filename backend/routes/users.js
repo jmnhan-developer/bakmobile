@@ -20,16 +20,16 @@ router.post('/sign-up', async function(req,res,next){
   var saveUser = null
 
   const data = await userModel.findOne({
-    email: req.body.emailFromFront
+    email: req.body.email
   })
 
   if(data != null){
     error.push('utilisateur déjà présent')
   }
 
-  if(req.body.usernameFromFront == ''
-  || req.body.emailFromFront == ''
-  || req.body.passwordFromFront == ''
+  if(req.body.username == ''
+  || req.body.email == ''
+  || req.body.password == ''
   ){
     error.push('champs vides')
   }
@@ -50,7 +50,7 @@ router.post('/sign-up', async function(req,res,next){
     })
   
     saveUser = await newUser.save()
-  
+  console.log(req.body);
     
     if(saveUser){
       result = true
@@ -85,6 +85,7 @@ if(user){
   console.log(passwordHash)
   console.log(user.password)
   if(passwordHash == user.password){
+    
     result = true
     token=user.token
 
