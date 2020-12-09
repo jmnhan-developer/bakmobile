@@ -12,9 +12,10 @@ import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
+import AddPicScreen from './Screens/AddPicScreen';
 
 
-import photo from '../frontend/reducers/Pic.reducer';
+import photo from './reducers/Pic.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
 
@@ -26,7 +27,8 @@ var StackNavigator = createStackNavigator({
   Filter:  FilterScreen,  
   Product: ProductScreens,
   Result:ResultScreens,
-  Basket: BasketScreens
+  Basket: BasketScreens,
+  AddPic: AddPicScreen
 
 }, 
 {headerMode: 'none'}
