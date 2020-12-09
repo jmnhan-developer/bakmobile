@@ -1,5 +1,5 @@
 
-import React, { useReducer,useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-native';
 import FilterScreen from './Screens/FilterScreen'
 import ProfileScreen from './Screens/ProfileScreen'
@@ -14,6 +14,13 @@ import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
 import AddPicScreen from './Screens/AddPicScreen'
 
+
+
+import photo from '../frontend/reducers/Pic.reducer';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers}  from 'redux';
+
+const store = createStore(combineReducers({photo}));
 
 var StackNavigator = createStackNavigator({ 
 
@@ -66,13 +73,14 @@ var BottomNavigator = createBottomTabNavigator({
  
 
 
-  const Navigation = createAppContainer(BottomNavigator);
+const Navigation = createAppContainer(BottomNavigator);
 
-  export default function App () {
-    
+export default function App(){
     return (
 
-    <Navigation/> 
+      <Provider store={store}>
+        <Navigation/>
+      </Provider>
 
       )
-  }
+}

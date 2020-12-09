@@ -20,15 +20,15 @@ function HomeScreens({navigation}) {
   
   
   let lastArticles = dataList.map((uri, i) => {
-    return <View style={{width:'47%'}}>
-             <Image source={{uri:uri.url}} style={{ height:250, width: 200 }} onPress= {() => navigation.navigate('Product')}/>
-             <View style={{flex: 1, flexDirection:'row', marginTop:5, justifyContent:"space-between"}}>
-             <Text>{uri.brand}</Text>
-             <FontAwesome name="heart-o" size={15} color="black" />
-             </View>
-             <Text>Taille: {uri.size}</Text>
-             <Text>{uri.price}€</Text>
-           </View>
+    return <View style={{width:'47%', margin:5}}>
+      <Image source={{uri:uri.url}} style={{ height:250, width: 200 }}/>
+      <View style={{flex: 1, flexDirection:'row', marginTop:5, justifyContent:"space-between"}}>
+        <Text>{uri.brand}</Text>
+        <FontAwesome name="heart-o" size={15} color="black" />
+      </View>
+      <Text>Taille: {uri.size}</Text>
+      <Text>{uri.price}€</Text>
+    </View>
 
   }
   )
