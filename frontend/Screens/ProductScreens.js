@@ -1,16 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
-
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-
-
-function ProductScreens({navigation}){
-
-
-    return (
+function ProductScreens({navigation,productId}){
+  return (
+    <ScrollView>
         <View style={styles.container}>
 
         <Card 
@@ -24,11 +21,11 @@ function ProductScreens({navigation}){
         onPress= {() => navigation.navigate('Result')}
       />
           <Image style={styles.image} 
-          source={require('./assets/loutre.jpg')}/>
+          source={{uri:productId.images}}
+          />
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
            <Image
           style={styles.avatar}
-          source={require('./assets/flag-uk.png')}
           /> 
             <View style={{marginLeft:10}}>
             <Text >Axel Barateau</Text>
@@ -63,20 +60,20 @@ function ProductScreens({navigation}){
               />
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
-            <Text>Articles : Poussette</Text>
-            <Text>Prix: 199€</Text>
+            <Text>{productId.title}</Text>
+            <Text>Prix: {productId.price} €</Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-            <Text>Marques : Bébé Confort</Text>
-            <Text>Frais de Port: 19€</Text>
+            <Text>Marque : {productId.brand}</Text>
+            <Text>Frais de Port: {productId.shippingFees}€</Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-            <Text>Age : 1 à 3 ans</Text>
+            <Text>Age : {productId.kidsAge}</Text>
           </View>
           <View style={{marginTop: 10, marginBottom:10}}>
             <ScrollView>
             <Text>Description :</Text>
-            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</Text>
+            <Text>{productId.description}</Text>
             </ScrollView>
           </View>
           <Button
@@ -88,6 +85,7 @@ function ProductScreens({navigation}){
             />
         </Card>
     </View>
+    </ScrollView>
 
 )
 }
@@ -108,4 +106,13 @@ avatar: {
   height:30,
 }
 });
-export default (ProductScreens);
+
+function mapStateToProps(state) {
+  console.log("state is stable", state.product)
+  return {productId: state.product}
+};
+
+export default connect(
+mapStateToProps, 
+null
+)(ProductScreens);  
