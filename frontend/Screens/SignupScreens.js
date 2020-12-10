@@ -3,9 +3,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import { connect } from 'react-redux';
 
-
-function SignUpScreens() {
+function SignUpScreens({onSubmitToken,navigation}) {
 
   const [gender, setGender]=useState('')
   const [firstName, setFirstName]=useState('')
@@ -16,6 +16,8 @@ function SignUpScreens() {
   const [address, setAddress]=useState('')
   const [postalCode, setPostalCode]=useState('')
   const [city, setCity]=useState('')
+  const [isConnect,setIsConnect]=useState(false)
+  const [isNotConnect,setIsNotConnect]=useState('')
 
   var handleClick =async () => {
 
@@ -26,16 +28,23 @@ function SignUpScreens() {
     });
 
     console.log("dataUsersXXX", dataUsers)
+    
     const dataConsumers = await dataUsers.json()
-    console.log("dataConsumersjson", dataConsumers)
-
+    // console.log("dataConsumersjson-Result", dataConsumers.result, dataConsumers.error)
+    setIsConnect(dataConsumers.result)
+    setIsNotConnect(dataConsumers.error)
+    console.log(dataConsumers.saveUser.token)
+    onSubmitToken(dataConsumers.saveUser.token)
   }
-
+   if(isConnect==true)
+   {
+      navigation.navigate('Basket');
+   }
   return (
     <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
-
+      
       <Text style={{marginBottom: 20}}>INSCRIPTION</Text>
-
+       
       <ScrollView>
 
         <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
@@ -79,7 +88,7 @@ function SignUpScreens() {
             onPress={() => handleClick()
            }
           />
-
+            <Text>{isNotConnect}</Text>
           <Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text>
 
         </KeyboardAvoidingView>
@@ -98,4 +107,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpScreens;
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitToken: function (token) {
+      dispatch({ type: 'informationFromSignUp', token:token})
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUpScreens);
+
+

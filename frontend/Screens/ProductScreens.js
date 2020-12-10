@@ -6,6 +6,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 function ProductScreens({navigation,productId}){
+
+  
+
   return (
     <ScrollView>
         <View style={styles.container}>
@@ -18,7 +21,7 @@ function ProductScreens({navigation,productId}){
         icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
         containerStyle={{alignItems:"flex-start"}}
         type="clear"
-        onPress= {() => navigation.navigate('Result')}
+        onPress= {() => navigation.goBack()}
       />
           <Image style={styles.image} 
           source={{uri:productId.images}}
@@ -80,8 +83,7 @@ function ProductScreens({navigation,productId}){
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
             title='Acheter'
-            onPress= {() => navigation.navigate('Basket')}
-            
+            onPress= {() => navigation.navigate('SignIn')}
             />
         </Card>
     </View>

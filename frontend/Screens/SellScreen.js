@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-navigation';
 
 
 
-export default function App(props) {
+export default function App({navigation}) {
   const [selectedValueCategory, setSelectedValueCategory] = useState("");
   const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
@@ -51,7 +51,7 @@ export default function App(props) {
               }            
           title=" Ajouter des photos"
           type="outline"
-          onPress={() => {handleClick()}}
+          onPress= {() => navigation.navigate('AddPic')}
         />
       
         <Input style = {{ width: '90%'}}

@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
+import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function BasketScreens({navigation}) {
-
+function BasketScreens({navigation,productId}) {
+  let totalPrice = parseInt(productId.price)+parseInt(productId.shippingFees);
   const [selectedValue, setSelectedValue] = useState(false);
   var userData
   if(selectedValue==true) {
@@ -35,15 +36,15 @@ export default function BasketScreens({navigation}) {
       style={{width:355, height:300}} /> */}
 
         <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
-            <Text>Articles : Poussette</Text>
-            <Text>Prix : 199€</Text>
+            <Text>{productId.title}</Text>
+            <Text>Prix : {productId.price} €</Text>
         </View>
         <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-            <Text>Marques : Bébé Confort</Text>
-            <Text>Frais de Port : 19€</Text>
+    <Text>Marque : {productId.brand}</Text>
+            <Text>Frais de Port : {productId.shippingFees} €</Text>
         </View>    
         <View style={{flexDirection:'row-reverse', marginTop: 10}}>
-            <Text> Total : 218€ </Text>
+            <Text> Total : {totalPrice} €</Text>
         </View>
         <DropDownPicker
             items={[
@@ -74,5 +75,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+function mapStateToProps(state) {
+  console.log("state is stable", state.product)
+  return {productId: state.product}
+};
+
+export default connect(
+mapStateToProps, 
+null
+)(BasketScreens);  
 
 

@@ -2,20 +2,44 @@ import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { SearchBar, Image } from 'react-native-elements';
+import { Input, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 
 function HomeScreens({navigation, onSubmitProduct}) {
   const [productList, setProductList] = useState([])
+  const [filterAddList, setFilterAddList] = useState([])
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     const findProducts = async() => {
       const data = await fetch("http://172.20.10.3:3000/articles/get-all-articles")
       const body = await data.json()
-      setProductList(body.products) 
+      setProductList(body.products);
+      setFilterAddList(body.products);
     }
-    findProducts()    
-  },[productList])
+    
+    findProducts()
+    
+  },[])
+
+  useEffect(() => {
+
+    if(searchTerm!='') {
+      console.log(searchTerm)
+      const results = productList.filter(products => 
+      products.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      ;
+     console.log(results)
+     setFilterAddList(results)
+    }
+
+    else {
+      setFilterAddList(productList)
+    }
+
+  }, [searchTerm])
 
 
   // var dataList = [
@@ -30,7 +54,7 @@ function HomeScreens({navigation, onSubmitProduct}) {
   // ]
   
   
-  let lastArticles = productList.map((productId, i) => {
+  let lastArticles = filterAddList.map((productId, i) => {
     return <View style={{width:'47%', margin:5}}>
       <TouchableOpacity
         onPress={() => {
@@ -55,10 +79,12 @@ function HomeScreens({navigation, onSubmitProduct}) {
 
   return (
     <View style={{flex: 1, marginTop:25 }}>
-      <SearchBar
+      <Input
       containerStyle={{backgroundColor:'white'}}
       lightTheme='true'
-      placeholder="Rechercher" backgroundColor='light-grey' />
+      placeholder="Rechercher" backgroundColor='light-grey' 
+      onChangeText={(val) =>setSearchTerm(val)}
+      />
 
       <Text style={{fontSize:20, textAlign:"center", marginTop:5, marginBottom:5}}>Les derniers articles mis en vente</Text>
 
