@@ -3,9 +3,13 @@ import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Carousel from '../components/Carousel';
 
 
 function ProductScreens({navigation,productId}){
+
+  
+
   return (
     <ScrollView>
         <View style={styles.container}>
@@ -20,9 +24,7 @@ function ProductScreens({navigation,productId}){
         type="clear"
         onPress= {() => navigation.goBack()}
       />
-          <Image style={styles.image} 
-          source={{uri:productId.images}}
-          />
+          <Carousel/>
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
            <Image
           style={styles.avatar}
@@ -80,8 +82,7 @@ function ProductScreens({navigation,productId}){
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
             title='Acheter'
-            onPress= {() => navigation.navigate('SignUp')}
-            
+            onPress= {() => navigation.navigate('SignIn')}
             />
         </Card>
     </View>
@@ -108,7 +109,6 @@ avatar: {
 });
 
 function mapStateToProps(state) {
-  console.log("state is stable", state.product)
   return {productId: state.product}
 };
 

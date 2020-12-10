@@ -27,10 +27,11 @@ import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
 import ProfileBoughtArticleScreen from './Screens/ProfileBoughtArticleScreen'
 import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
+import SigninScreens from './Screens/SigninScreens';
+import token from './reducers/Token.reducer'
 import WalletScreens from './Screens/WalletScreens'
 
-
-const store = createStore(combineReducers({photo,product}));
+const store = createStore(combineReducers({photo,product,token}));
 
 
 var StackNavigatorHome= createStackNavigator({
@@ -49,6 +50,7 @@ var StackNavigatorSearch = createStackNavigator({
   Product: ProductScreens,
   Basket: BasketScreens, 
   SignUp: SignUpScreen, 
+  SignIn:SigninScreens
   
 }, 
 {headerMode: 'none'}

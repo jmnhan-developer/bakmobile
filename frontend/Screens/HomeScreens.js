@@ -26,17 +26,14 @@ function HomeScreens({navigation, onSubmitProduct}) {
   useEffect(() => {
 
     if(searchTerm!='') {
-      console.log(searchTerm)
       const results = productList.filter(products => 
       products.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-      ;
-     console.log(results)
-     setFilterAddList(results)
+      );
+     setFilterAddList(results);
     }
 
     else {
-      setFilterAddList(productList)
+      setFilterAddList(productList);
     }
 
   }, [searchTerm])

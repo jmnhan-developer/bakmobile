@@ -11,8 +11,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-
-
 router.post('/sign-up', async function(req,res,next){
 
   var error = []
@@ -50,10 +48,11 @@ router.post('/sign-up', async function(req,res,next){
     })
   
     saveUser = await newUser.save()
-  console.log(req.body);
+    
     
     if(saveUser){
       result = true
+      console.log(saveUser);
     }
   }
   
@@ -63,6 +62,7 @@ router.post('/sign-up', async function(req,res,next){
 
 router.post('/sign-in', async function(req,res,next){
 
+  console.log(req.body)
   var result = false
   var user = null
   var error = []
@@ -97,10 +97,7 @@ if(user){
   error.push('email incorrect')
 }
   }
-  
-
   res.json({result, user, token, error})
-
 })
 
 
