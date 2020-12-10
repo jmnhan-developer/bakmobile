@@ -3,13 +3,14 @@ import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity } from 'rea
 import {Button, Input} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { SafeAreaView } from 'react-navigation';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
- function SellScreen({navigation,onSubmitTypeOfAction}) {
-  
-  var typeOfAction= 'vendeur';
-  
+import { SafeAreaView } from 'react-navigation';
+
+
+
+
+function SellScreen(props) {
   const [selectedValueCategory, setSelectedValueCategory] = useState("");
   const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
@@ -21,19 +22,21 @@ import { connect } from 'react-redux';
   const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
   const [shippingFees , setShippingFees ] = useState("");
-
+  
+  var typeOfAction= 'vendeur';
 
 
   var handleClick = async () => {
-    
-    console.log('ceci est le titre post handleclick=', titleInput);
-    const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
+    console.log(props.addPhoto)
+    var image = JSON.stringify(props.addPhoto);
+    console.log('tableau photos',image)
+    const dataArticle = await fetch("http://172.17.1.179:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}`
     });
                                
-    console.log("dataArticle",dataArticle)
+    // console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
     console.log("dataAnnonce", dataAnnonce)
 
@@ -53,7 +56,7 @@ import { connect } from 'react-redux';
               }            
           title=" Ajouter des photos"
           type="outline"
-          onPress= {() => navigation.navigate('AddPic')}
+          onPress= {() => props.navigation.navigate('AddPic')}
         />
       
         <Input style = {{ width: '90%'}}
@@ -129,7 +132,7 @@ import { connect } from 'react-redux';
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => {handleClick();onSubmitTypeOfAction(typeOfAction);navigation.navigate('SignIn')}}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);props.navigation.navigate('SignIn')}}
           containerStyle={{marginBottom: 20}}
         />
 
@@ -159,9 +162,11 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect 
-  (
-  null,
+ 
+function mapStateToProps(state) {
+  return { addPhoto: state.photo }
+}
+export default connect(
+  mapStateToProps, 
   mapDispatchToProps
-  )
-  (SellScreen) 
+)(SellScreen);

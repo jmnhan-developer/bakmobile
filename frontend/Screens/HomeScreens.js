@@ -13,7 +13,7 @@ function HomeScreens({navigation, onSubmitProduct}) {
 
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch("http://172.20.10.3:3000/articles/get-all-articles")
+      const data = await fetch("http://172.17.1.179:3000/articles/get-all-articles")
       const body = await data.json()
       setProductList(body.products);
       setFilterAddList(body.products);
@@ -26,17 +26,14 @@ function HomeScreens({navigation, onSubmitProduct}) {
   useEffect(() => {
 
     if(searchTerm!='') {
-      console.log(searchTerm)
       const results = productList.filter(products => 
       products.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-      ;
-     console.log(results)
-     setFilterAddList(results)
+      );
+     setFilterAddList(results);
     }
 
     else {
-      setFilterAddList(productList)
+      setFilterAddList(productList);
     }
 
   }, [searchTerm])
@@ -63,7 +60,7 @@ function HomeScreens({navigation, onSubmitProduct}) {
          }
         }
       >
-      <Image source={{uri:productId.images}} style={{ height:250, width: 200 }}/>
+      <Image source={{uri:productId.images[0]}} style={{ height:250, width: 200 }}/>
       <View style={{flex: 1, flexDirection:'row', marginTop:5, justifyContent:"space-between"}}>
         <Text style={{fontWeight:'bold'}}>{productId.brand}</Text>
         <FontAwesome name="heart-o" size={15} color="black" />

@@ -107,7 +107,7 @@ function AddPicScreen(props) {
     cameraDisplay = <View style={{ flex: 1 }}></View>
   }
 
- console.log("coucou Store" , props.addPhoto)
+//  console.log("coucou Store" , props.addPhoto)
   
 
   return (
@@ -174,7 +174,7 @@ function AddPicScreen(props) {
                     })
                     
                     const bodyImage = await dataPhoto.json()
-                    console.log("bodyImage",bodyImage)
+                    // console.log("bodyImage",bodyImage)
                     
                     // console.log(bodyImage)
                     props.onIncreaseClick(bodyImage.url)
