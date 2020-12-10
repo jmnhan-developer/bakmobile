@@ -4,10 +4,12 @@ import {Button, Input} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SafeAreaView } from 'react-navigation';
+import { connect } from 'react-redux';
 
-
-
-export default function App({navigation}) {
+ function SellScreen({navigation,onSubmitTypeOfAction}) {
+  
+  var typeOfAction= 'vendeur';
+  
   const [selectedValueCategory, setSelectedValueCategory] = useState("");
   const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
@@ -127,7 +129,7 @@ export default function App({navigation}) {
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => handleClick()}
+          onPress={() => {handleClick();onSubmitTypeOfAction(typeOfAction);navigation.navigate('SignIn')}}
           containerStyle={{marginBottom: 20}}
         />
 
@@ -148,3 +150,18 @@ const styles = StyleSheet.create({
     flex:1,
   }
 });
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitTypeOfAction: function (typeOfAction) {
+      dispatch({ type: 'sell', typeOfAction})
+    }
+  }
+}
+
+export default connect 
+  (
+  null,
+  mapDispatchToProps
+  )
+  (SellScreen) 

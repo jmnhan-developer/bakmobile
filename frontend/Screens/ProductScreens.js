@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-function ProductScreens({navigation,productId}){
+function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
 
-  
+  var typeOfAction='acheteur';
 
   return (
     <ScrollView>
@@ -83,7 +83,7 @@ function ProductScreens({navigation,productId}){
             buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
             title='Acheter'
-            onPress= {() => navigation.navigate('SignIn')}
+            onPress= {() => {navigation.navigate('SignIn');onSubmitTypeOfAction(typeOfAction)}}
             />
         </Card>
     </View>
@@ -114,7 +114,21 @@ function mapStateToProps(state) {
   return {productId: state.product}
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitTypeOfAction: function (typeOfAction) {
+      dispatch({ type: 'buy', typeOfAction})
+    }
+  }
+}
+
+
+
+
 export default connect(
-mapStateToProps, 
-null
+
+  mapStateToProps, 
+  mapDispatchToProps
+
+
 )(ProductScreens);  
