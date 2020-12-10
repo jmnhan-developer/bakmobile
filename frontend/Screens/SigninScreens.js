@@ -12,17 +12,17 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
 
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
-  const [name,setName]=useState('')
+  const [id,setId]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
-  const [nameIsSubmited,setNameIsSubmited]=useState(false)
+  const [idIsSubmited,setIdIsSubmited]=useState(false)
   
   console.log('type of action -------',typeOfAction)
-
+  
   useEffect(() => {
-    AsyncStorage.getItem('name', (err, value) => {
-      setName(value);
-      setNameIsSubmited(true);
+    AsyncStorage.getItem('userId', (err, value) => {
+      setId(value);
+      setIdIsSubmited(true);
       console.log(value,'from asyncstorage ------ ------ -----')
     })
   }, []);
@@ -44,10 +44,10 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
     setIsNotConnect(dataConsumers.error)
     onSubmitId(dataConsumers.user._id)
     
-    AsyncStorage.setItem('name',dataConsumers.user.firstName );
+    AsyncStorage.setItem('userId',dataConsumers.user._id );
     
   }
-   if(isConnect==true )
+   if(isConnect==true)
    {
       if(typeOfAction=='acheteur')
       { 
@@ -55,12 +55,11 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
       }
    else
    {
-     navigation.navigate('AddPic')
-   }}
-console.log('name is-----',name);
-console.log('asyncstoretest',nameIsSubmited);
+     navigation.navigate('Home')
+   }
+  }
+console.log('name is-----',id);
 
-  // console.log('nameissubmited --------',nameIsSubmited);
 
 
   return (
@@ -119,11 +118,9 @@ function mapStateToProps(state) {
 }
 
 
-
-
-
 export default connect(
   
   mapStateToProps,
   mapDispatchToProps
+
 )(SigninScreens);

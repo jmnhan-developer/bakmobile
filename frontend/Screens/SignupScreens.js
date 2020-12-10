@@ -5,7 +5,7 @@ import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage }
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-function SignUpScreens({onSubmitId,navigation}) {
+function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
 
   const [gender, setGender]=useState('')
   const [firstName, setFirstName]=useState('')
@@ -18,13 +18,13 @@ function SignUpScreens({onSubmitId,navigation}) {
   const [city, setCity]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
-  const [name,setName]=useState('')
-  const [nameIsSubmited,setNameIsSubmited]=useState(false)
+  const [id,setId]=useState('')
+  const [idIsSubmited,setIdIsSubmited]=useState(false)
 
   useEffect(() => {
-    AsyncStorage.getItem('name', (err, value) => {
-      setName(value);
-      setNameIsSubmited(true);
+    AsyncStorage.getItem('userId', (err, value) => {
+      setId(value);
+      setIdIsSubmited(true);
       console.log(value,'from asyncstorage ------ ------ -----')
     })
   }, []);
@@ -32,7 +32,7 @@ function SignUpScreens({onSubmitId,navigation}) {
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.18:3000/users/sign-up", {
+    const dataUsers = await fetch("http://172.17.1.179:3000/users/sign-up", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
@@ -47,13 +47,25 @@ function SignUpScreens({onSubmitId,navigation}) {
     setIsNotConnect(dataConsumers.error)
     console.log(dataConsumers.saveUser.token)
     onSubmitId(dataConsumers.saveUser.token)
-    AsyncStorage.setItem('name',dataConsumers.saveUser.firstName );
+    AsyncStorage.setItem('userId',dataConsumers.saveUser._id );
   }
 
-  //  if(isConnect==true)
-  //  {
-  //     navigation.navigate('Basket');
-  //  }
+  if(isConnect==true )
+  {
+     if(typeOfAction=='acheteur')
+     { 
+       navigation.navigate('Basket');
+     }
+    else 
+     {
+       navigation.navigate('Home')
+     }
+}
+
+
+
+
+
   return (
     <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
       
@@ -121,6 +133,22 @@ const styles = StyleSheet.create({
   },
 });
 
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     onSubmitId: function (id) {
+//       dispatch({ type: 'informationFromSignUp', id:id})
+//     }
+//   }
+// }
+
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(SignUpScreens);
+
+//______________
+
+
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitId: function (id) {
@@ -129,9 +157,14 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+function mapStateToProps(state) {
+  return { typeOfAction: state.typeOfAction }
+}
+
+
 export default connect(
-  null,
+  
+  mapStateToProps,
   mapDispatchToProps
+
 )(SignUpScreens);
-
-
