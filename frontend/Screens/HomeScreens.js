@@ -13,7 +13,7 @@ function HomeScreens({navigation, onSubmitProduct}) {
 
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch("http://172.17.1.147:3000/articles/get-all-articles")
+      const data = await fetch("http://192.168.43.254:3000/articles/get-all-articles")
       const body = await data.json()
       setProductList(body.products);
       setFilterAddList(body.products);

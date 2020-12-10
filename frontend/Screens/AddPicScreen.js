@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Camera } from 'expo-camera';
-
 import {connect} from 'react-redux';
-
 import { withNavigationFocus } from 'react-navigation';
-
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonic from 'react-native-vector-icons/Ionicons';
@@ -168,7 +164,7 @@ function AddPicScreen(props) {
                       type: 'image/jpeg',
                       name: 'avatar.jpg',
                     });
-                    const dataPhoto = await fetch("http://172.17.1.123:3000/articles/upload", {
+                    const dataPhoto = await fetch("http://192.168.43.254:3000/articles/upload", {
                     method: 'POST',
                     body: data
                     })
