@@ -6,6 +6,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 function ProductScreens({navigation,productId}){
+
+  
+
   return (
     <ScrollView>
         <View style={styles.container}>

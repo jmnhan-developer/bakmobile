@@ -10,7 +10,7 @@ function HomeScreens({navigation, onSubmitProduct}) {
   const [productList, setProductList] = useState([])
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch("http://192.168.1.54:3000/articles/get-all-articles")
+      const data = await fetch("http://172.17.1.179:3000/articles/get-all-articles")
       const body = await data.json()
       setProductList(body.products) 
     }
