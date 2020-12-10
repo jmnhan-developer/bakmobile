@@ -22,7 +22,8 @@ function SellScreen(props) {
   const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
   const [shippingFees , setShippingFees ] = useState("");
-
+  
+  var typeOfAction= 'vendeur';
 
 
   var handleClick = async () => {
@@ -156,7 +157,7 @@ function SellScreen(props) {
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => {handleClick() ; props.navigation.navigate('AddArticle')}}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);props.navigation.navigate('SignIn')}}
           containerStyle={{marginBottom: 20}}
         />
 
@@ -178,10 +179,19 @@ const styles = StyleSheet.create({
   }
 });
 
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitTypeOfAction: function (typeOfAction) {
+      dispatch({ type: 'sell', typeOfAction})
+    }
+  }
+}
+
+ 
 function mapStateToProps(state) {
   return { addPhoto: state.photo }
 }
 export default connect(
   mapStateToProps, 
-  null
+  mapDispatchToProps
 )(SellScreen);
