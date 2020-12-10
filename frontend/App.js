@@ -60,6 +60,7 @@ var stackNavigatorSell =  createStackNavigator({
  
   Sell: SellScreen,
   AddPic: AddPicScreen,
+  AddArticle :ProfileSellingArticleScreen,
 
 },
 {headerMode: 'none'})

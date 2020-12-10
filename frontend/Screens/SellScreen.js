@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity } from 'react-native';
-import {Button, Input} from 'react-native-elements';
+import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {connect} from 'react-redux';
 
 import { SafeAreaView } from 'react-navigation';
+
 
 
 
@@ -25,9 +26,9 @@ function SellScreen(props) {
 
 
   var handleClick = async () => {
-    console.log(props.addPhoto)
+    
     var image = JSON.stringify(props.addPhoto);
-    console.log('tableau photos',image)
+    // console.log('tableau photos',image)
     const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -45,7 +46,7 @@ function SellScreen(props) {
       <ScrollView style={{width: '90%'}}>
 
         {/* <Text style={{marginTop:40,textAlign: 'center'}}>Jusqu'à 6 photos</Text> */}
-
+       
         <Button
           buttonStyle={{marginTop:60, marginBottom:40, borderColor:"#82589F"}}
           titleStyle={{fontSize:25, color:"#82589F"}}
@@ -56,6 +57,31 @@ function SellScreen(props) {
           type="outline"
           onPress= {() => props.navigation.navigate('AddPic')}
         />
+
+         <View style={{ flexDirection:'row', marginTop:2, marginBottom:20,justifyContent:"space-between"}}>
+          <View>
+            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:60}}/>
+            
+          </View>
+          <View>
+          <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:60}}/>
+            
+          </View>
+          <View>
+          <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:60}}/>
+           
+          </View>
+
+          <View>
+          <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:60}}/>
+           
+          </View>
+
+          <View>
+          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}}/>
+           
+          </View>
+        </View>
       
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
@@ -130,7 +156,7 @@ function SellScreen(props) {
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => handleClick()}
+          onPress={() => {handleClick() ; props.navigation.navigate('AddArticle')}}
           containerStyle={{marginBottom: 20}}
         />
 
