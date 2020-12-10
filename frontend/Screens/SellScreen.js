@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-navigation';
 
 
 
-export default function App(props) {
+export default function App({navigation}) {
   const [selectedValueCategory, setSelectedValueCategory] = useState("");
   const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
@@ -25,7 +25,7 @@ export default function App(props) {
   var handleClick = async () => {
     
     console.log('ceci est le titre post handleclick=', titleInput);
-    const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
+    const dataArticle = await fetch("http://172.17.1.24:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}`
@@ -51,7 +51,7 @@ export default function App(props) {
               }            
           title=" Ajouter des photos"
           type="outline"
-          onPress={() => {handleClick()}}
+          onPress= {() => navigation.navigate('AddPic')}
         />
       
         <Input style = {{ width: '90%'}}

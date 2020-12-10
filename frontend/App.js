@@ -12,11 +12,12 @@ import {createAppContainer }  from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
+import AddPicScreen from './Screens/AddPicScreen';
 
 
 import product from '../frontend/reducers/Article.reducer';
 
-import AddPicScreen from './Screens/AddPicScreen'
+
 import ProfileMenuScreen from './Screens/ProfileMenuScreen'
 import SignUpScreen from './Screens/SignupScreens'
 
@@ -27,6 +28,7 @@ import {createStore, combineReducers}  from 'redux';
 import ProfileBoughtArticleScreen from './Screens/ProfileBoughtArticleScreen'
 import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
 import WalletScreens from './Screens/WalletScreens'
+import ProfileUpdateScreen from './Screens/ProfileUpdateScreen'
 
 
 const store = createStore(combineReducers({photo,product}));
@@ -52,14 +54,22 @@ var StackNavigatorSearch = createStackNavigator({
 }, 
 {headerMode: 'none'}
 );  
+  
+var stackNavigatorSell =  createStackNavigator({  
+ 
+  Sell: SellScreen,
+  AddPic: AddPicScreen,
 
+},
+{headerMode: 'none'})
 var StackNavigatorProfile = createStackNavigator({ 
 
   Menu: ProfileMenuScreen,
   ProfileUser:ProfileScreen, 
   ArticleBought: ProfileBoughtArticleScreen, 
   ArticleSell: ProfileSellingArticleScreen,
-  MyWallet:WalletScreens
+  MyWallet:WalletScreens,
+  ProfileUp:ProfileUpdateScreen
 }, 
 {headerMode: 'none'}
 );  
@@ -68,7 +78,7 @@ var StackNavigatorProfile = createStackNavigator({
 var BottomNavigator = createBottomTabNavigator({
   
   Home:StackNavigatorHome,
-  Vendre: SellScreen,
+  Vendre: stackNavigatorSell,
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,
   

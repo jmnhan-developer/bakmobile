@@ -75,7 +75,7 @@ router.post('/sign-in', async function(req,res,next){
 
   if(error.length == 0){
     
-const user = await userModel.findOne({
+  user = await userModel.findOne({
   email: req.body.email
 })
 
@@ -103,5 +103,10 @@ if(user){
 
 })
 
+router.get('/display-profile', async function(req, res, next) {
+  let data = await userModel.findById(req.query.id)
+  console.log(data)
+  res.json({data});
+});
 
 module.exports = router;
