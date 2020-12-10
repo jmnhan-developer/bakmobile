@@ -25,11 +25,6 @@ const [subCatSelected, setSubCatSelected]= useState(false);
 const [subCatName, setSubCatName]= useState('');
 
 
-console.log(subCatSelected)
-console.log(subCatName
-  )
-
-
 var subCat1 = [
   {subcategory: "Sièges Auto"},
   {subcategory: "Nacelles"},
