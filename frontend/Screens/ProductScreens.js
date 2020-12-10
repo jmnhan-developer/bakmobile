@@ -24,7 +24,7 @@ function ProductScreens({navigation,productId}){
         onPress= {() => navigation.goBack()}
       />
           <Image style={styles.image} 
-          source={{uri:productId.images}}
+          source={{uri:productId.images[0]}}
           />
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
            <Image
