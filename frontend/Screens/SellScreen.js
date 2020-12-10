@@ -3,11 +3,13 @@ import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity } from 'rea
 import {Button, Input} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {connect} from 'react-redux';
+
 import { SafeAreaView } from 'react-navigation';
 
 
 
-export default function App({navigation}) {
+function SellScreen(props) {
   const [selectedValueCategory, setSelectedValueCategory] = useState("");
   const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
@@ -23,15 +25,16 @@ export default function App({navigation}) {
 
 
   var handleClick = async () => {
-    
-    console.log('ceci est le titre post handleclick=', titleInput);
-    const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
+    console.log(props.addPhoto)
+    var image = JSON.stringify(props.addPhoto);
+    console.log('tableau photos',image)
+    const dataArticle = await fetch("http://192.168.43.254:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}`
     });
                                
-    console.log("dataArticle",dataArticle)
+    // console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
     console.log("dataAnnonce", dataAnnonce)
 
@@ -51,7 +54,7 @@ export default function App({navigation}) {
               }            
           title=" Ajouter des photos"
           type="outline"
-          onPress= {() => navigation.navigate('AddPic')}
+          onPress= {() => props.navigation.navigate('AddPic')}
         />
       
         <Input style = {{ width: '90%'}}
@@ -148,3 +151,11 @@ const styles = StyleSheet.create({
     flex:1,
   }
 });
+
+function mapStateToProps(state) {
+  return { addPhoto: state.photo }
+}
+export default connect(
+  mapStateToProps, 
+  null
+)(SellScreen);

@@ -15,7 +15,11 @@ function SigninScreens({navigation,onSubmitToken}) {
 
   var handleClick =async () => {
 
+<<<<<<< HEAD
     const dataUsers = await fetch("http://192.168.43.254:3000/users/sign-in", {
+=======
+    const dataUsers = await fetch("http://172.17.1.123:3000/users/sign-in", {
+>>>>>>> d2944141fa2979c0b7243e2e3f0ec7388643aac8
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`email=${email}&password=${password}`

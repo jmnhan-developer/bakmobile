@@ -39,6 +39,25 @@ function SecondFilterScreen({navigation}) {
       var listButton2= DATA.map(function(e,i){
         return ( <Button title={e.title} onPress= {() => navigation.navigate('Result')} color='orange'/>)})
 
+        const DATA2 = [
+          {
+              title: 'T-shirt',
+          },
+          {
+              title: 'Shirt',
+          },
+          {
+              title: 'Pants',
+          },
+     
+          {
+              title: 'bébés',
+            },
+         
+        ];
+        var listButton3= DATA.map(function(e,i){
+          return ( <Button title={e.title} onPress= {() => navigation.navigate('Result')} color='orange'/>)})
+
   return (
       <View>
         <Text style={styles.titlePage}>Choisissez une sous-catégorie</Text>

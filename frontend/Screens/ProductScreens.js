@@ -24,7 +24,9 @@ function ProductScreens({navigation,productId}){
         type="clear"
         onPress= {() => navigation.goBack()}
       />
-          <Carousel/>
+          <Image style={styles.image} 
+          source={{uri:productId.images[0]}}
+          />
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
            <Image
           style={styles.avatar}
