@@ -75,7 +75,7 @@ router.post('/sign-in', async function(req,res,next){
 
   if(error.length == 0){
     
-const user = await userModel.findOne({
+  user = await userModel.findOne({
   email: req.body.email
 })
 
@@ -88,6 +88,7 @@ if(user){
     
     result = true
     token=user.token
+    console.log('user is',user)
 
   } else {
     result = false
@@ -99,6 +100,5 @@ if(user){
   }
   res.json({result, user, token, error})
 })
-
 
 module.exports = router;
