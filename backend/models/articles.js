@@ -12,7 +12,7 @@ const articleSchema = mongoose.Schema({
     state:String,
     articleSold:Boolean,
     sellerID:String,
-    images:String,
+    images:Array,
     creationDate:Date
 })
 

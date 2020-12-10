@@ -15,6 +15,8 @@ cloudinary.config({
 
 
 router.post('/create-article', async function(req, res, next) {
+  console.log("hello1",req.body)
+
     let newArticle = new articleModel({
         title:req.body.title,
         description:req.body.description,
@@ -26,7 +28,7 @@ router.post('/create-article', async function(req, res, next) {
         subcategory:req.body.subcategory,
         state:req.body.state,
         sellerID:req.body.sellerID,
-        images:req.body.image,
+        images:JSON.parse(req.body.images),
         creationDate:new Date()
       })
     
@@ -42,7 +44,7 @@ router.post('/create-article', async function(req, res, next) {
 
 router.get('/get-all-articles', async function(req, res, next) {
     let products = await articleModel.find()
-    console.log(products)
+    // console.log(products)
     res.json({products});
   
 });
@@ -55,12 +57,12 @@ router.post('/upload', async function(req, res, next) {
 
   var resultCopy = await req.files.avatar.mv(imagePath);
     console.log("fichiers",req.files.avatar)
-    console.log("hello3")
+    // console.log("hello3")
 
   if(!resultCopy) {    
     var resultCloudinary = await cloudinary.uploader.upload(imagePath);
     res.json(resultCloudinary);
-    console.log("hello4",resultCloudinary)
+    // console.log("hello4",resultCloudinary)
   } else {
     res.json( {error:resultCopy} );
   } 

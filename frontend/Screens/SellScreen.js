@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity } from 'react-native';
-import {Button, Input} from 'react-native-elements';
+import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {connect} from 'react-redux';
+
 import { SafeAreaView } from 'react-navigation';
 
 
 
-export default function App({navigation}) {
+
+function SellScreen(props) {
   const [selectedValueCategory, setSelectedValueCategory] = useState("");
   const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
@@ -19,19 +22,21 @@ export default function App({navigation}) {
   const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
   const [shippingFees , setShippingFees ] = useState("");
-
+  
+  var typeOfAction= 'vendeur';
 
 
   var handleClick = async () => {
     
-    console.log('ceci est le titre post handleclick=', titleInput);
-    const dataArticle = await fetch("http://172.17.1.24:3000/articles/create-article", {
+    var image = JSON.stringify(props.addPhoto);
+    // console.log('tableau photos',image)
+    const dataArticle = await fetch("http://172.20.10.2:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}`
     });
                                
-    console.log("dataArticle",dataArticle)
+    // console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
     console.log("dataAnnonce", dataAnnonce)
 
@@ -42,7 +47,7 @@ export default function App({navigation}) {
       <ScrollView style={{width: '90%'}}>
 
         {/* <Text style={{marginTop:40,textAlign: 'center'}}>Jusqu'à 6 photos</Text> */}
-
+       
         <Button
           buttonStyle={{marginTop:60, marginBottom:40, borderColor:"#82589F"}}
           titleStyle={{fontSize:25, color:"#82589F"}}
@@ -51,8 +56,33 @@ export default function App({navigation}) {
               }            
           title=" Ajouter des photos"
           type="outline"
-          onPress= {() => navigation.navigate('AddPic')}
+          onPress= {() => props.navigation.navigate('AddPic')}
         />
+
+         <View style={{ flexDirection:'row', marginTop:2, marginBottom:20,justifyContent:"space-between"}}>
+          <View>
+            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:60}}/>
+            
+          </View>
+          <View>
+          <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:60}}/>
+            
+          </View>
+          <View>
+          <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:60}}/>
+           
+          </View>
+
+          <View>
+          <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:60}}/>
+           
+          </View>
+
+          <View>
+          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}}/>
+           
+          </View>
+        </View>
       
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
@@ -127,7 +157,7 @@ export default function App({navigation}) {
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => handleClick()}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);props.navigation.navigate('SignIn')}}
           containerStyle={{marginBottom: 20}}
         />
 
@@ -148,3 +178,20 @@ const styles = StyleSheet.create({
     flex:1,
   }
 });
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitTypeOfAction: function (typeOfAction) {
+      dispatch({ type: 'sell', typeOfAction})
+    }
+  }
+}
+
+ 
+function mapStateToProps(state) {
+  return { addPhoto: state.photo }
+}
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(SellScreen);
