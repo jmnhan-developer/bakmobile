@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 function SigninScreens({navigation,onSubmitId,typeOfAction}) {
 
 
-
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
   const [id,setId]=useState('')
@@ -21,21 +20,27 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
   
   useEffect(() => {
     AsyncStorage.getItem('userId', (err, value) => {
-      setId(value);
-      setIdIsSubmited(true);
-      console.log(value,'from asyncstorage ------ ------ -----')
+      if(value){ 
+      
+        onSubmitId(value);
+        setId(value);
+        setIsConnect(true);
+        console.log('value:',value,'isConnect',isConnect);
+
+      }
     })
   }, []);
+
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.123:3000/users/sign-in", {
+    const dataUsers = await fetch("http://172.17.1.179:3000/users/sign-in", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`email=${email}&password=${password}`
     },
     );
-
+    
     // console.log("dataUsersXXX", dataUsers)
     
     const dataConsumers = await dataUsers.json()
@@ -45,22 +50,21 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
     onSubmitId(dataConsumers.user._id)
     
     AsyncStorage.setItem('userId',dataConsumers.user._id );
-    
+  
   }
-   if(isConnect==true)
+   if(isConnect==true )
    {
       if(typeOfAction=='acheteur')
       { 
       navigation.navigate('Basket');
       }
-   else
-   {
-     navigation.navigate('Home')
+      else
+      {
+       navigation.navigate('Home')
+      }
    }
-  }
-console.log('name is-----',id);
-
-
+ console.log(id,'id from AsyncStorage SignIn')
+ console.log(idIsSubmited,'etat de id submit')
 
   return (
     <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>

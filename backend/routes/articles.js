@@ -70,4 +70,12 @@ router.post('/upload', async function(req, res, next) {
   fs.unlinkSync(imagePath);
 });
 
+router.get('/filter-articles', async function(req, res, next) {
+  console.log(req.query.subcat)
+  let products = await articleModel.find({subcategory:req.query.subcat})
+  console.log(products)
+  res.json({products})
+  
+}); 
+
 module.exports = router; 

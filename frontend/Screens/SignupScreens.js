@@ -32,7 +32,7 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.123:3000/users/sign-up", {
+    const dataUsers = await fetch("http://172.17.1.179:3000/users/sign-up", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
@@ -67,13 +67,15 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
 
 
   return (
-    <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
+    
+    <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:10}}>
       
-      <Text style={{marginBottom: 20}}>INSCRIPTION</Text>
+      <Text style={{fontSize:15, textAlign:"center", marginBottom: 20}}>Inscription</Text>
        
-      <ScrollView>
 
-        <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
+      <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}>
+
+        <ScrollView>
 
           <Input name="gender" placeholder='Madame ou Monsieur'
           onChangeText={(val) =>setGender(val)}/>
@@ -117,9 +119,9 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
             <Text>{isNotConnect}</Text>
           <Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text>
 
-        </KeyboardAvoidingView>
+        </ScrollView>
 
-      </ScrollView>
+      </KeyboardAvoidingView>
 
     </View>
   )
