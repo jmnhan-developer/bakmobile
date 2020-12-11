@@ -16,7 +16,7 @@ import AddPicScreen from './Screens/AddPicScreen';
 
 
 import product from '../frontend/reducers/Article.reducer';
-
+import typeOfAction from './reducers/typeOfAction.reducer'
 
 import ProfileMenuScreen from './Screens/ProfileMenuScreen'
 import SignUpScreen from './Screens/SignupScreens'
@@ -28,10 +28,11 @@ import {createStore, combineReducers}  from 'redux';
 import ProfileBoughtArticleScreen from './Screens/ProfileBoughtArticleScreen'
 import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
 import SigninScreens from './Screens/SigninScreens';
-import token from './reducers/Token.reducer'
+import id from './reducers/Id.reducer'
 import WalletScreens from './Screens/WalletScreens'
+import ProfileUpdateScreen from './Screens/ProfileUpdateScreen'
 
-const store = createStore(combineReducers({photo,product,token}));
+const store = createStore(combineReducers({photo,product,id,typeOfAction}));
 
 
 var StackNavigatorHome= createStackNavigator({
@@ -48,18 +49,19 @@ var StackNavigatorSearch = createStackNavigator({
   Filter:  FilterScreen,  
   Result: ResultScreens, 
   Product: ProductScreens,
-  Basket: BasketScreens, 
   SignUp: SignUpScreen, 
-  SignIn:SigninScreens
-  
+  SignIn:SigninScreens,
+  Basket: BasketScreens,
 }, 
 {headerMode: 'none'}
 );  
   
 var stackNavigatorSell =  createStackNavigator({  
- 
+  
   Sell: SellScreen,
+  SignIn:SigninScreens,
   AddPic: AddPicScreen,
+  AddArticle :ProfileSellingArticleScreen,
 
 },
 {headerMode: 'none'})
@@ -69,7 +71,8 @@ var StackNavigatorProfile = createStackNavigator({
   ProfileUser:ProfileScreen, 
   ArticleBought: ProfileBoughtArticleScreen, 
   ArticleSell: ProfileSellingArticleScreen,
-  MyWallet:WalletScreens
+  MyWallet:WalletScreens,
+  ProfileUp:ProfileUpdateScreen
 }, 
 {headerMode: 'none'}
 );  
@@ -81,8 +84,7 @@ var BottomNavigator = createBottomTabNavigator({
   Vendre: stackNavigatorSell,
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,
-  
-  
+
  },
   {
    defaultNavigationOptions: ({ navigation }) => ({

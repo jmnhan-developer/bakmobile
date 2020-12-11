@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, Button } from 'react-native';
-import {Input, ListItem, Icon, Divider} from 'react-native-elements';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {Input, ListItem, Icon, Divider, Button} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -9,7 +9,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 function WalletScreens () {
 
   return (
-    <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:5}}>
+    <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:10}}>
 
       <Text style={{fontSize:20, textAlign:"center", marginTop:5}}>Mon porte-monnaie</Text>
 
@@ -24,11 +24,11 @@ function WalletScreens () {
 
       <View style={{marginTop:20, marginBottom:20, alignItems:'center'}}>
         <Text style={{fontSize: 30, marginTop:10, marginBottom:10}}>75,00€</Text>
-        <Text style={{fontSize:15}}>Montant disponible</Text>
-        <Text style={{fontWeight:'bold', fontSize:15, color:"white", textAlign:'center', backgroundColor:'#5499C7', width:340, height:40, marginTop:50, marginLeft:20}}>Transférer vers mon compte bancaire</Text>
+        <Text style={{fontSize:15, marginBottom: 30}}>Montant disponible</Text>
+        <Button title="Transférer vers mon compte bancaire" buttonStyle={{backgroundColor: "#009788"}} type="solid"/>
       </View>
 
-  </View>
+    </View>
 
   )
 }

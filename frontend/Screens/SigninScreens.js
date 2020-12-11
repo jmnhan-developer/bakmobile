@@ -1,40 +1,66 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 
-function SigninScreens({navigation,onSubmitToken}) {
+function SigninScreens({navigation,onSubmitId,typeOfAction}) {
+
+
 
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
+  const [id,setId]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
-
+  const [idIsSubmited,setIdIsSubmited]=useState(false)
+  
+  console.log('type of action -------',typeOfAction)
+  
+  useEffect(() => {
+    AsyncStorage.getItem('userId', (err, value) => {
+      setId(value);
+      setIdIsSubmited(true);
+      console.log(value,'from asyncstorage ------ ------ -----')
+    })
+  }, []);
+  
   var handleClick =async () => {
 
     const dataUsers = await fetch("http://172.17.1.18:3000/users/sign-in", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`email=${email}&password=${password}`
-    });
+    },
+    );
 
     // console.log("dataUsersXXX", dataUsers)
     
     const dataConsumers = await dataUsers.json()
-    console.log("dataConsumersjson-Result", dataConsumers.error)
+    console.log("dataConsumersjson-Result", dataConsumers)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
-    onSubmitToken(dataConsumers.token)
-    console.log('token from SignIn------',dataConsumers.token,dataConsumers.error)
+    onSubmitId(dataConsumers.user._id)
+    
+    AsyncStorage.setItem('userId',dataConsumers.user._id );
+    
   }
    if(isConnect==true)
    {
+      if(typeOfAction=='acheteur')
+      { 
       navigation.navigate('Basket');
+      }
+   else
+   {
+     navigation.navigate('Home')
    }
-  
+  }
+console.log('name is-----',id);
+
+
 
   return (
     <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
@@ -59,14 +85,15 @@ function SigninScreens({navigation,onSubmitToken}) {
             buttonStyle={{ backgroundColor: "#eb4d4b"}}
             type="solid"
             onPress={()=>handleClick()}
+            
           />
            <Text>{isNotConnect}</Text>
-           <TouchableOpacity onPress={()=>navigation.navigate('SignUp')}><Text>Créer un compte</Text></TouchableOpacity>
+           <TouchableOpacity onPress={()=>{navigation.navigate('SignUp')}}><Text>Créer un compte</Text></TouchableOpacity>
         </KeyboardAvoidingView>
 
       </ScrollView>
 
-    </View>
+    </View> 
   )
 }
 
@@ -80,13 +107,20 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitToken: function (token) {
-      dispatch({ type: 'informationFromSignIn', token:token})
+    onSubmitId: function (id) {
+      dispatch({ type: 'informationFromSignIn', id:id})
     }
   }
 }
 
+function mapStateToProps(state) {
+  return { typeOfAction: state.typeOfAction }
+}
+
+
 export default connect(
-  null,
+  
+  mapStateToProps,
   mapDispatchToProps
+
 )(SigninScreens);

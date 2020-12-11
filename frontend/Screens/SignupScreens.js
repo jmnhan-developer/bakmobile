@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-function SignUpScreens({onSubmitToken,navigation}) {
+function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
 
   const [gender, setGender]=useState('')
   const [firstName, setFirstName]=useState('')
@@ -18,7 +18,18 @@ function SignUpScreens({onSubmitToken,navigation}) {
   const [city, setCity]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
+  const [id,setId]=useState('')
+  const [idIsSubmited,setIdIsSubmited]=useState(false)
 
+  useEffect(() => {
+    AsyncStorage.getItem('userId', (err, value) => {
+      setId(value);
+      setIdIsSubmited(true);
+      console.log(value,'from asyncstorage ------ ------ -----')
+    })
+  }, []);
+
+  
   var handleClick =async () => {
 
     const dataUsers = await fetch("http://172.17.1.18:3000/users/sign-up", {
@@ -27,6 +38,7 @@ function SignUpScreens({onSubmitToken,navigation}) {
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
     });
 
+ 
     console.log("dataUsersXXX", dataUsers)
     
     const dataConsumers = await dataUsers.json()
@@ -34,20 +46,36 @@ function SignUpScreens({onSubmitToken,navigation}) {
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
     console.log(dataConsumers.saveUser.token)
-    onSubmitToken(dataConsumers.saveUser.token)
+    onSubmitId(dataConsumers.saveUser.token)
+    AsyncStorage.setItem('userId',dataConsumers.saveUser._id );
   }
-   if(isConnect==true)
-   {
-      navigation.navigate('Basket');
-   }
-  return (
-    <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
-      
-      <Text style={{marginBottom: 20}}>INSCRIPTION</Text>
-       
-      <ScrollView>
 
-        <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
+  if(isConnect==true )
+  {
+     if(typeOfAction=='acheteur')
+     { 
+       navigation.navigate('Basket');
+     }
+    else 
+     {
+       navigation.navigate('Home')
+     }
+}
+
+
+
+
+
+  return (
+    
+    <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:10}}>
+      
+      <Text style={{fontSize:15, textAlign:"center", marginBottom: 20}}>Inscription</Text>
+       
+
+      <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}>
+
+        <ScrollView>
 
           <Input name="gender" placeholder='Madame ou Monsieur'
           onChangeText={(val) =>setGender(val)}/>
@@ -91,9 +119,9 @@ function SignUpScreens({onSubmitToken,navigation}) {
             <Text>{isNotConnect}</Text>
           <Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text>
 
-        </KeyboardAvoidingView>
+        </ScrollView>
 
-      </ScrollView>
+      </KeyboardAvoidingView>
 
     </View>
   )
@@ -107,17 +135,38 @@ const styles = StyleSheet.create({
   },
 });
 
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     onSubmitId: function (id) {
+//       dispatch({ type: 'informationFromSignUp', id:id})
+//     }
+//   }
+// }
+
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(SignUpScreens);
+
+//______________
+
+
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitToken: function (token) {
-      dispatch({ type: 'informationFromSignUp', token:token})
+    onSubmitId: function (id) {
+      dispatch({ type: 'informationFromSignUp', id:id})
     }
   }
 }
 
+function mapStateToProps(state) {
+  return { typeOfAction: state.typeOfAction }
+}
+
+
 export default connect(
-  null,
+  
+  mapStateToProps,
   mapDispatchToProps
+
 )(SignUpScreens);
-
-
