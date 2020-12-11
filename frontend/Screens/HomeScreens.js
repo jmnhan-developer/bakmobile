@@ -1,10 +1,10 @@
+
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Input, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
-
 
 function HomeScreens({navigation, onSubmitProduct}) {
   const [productList, setProductList] = useState([])
@@ -13,31 +13,29 @@ function HomeScreens({navigation, onSubmitProduct}) {
 
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch("http://172.17.1.179:3000/articles/get-all-articles")
+      const data = await fetch("http://172.17.1.18:3000/articles/get-all-articles")
       const body = await data.json()
       setProductList(body.products);
       setFilterAddList(body.products);
     }
-    
+
     findProducts()
-    
+
   },[])
 
   useEffect(() => {
 
-    if(searchTerm!='') {
-      const results = productList.filter(products => 
-      products.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-     setFilterAddList(results);
-    }
+if(searchTerm!='') {
+  const results = productList.filter(products => 
+  products.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+ setFilterAddList(results);
+}
 
-    else {
-      setFilterAddList(productList);
-    }
-
+else {
+  setFilterAddList(productList);
+}
   }, [searchTerm])
-
 
   // var dataList = [
   //   {url:'https://picsum.photos/201', brand:'Aubert', size:'M', price:"10"},
@@ -49,8 +47,8 @@ function HomeScreens({navigation, onSubmitProduct}) {
   //   {url:'https://picsum.photos/207', brand:'Mon Bébé', size:'10 ans', price:"50"},
   //   {url:'https://picsum.photos/208', brand:'Bambino', size:'s', price:"60"}
   // ]
-  
-  
+
+
   let lastArticles = filterAddList.map((productId, i) => {
     return <View style={{width:'47%', margin:5}}>
       <TouchableOpacity
@@ -73,7 +71,6 @@ function HomeScreens({navigation, onSubmitProduct}) {
   }
   )
 
-
   return (
     <View style={{flex: 1, marginTop:25 }}>
       <Input
@@ -83,14 +80,14 @@ function HomeScreens({navigation, onSubmitProduct}) {
       onChangeText={(val) =>setSearchTerm(val)}
       />
 
-      <Text style={{fontSize:20, textAlign:"center", marginTop:5, marginBottom:5}}>Les derniers articles mis en vente</Text>
+  <Text style={{fontSize:20, textAlign:"center", marginTop:5, marginBottom:5}}>Les derniers articles mis en vente</Text>
 
-      <ScrollView>
-        <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>
-          {lastArticles}
-        </View>
-      </ScrollView>
+  <ScrollView>
+    <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>
+      {lastArticles}
     </View>
+  </ScrollView>
+</View>
   )
 }
 

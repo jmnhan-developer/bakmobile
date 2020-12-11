@@ -10,50 +10,50 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
       <View style={{marginTop: 50}}>
 
-        <ListItem bottomDivider>
+        <ListItem bottomDivider onPress= {() => navigation.navigate('ProfileUser')}>
           <FontAwesome name="user-circle-o" size={20}  color="#82589F"/>
           <ListItem.Content>
-            <ListItem.Title onPress= {() => navigation.navigate('ProfileUser')}>Mon Profil</ListItem.Title>
+            <ListItem.Title >Mon Profil</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider>
+        <ListItem bottomDivider onPress= {() => navigation.navigate('')}>
           <FontAwesome name="star" size={20}  color="#82589F"/>
           <ListItem.Content>
-            <ListItem.Title onPress= {() => navigation.navigate('')}>Mon évalution (route à finir)</ListItem.Title>
+            <ListItem.Title>Mon évalution (route à finir)</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider>
+        <ListItem bottomDivider onPress= {() => navigation.navigate('')}>
           <FontAwesome name="heart-o" size={20}  color="#82589F"/>
           <ListItem.Content>
-            <ListItem.Title onPress= {() => navigation.navigate('')}>Mes favoris (route à finir)</ListItem.Title>
+            <ListItem.Title>Mes favoris (route à finir)</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider>
+        <ListItem bottomDivider onPress= {() => navigation.navigate('ArticleSell')}>
           <FontAwesome5 name="store" size={18} color="#82589F" />
           <ListItem.Content>
-            <ListItem.Title onPress= {() => navigation.navigate('ArticleSell')}>Mes ventes</ListItem.Title>
+            <ListItem.Title>Mes ventes</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider>
+        <ListItem bottomDivider onPress= {() => navigation.navigate('ArticleBought')}>
           <FontAwesome name="shopping-cart" size={20}  color="#82589F"/>
           <ListItem.Content>
-            <ListItem.Title onPress= {() => navigation.navigate('ArticleBought')}>Mes achats</ListItem.Title>
+            <ListItem.Title >Mes achats</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider>
+        <ListItem bottomDivider onPress= {() => navigation.navigate('MyWallet')}>
           <FontAwesome name="euro" size={24} color="#82589F" />
           <ListItem.Content>
-            <ListItem.Title onPress= {() => navigation.navigate('MyWallet')}>Mon porte-monnaie (route à finir)</ListItem.Title>
+            <ListItem.Title >Mon porte-monnaie</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>

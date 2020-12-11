@@ -30,6 +30,7 @@ import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
 import SigninScreens from './Screens/SigninScreens';
 import id from './reducers/Id.reducer'
 import WalletScreens from './Screens/WalletScreens'
+import ProfileUpdateScreen from './Screens/ProfileUpdateScreen'
 
 const store = createStore(combineReducers({photo,product,id,typeOfAction}));
 
@@ -59,7 +60,8 @@ var stackNavigatorSell =  createStackNavigator({
   
   Sell: SellScreen,
   AddPic: AddPicScreen,
-  
+  AddArticle :ProfileSellingArticleScreen,
+
 },
 {headerMode: 'none'})
 var StackNavigatorProfile = createStackNavigator({ 
@@ -68,7 +70,8 @@ var StackNavigatorProfile = createStackNavigator({
   ProfileUser:ProfileScreen, 
   ArticleBought: ProfileBoughtArticleScreen, 
   ArticleSell: ProfileSellingArticleScreen,
-  MyWallet:WalletScreens
+  MyWallet:WalletScreens,
+  ProfileUp:ProfileUpdateScreen
 }, 
 {headerMode: 'none'}
 );  
