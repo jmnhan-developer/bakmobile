@@ -37,7 +37,9 @@ const store = createStore(combineReducers({photo,product,id,typeOfAction}));
 var StackNavigatorHome= createStackNavigator({
    
   Home:HomeScreens,
-  Product:ProductScreens
+  Product:ProductScreens,
+  SignUp: SignUpScreen, 
+  SignIn:SigninScreens
 
 },{headerMode: 'none'}
 );
@@ -48,8 +50,6 @@ var StackNavigatorSearch = createStackNavigator({
   Filter:  FilterScreen,  
   Result: ResultScreens, 
   Product: ProductScreens,
-  SignUp: SignUpScreen, 
-  SignIn:SigninScreens,
   Basket: BasketScreens,
 }, 
 {headerMode: 'none'}
@@ -58,7 +58,6 @@ var StackNavigatorSearch = createStackNavigator({
 var stackNavigatorSell =  createStackNavigator({  
   
   Sell: SellScreen,
-  SignIn:SigninScreens,
   AddPic: AddPicScreen,
   
 },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View,AsyncStorage } from 'react-native';
 import {Button, Input, ListItem, Icon} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -57,7 +57,14 @@ import { FontAwesome5 } from '@expo/vector-icons';
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
-        
+
+        <ListItem bottomDivider>
+          <FontAwesome name="sign-out" size={24} color="#82589F" />
+          <ListItem.Content>
+            <ListItem.Title onPress= {() => {navigation.navigate('SignIn');AsyncStorage.removeItem("userId")}}>Log Out</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
       </View>
     );
   }
