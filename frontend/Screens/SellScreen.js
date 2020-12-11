@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,Platform  } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -7,10 +7,49 @@ import {connect} from 'react-redux';
 
 import { SafeAreaView } from 'react-navigation';
 
+// ----------------------------------------------image picker
+// import * as ImagePicker from 'expo-image-picker';
+// import Constants from 'expo-constants';
 
+
+  
 
 
 function SellScreen(props) {
+  
+  // ----------------------------------------------image picker
+  // const [photoImage, setImage] = useState(null);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     if (Platform.OS !== 'web') {
+  //       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //       if (status !== 'granted') {
+  //         alert('Sorry, we need camera roll permissions to make this work!');
+  //       }
+  //     }
+  //   })();
+  // }, []);
+
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+
+  //   console.log(result);
+
+  //   if (!result.cancelled) {
+  //     setImage(result.uri);
+  //   }
+  // };
+
+// ---------------------------------------------- fin image picker
+
+
+
   const [selectedValueCategory, setSelectedValueCategory] = useState("");
   const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
@@ -25,6 +64,7 @@ function SellScreen(props) {
   
   var typeOfAction= 'vendeur';
 
+console.log("--------------------------------------hello ID",props.takeId)
 
   var handleClick = async () => {
     
@@ -33,7 +73,7 @@ function SellScreen(props) {
     const dataArticle = await fetch("http://172.17.1.123:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}&sellerID=${props.takeId}`
     });
                                
     // console.log("dataArticle",dataArticle)
@@ -58,7 +98,7 @@ function SellScreen(props) {
           type="outline"
           onPress= {() => props.navigation.navigate('AddPic')}
         />
-
+     
          <View style={{ flexDirection:'row', marginTop:2, marginBottom:20,justifyContent:"space-between"}}>
           <View>
             <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:60}}/>
@@ -79,10 +119,18 @@ function SellScreen(props) {
           </View>
 
           <View>
-          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}}/>
+          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}} />
            
           </View>
         </View>
+
+        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
+                  <FontAwesome name="camera" size={24}  color="white"/>
+                  } />
+          {photoImage && <Image source={{ uri: photoImage }} style={{ width: 70, height: 70 }} />}
+        </View> */}
+
       
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
@@ -176,7 +224,13 @@ const styles = StyleSheet.create({
   },
   container2: {
     flex:1,
+  }, 
+   thumbnail: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain"
   }
+
 });
 
 function mapDispatchToProps(dispatch) {
@@ -189,7 +243,7 @@ function mapDispatchToProps(dispatch) {
 
  
 function mapStateToProps(state) {
-  return { addPhoto: state.photo }
+  return { addPhoto: state.photo , takeId: state.id }
 }
 export default connect(
   mapStateToProps, 
