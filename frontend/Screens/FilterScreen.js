@@ -24,6 +24,9 @@ const [colorButton5,setColorButton5]=useState(false);
 const [subCatSelected, setSubCatSelected]= useState(false);
 const [subCatName, setSubCatName]= useState('');
 
+console.log(subCatName)
+
+
 
 var subCat1 = [
   {subcategory: "Sièges Auto"},
@@ -189,6 +192,7 @@ if(subCatSelected==true){
                     <Picker.Item label={e.subcategory} value={e.subcategory} />
                   )}
                 )}
+
                     
                 </Picker>
               </View>

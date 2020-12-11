@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import { Card, ListItem, Button,  } from 'react-native-elements'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Carousel from '../components/Carousel';
 
 
 function ProductScreens({navigation,productId}){
@@ -24,7 +25,7 @@ function ProductScreens({navigation,productId}){
         onPress= {() => navigation.goBack()}
       />
           <Image style={styles.image} 
-          source={{uri:productId.images}}
+          source={{uri:productId.images[0]}}
           />
           <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
            <Image
@@ -110,7 +111,6 @@ avatar: {
 });
 
 function mapStateToProps(state) {
-  console.log("state is stable", state.product)
   return {productId: state.product}
 };
 
