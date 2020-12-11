@@ -102,9 +102,27 @@ if(user){
 })
 
 router.get('/display-profile', async function(req, res, next) {
-  let data = await userModel.findById(req.query.id)
+  console.log('-------------test req.query',req.query);
+  let data = await userModel.findOne({token:req.query.token})
+  console.log("kjhmkjbk", data)
+  res.json({data});
+});
+
+
+router.put('/update-profile', async function(req, res, next) {
+  let data = await userModel.updateOne(
+    {token:req.query.token},
+    {firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    address: req.body.address,
+    postalCode: req.body.postalCode,
+    city: req.body.city}
+    );
+  console.log(req.query)
   console.log(data)
   res.json({data});
 });
+
 
 module.exports = router;
