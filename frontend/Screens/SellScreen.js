@@ -30,7 +30,7 @@ function SellScreen(props) {
     
     var image = JSON.stringify(props.addPhoto);
     // console.log('tableau photos',image)
-    const dataArticle = await fetch("http://172.20.10.2:3000/articles/create-article", {
+    const dataArticle = await fetch("http://172.17.1.18:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}`
