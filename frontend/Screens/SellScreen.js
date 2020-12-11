@@ -49,7 +49,6 @@ function SellScreen(props) {
 // ---------------------------------------------- fin image picker
 
 
-  const [selectedValueState, setSelectedValueState] = useState("");
 
   
   const [titleInput , setTitleInput ] = useState("");
@@ -222,10 +221,13 @@ console.log("--------------------------------------hello ID",props.takeId)
         <Input style = {{ width: '90%'}}
           placeholder='Prix'
           onChangeText={(val) => setPrice(val)}
+          keyboardType='numeric'
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
           onChangeText={(val) => setShippingFees(val)}
+          keyboardType='numeric'
+
         />
         <Input style = {{ width: '90%'}}
           placeholder='Age'
