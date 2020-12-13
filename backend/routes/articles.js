@@ -27,7 +27,7 @@ router.post('/create-article', async function(req, res, next) {
         category:req.body.category,
         subcategory:req.body.subcategory,
         state:req.body.state,
-        sellerToken:req.body.sellerID,
+        sellerToken:req.body.sellerToken,
         images:JSON.parse(req.body.images),
         creationDate:new Date()
       })
