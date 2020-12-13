@@ -1,11 +1,11 @@
 import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage } from 'react-native';
+import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage,TouchableOpacity } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
+function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
   const [gender, setGender]=useState('')
   const [firstName, setFirstName]=useState('')
@@ -18,21 +18,23 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
   const [city, setCity]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
-  const [id,setId]=useState('')
-  const [idIsSubmited,setIdIsSubmited]=useState(false)
+  const [token,setToken]=useState('')
+  const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
 
   useEffect(() => {
-    AsyncStorage.getItem('userId', (err, value) => {
-      setId(value);
-      setIdIsSubmited(true);
-      console.log(value,'from asyncstorage ------ ------ -----')
+    AsyncStorage.getItem('userToken', (err, value) => {
+      if(value){ 
+      setToken(value);
+      onSubmitToken(value);
+      setTokenIsSubmited(true);
+      console.log(value,'from asyncstorage ------ ------ -----') }
     })
   }, []);
 
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.123:3000/users/sign-up", {
+    const dataUsers = await fetch("http://192.168.1.23:3000/users/sign-up", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
@@ -46,8 +48,8 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
     console.log(dataConsumers.saveUser.token)
-    onSubmitId(dataConsumers.saveUser.token)
-    AsyncStorage.setItem('userId',dataConsumers.saveUser._id );
+    onSubmitToken(dataConsumers.saveUser.token)
+    AsyncStorage.setItem('userToken',dataConsumers.saveUser.token );
   }
 
   if(isConnect==true )
@@ -58,7 +60,7 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
      }
     else 
      {
-       navigation.navigate('Home')
+       navigation.navigate('Sell')
      }
 }
 
@@ -67,13 +69,15 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
 
 
   return (
-    <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
+    
+    <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:10}}>
       
-      <Text style={{marginBottom: 20}}>INSCRIPTION</Text>
+      <Text style={{fontSize:15, textAlign:"center", marginBottom: 20}}>Inscription</Text>
        
-      <ScrollView>
 
-        <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
+      {/* <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}> */}
+
+        <ScrollView>
 
           <Input name="gender" placeholder='Madame ou Monsieur'
           onChangeText={(val) =>setGender(val)}/>
@@ -115,11 +119,11 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
            }
           />
             <Text>{isNotConnect}</Text>
-          <Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text>
+            <TouchableOpacity onPress={()=>{navigation.navigate('SignIn')}}><Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text></TouchableOpacity>
 
-        </KeyboardAvoidingView>
+        </ScrollView>
 
-      </ScrollView>
+      {/* </KeyboardAvoidingView> */}
 
     </View>
   )
@@ -151,8 +155,8 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitId: function (id) {
-      dispatch({ type: 'informationFromSignUp', id:id})
+    onSubmitToken: function (token) {
+      dispatch({ type: 'informationFromSignUp', token:token})
     }
   }
 }

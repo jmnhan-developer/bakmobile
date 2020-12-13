@@ -6,61 +6,66 @@ import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 
-function SigninScreens({navigation,onSubmitId,typeOfAction}) {
-
+function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
 
 
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
-  const [id,setId]=useState('')
+  const [token,setToken]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
-  const [idIsSubmited,setIdIsSubmited]=useState(false)
+  const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
   
   console.log('type of action -------',typeOfAction)
   
   useEffect(() => {
-    AsyncStorage.getItem('userId', (err, value) => {
-      setId(value);
-      setIdIsSubmited(true);
-      console.log(value,'from asyncstorage ------ ------ -----')
+    AsyncStorage.getItem('userToken', (err, value) => {
+      if(value){ 
+      
+        onSubmitToken(value);
+        setToken(value);
+        setIsConnect(true);
+        console.log('value:',value,'isConnect',isConnect);
+
+      }
     })
   }, []);
+
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://192.168.43.254:3000/users/sign-in", {
+    const dataUsers = await fetch("http://192.168.1.23:3000/users/sign-in", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`email=${email}&password=${password}`
     },
     );
-
+    
     // console.log("dataUsersXXX", dataUsers)
     
     const dataConsumers = await dataUsers.json()
-    console.log("dataConsumersjson-Result", dataConsumers)
+    // console.log("dataConsumersjson-Result", dataConsumers)
+    console.log('-----------------',dataConsumers.token)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
-    onSubmitId(dataConsumers.user._id)
+    onSubmitToken(dataConsumers.token)
     
-    AsyncStorage.setItem('userId',dataConsumers.user._id );
-    
+    AsyncStorage.setItem('userToken',dataConsumers.token );
+  
   }
-   if(isConnect==true)
+   if(isConnect==true )
    {
       if(typeOfAction=='acheteur')
       { 
       navigation.navigate('Basket');
       }
-   else
-   {
-     navigation.navigate('Home')
+      else
+      {
+       navigation.navigate('Sell')
+      }
    }
-  }
-console.log('name is-----',id);
-
-
+ console.log(token,'id from AsyncStorage SignIn')
+ console.log(tokenIsSubmited,'etat de id submit')
 
   return (
     <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
@@ -107,8 +112,8 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitId: function (id) {
-      dispatch({ type: 'informationFromSignIn', id:id})
+    onSubmitToken: function (token) {
+      dispatch({ type: 'informationFromSignIn', token:token})
     }
   }
 }
