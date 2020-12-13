@@ -7,12 +7,12 @@ import {connect} from 'react-redux';
 
 import { SafeAreaView } from 'react-navigation';
 
+
+
 // ----------------------------------------------image picker
 // import * as ImagePicker from 'expo-image-picker';
 // import Constants from 'expo-constants';
 
-
-  
 
 
 function SellScreen(props) {
@@ -70,7 +70,7 @@ console.log("--------------------------------------hello ID",props.takeId)
     
     var image = JSON.stringify(props.addPhoto);
     // console.log('tableau photos',image)
-    const dataArticle = await fetch("http://172.17.1.179:3000/articles/create-article", {
+    const dataArticle = await fetch("http://192.168.1.23:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}&sellerID=${props.takeId}`
@@ -124,6 +124,7 @@ console.log("--------------------------------------hello ID",props.takeId)
           </View>
         </View>
 
+
         {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
                   <FontAwesome name="camera" size={24}  color="white"/>
@@ -147,9 +148,11 @@ console.log("--------------------------------------hello ID",props.takeId)
         <Input style = {{ width: '90%'}}
           placeholder='Prix'
           onChangeText={(val) => setPrice(val)}
+          keyboardType = 'numeric'
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
+          keyboardType = 'numeric'
           onChangeText={(val) => setShippingFees(val)}
         />
 
@@ -164,8 +167,6 @@ console.log("--------------------------------------hello ID",props.takeId)
               placeholder="Catégorie"
               containerStyle={{height: 60, margin:10}}
               onChangeItem={itemValue => setSelectedValueCategory(itemValue.value)}
-              
-
                   />
         
           <DropDownPicker
@@ -177,9 +178,7 @@ console.log("--------------------------------------hello ID",props.takeId)
               defaultNull
               placeholder="Sous-catégorie"
               containerStyle={{height: 60, margin:10}}
-              onChangeItem={itemValue => setSelectedValueSubCategory(itemValue.value)}
-              
-               
+              onChangeItem={itemValue => setSelectedValueSubCategory(itemValue.value)}                       
                />
           
           
@@ -195,7 +194,6 @@ console.log("--------------------------------------hello ID",props.takeId)
               
               containerStyle={{height: 60, margin:10, marginBottom:80}}
               onChangeItem={itemValue => setSelectedValueState(itemValue.value)}
-             
                   />
 
 
