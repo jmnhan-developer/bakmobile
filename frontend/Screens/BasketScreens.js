@@ -1,67 +1,67 @@
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
-import { Card, ListItem, Button,  } from 'react-native-elements'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { Card, ListItem, Button, } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function BasketScreens({navigation,productId}) {
-  let totalPrice = parseInt(productId.price)+parseInt(productId.shippingFees);
+function BasketScreens({ navigation, productId }) {
+  let totalPrice = parseInt(productId.price) + parseInt(productId.shippingFees);
   const [selectedValue, setSelectedValue] = useState(false);
   var userData
-  if(selectedValue==true) {
-     userData= <View style={{flexDirection:'column', justifyContent:'flex-start', margin:10}}>
-     <Text>Axel</Text>
-     <Text>Barateau</Text>
-     <Text>axel@live.fr</Text>
-     <Text>adresse</Text>
-     <Text>code postale</Text>
-     <Text>ville</Text>
- </View> 
+  if (selectedValue == true) {
+    userData = <View style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 10 }}>
+      <Text>Axel</Text>
+      <Text>Barateau</Text>
+      <Text>axel@live.fr</Text>
+      <Text>adresse</Text>
+      <Text>code postale</Text>
+      <Text>ville</Text>
+    </View>
   }
 
 
-  return(
+  return (
 
-    <Card containerStyle={{marginTop:50}}>
-    
+    <Card containerStyle={{ marginTop: 50 }}>
+
       <Button
-        icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
-        containerStyle={{alignItems:"flex-start"}}
+        icon={<Icon name="long-arrow-left" color="#82589F" size={24} />}
+        containerStyle={{ alignItems: "flex-start" }}
         type="clear"
-        onPress= {() => navigation.navigate('Product')}
+        onPress={() => navigation.navigate('Product')}
       />
       {/* <Image source={require('./assets/loutre.jpg')}
       style={{width:355, height:300}} /> */}
 
-        <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
-            <Text>{productId.title}</Text>
-            <Text>Prix : {productId.price} €</Text>
-        </View>
-        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-    <Text>Marque : {productId.brand}</Text>
-            <Text>Frais de Port : {productId.shippingFees} €</Text>
-        </View>    
-        <View style={{flexDirection:'row-reverse', marginTop: 10}}>
-            <Text> Total : {totalPrice} €</Text>
-        </View>
-        <DropDownPicker
-            items={[
-                {label: 'Item 1', value: 'item1'},
-                {label: 'Item 2', value: 'item2'},
-                {label: 'Item 2', value: 'item2'},
-            ]}
-            defaultIndex={0}
-            defaultNull
-            placeholder="Choisissez votre mode de livraison"
-            containerStyle={{height: 40, margin:10}}
-            onChangeItem={() => {setSelectedValue(true)}}
-        />
-        {userData}
-       
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+        <Text>{productId.title}</Text>
+        <Text>Prix : {productId.price} €</Text>
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text>Marque : {productId.brand}</Text>
+        <Text>Frais de Port : {productId.shippingFees} €</Text>
+      </View>
+      <View style={{ flexDirection: 'row-reverse', marginTop: 10 }}>
+        <Text> Total : {totalPrice} €</Text>
+      </View>
+      <DropDownPicker
+        items={[
+          { label: 'Item 1', value: 'item1' },
+          { label: 'Item 2', value: 'item2' },
+          { label: 'Item 2', value: 'item2' },
+        ]}
+        defaultIndex={0}
+        defaultNull
+        placeholder="Choisissez votre mode de livraison"
+        containerStyle={{ height: 40, margin: 10 }}
+        onChangeItem={() => { setSelectedValue(true) }}
+      />
+      {userData}
+
       <Button
-        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:'#82589F'}}
+        buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#82589F' }}
         title='Finaliser le paiement' />
     </Card>
   )
@@ -78,12 +78,12 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   console.log("state is stable", state.product)
-  return {productId: state.product}
+  return { productId: state.product }
 };
 
 export default connect(
-mapStateToProps, 
-null
-)(BasketScreens);  
+  mapStateToProps,
+  null
+)(BasketScreens);
 
 

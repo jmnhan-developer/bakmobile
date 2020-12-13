@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
     const [userInfo, setUserInfo] = useState([])
     useEffect(() => {
       const findUser = async() => {
-        const rawData = await fetch(`http://172.20.10.2:3000/users/display-profile?id=${takeid}`) //l'ID ici est un objet...et non un tableau d'objets.
+        const rawData = await fetch(`http://172.17.1.24:3000/users/display-profile?id=${takeid}`) //l'ID ici est un objet...et non un tableau d'objets.
         const doneData = await rawData.json()
         console.log("done data est:", doneData.data)
         // setUserInfo([doneData.data]) //Attention ici on a transformé le setUserInfo en tableau d'objet pour pouvoir le mapper.

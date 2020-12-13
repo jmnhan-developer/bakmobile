@@ -50,3 +50,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 <FontAwesome name="shopping-cart" size={24} color="black" />
 
+//Picto "connection sign-out"
+import { FontAwesome } from '@expo/vector-icons';
+<FontAwesome name="sign-out" size={24} color="black" />

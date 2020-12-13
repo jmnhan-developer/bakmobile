@@ -31,14 +31,19 @@ import SigninScreens from './Screens/SigninScreens';
 import id from './reducers/Id.reducer'
 import WalletScreens from './Screens/WalletScreens'
 import ProfileUpdateScreen from './Screens/ProfileUpdateScreen'
+import subcat from './reducers/Filtre.reducer';
 
-const store = createStore(combineReducers({photo,product,id,typeOfAction}));
+
+const store = createStore(combineReducers({photo,product,id,typeOfAction,subcat}));
 
 
 var StackNavigatorHome= createStackNavigator({
    
   Home:HomeScreens,
-  Product:ProductScreens
+  // Product:ProductScreens
+  Product:ProductScreens,
+  SignUp: SignUpScreen, 
+  SignIn:SigninScreens
 
 },{headerMode: 'none'}
 );
@@ -49,8 +54,6 @@ var StackNavigatorSearch = createStackNavigator({
   Filter:  FilterScreen,  
   Result: ResultScreens, 
   Product: ProductScreens,
-  SignUp: SignUpScreen, 
-  SignIn:SigninScreens,
   Basket: BasketScreens,
 }, 
 {headerMode: 'none'}
@@ -59,7 +62,7 @@ var StackNavigatorSearch = createStackNavigator({
 var stackNavigatorSell =  createStackNavigator({  
   
   Sell: SellScreen,
-  SignIn:SigninScreens,
+  // SignIn:SigninScreens,
   AddPic: AddPicScreen,
   AddArticle :ProfileSellingArticleScreen,
 
