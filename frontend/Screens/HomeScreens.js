@@ -14,14 +14,23 @@ import { connect } from 'react-redux';
 
 
 
-function HomeScreens({navigation, onSubmitProduct,onSubmitId}) {
+function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
  
 
  
-
+  useEffect(() => {
+    AsyncStorage.getItem('userToken', (err, value) => {
+      if(value){ 
+      
+        onSubmitToken(value);
+        console.log('value from HomeScreen:',value);
+        
+      }
+    })
+  }, []);
 
 
 
@@ -111,9 +120,17 @@ function mapDispatchToProps(dispatch) {
   return {
     onSubmitProduct: function (product) {
       dispatch({ type: 'pickProduct', product:product})
+    },onSubmitToken: function (token){
+      dispatch({type:'informationFromHomeScreen',token:token})
     }
   }
 }
+
+
+
+
+
+
 
 export default connect(
   null,

@@ -31,10 +31,10 @@ function SellScreen(props) {
   
 
   useEffect(() => {
-    AsyncStorage.getItem('userId', (err, value) => {
+    AsyncStorage.getItem('userToken', (err, value) => {
       if(value){ 
       
-        props.onSubmitId(value);
+        props.onSubmitToken(value);
         console.log('value from SellScreen:',value);
         
       }
@@ -49,12 +49,12 @@ console.log(props.takeId,'id from sell page ------ ------')
 
   var typeOfAction= 'vendeur';
  
-  console.log('id from reducer SellScreen',props.takeId)
+  console.log('id from reducer SellScreen',props.takeToken)
 
   var handleClick = async () => {
     
 
-  if(props.takeId!='')
+  if(props.takeToken!='')
     
      { 
    
@@ -63,7 +63,7 @@ console.log(props.takeId,'id from sell page ------ ------')
     const dataArticle = await fetch("http://192.168.43.145:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerID=${props.takeId}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerID=${props.takeToken}`
     });
                                
     // console.log("dataArticle",dataArticle)
@@ -312,15 +312,15 @@ function mapDispatchToProps(dispatch) {
     onSubmitTypeOfAction: function (typeOfAction) {
       dispatch({ type: 'sell', typeOfAction})
     },
-    onSubmitId: function (id){
-      dispatch({type:'informationFromSellScreen',id:id})
+    onSubmitToken: function (token){
+      dispatch({type:'informationFromSellScreen',token:token})
     }
   }
 }
 
  
 function mapStateToProps(state) {
-  return { addPhoto: state.photo , takeId: state.id }
+  return { addPhoto: state.photo , takeToken: state.token }
 }
 export default connect(
   mapStateToProps, 

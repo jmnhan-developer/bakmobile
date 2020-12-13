@@ -6,24 +6,24 @@ import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 
-function SigninScreens({navigation,onSubmitId,typeOfAction}) {
+function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
 
 
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
-  const [id,setId]=useState('')
+  const [token,setToken]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
-  const [idIsSubmited,setIdIsSubmited]=useState(false)
+  const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
   
   console.log('type of action -------',typeOfAction)
   
   useEffect(() => {
-    AsyncStorage.getItem('userId', (err, value) => {
+    AsyncStorage.getItem('userToken', (err, value) => {
       if(value){ 
       
-        onSubmitId(value);
-        setId(value);
+        onSubmitToken(value);
+        setToken(value);
         setIsConnect(true);
         console.log('value:',value,'isConnect',isConnect);
 
@@ -44,12 +44,13 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
     // console.log("dataUsersXXX", dataUsers)
     
     const dataConsumers = await dataUsers.json()
-    console.log("dataConsumersjson-Result", dataConsumers)
+    // console.log("dataConsumersjson-Result", dataConsumers)
+    console.log('-----------------',dataConsumers.token)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
-    onSubmitId(dataConsumers.user._id)
+    onSubmitToken(dataConsumers.token)
     
-    AsyncStorage.setItem('userId',dataConsumers.user._id );
+    AsyncStorage.setItem('userToken',dataConsumers.token );
   
   }
    if(isConnect==true )
@@ -63,8 +64,8 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
        navigation.navigate('Sell')
       }
    }
- console.log(id,'id from AsyncStorage SignIn')
- console.log(idIsSubmited,'etat de id submit')
+ console.log(token,'id from AsyncStorage SignIn')
+ console.log(tokenIsSubmited,'etat de id submit')
 
   return (
     <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
@@ -111,8 +112,8 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitId: function (id) {
-      dispatch({ type: 'informationFromSignIn', id:id})
+    onSubmitToken: function (token) {
+      dispatch({ type: 'informationFromSignIn', token:token})
     }
   }
 }

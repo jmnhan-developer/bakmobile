@@ -28,13 +28,13 @@ import {createStore, combineReducers}  from 'redux';
 import ProfileBoughtArticleScreen from './Screens/ProfileBoughtArticleScreen'
 import ProfileSellingArticleScreen from './Screens/ProfileSellingArticleScreen'
 import SigninScreens from './Screens/SigninScreens';
-import id from './reducers/Id.reducer'
+import token from './reducers/Token.reducer'
 import WalletScreens from './Screens/WalletScreens'
 import ProfileUpdateScreen from './Screens/ProfileUpdateScreen'
 import subcat from './reducers/Filtre.reducer';
 
 
-const store = createStore(combineReducers({photo,product,id,typeOfAction,subcat}));
+const store = createStore(combineReducers({photo,product,token,typeOfAction,subcat}));
 
 
 var StackNavigatorHome= createStackNavigator({

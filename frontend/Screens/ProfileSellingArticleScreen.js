@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     useEffect(() => {
 
         const findProducts = async() => {
-        const data = await fetch(`http://192.168.43.145:3000/articles/get-article-by-seller?SellerID=${props.takeId}`)
+        const data = await fetch(`http://192.168.43.145:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
         const body = await data.json()
         
         setProductList(body.products);
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   }
   
   function mapStateToProps(state) {
-    return {  takeId:state.id }
+    return {  takeToken:state.token }
   }
 
   

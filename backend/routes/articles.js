@@ -27,7 +27,7 @@ router.post('/create-article', async function(req, res, next) {
         category:req.body.category,
         subcategory:req.body.subcategory,
         state:req.body.state,
-        sellerID:req.body.sellerID,
+        sellerToken:req.body.sellerID,
         images:JSON.parse(req.body.images),
         creationDate:new Date()
       })
@@ -80,7 +80,7 @@ router.get('/filter-articles', async function(req, res, next) {
 
 router.get('/get-article-by-seller', async function(req, res, next) {
   console.log(req.query)
-  let products = await articleModel.find({sellerID:req.query.SellerID}) 
+  let products = await articleModel.find({sellerToken:req.query.SellerToken}) 
   console.log('product by seller-----------------',products)
   res.json({products});
 

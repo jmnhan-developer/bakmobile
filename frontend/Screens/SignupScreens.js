@@ -5,7 +5,7 @@ import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage,T
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
+function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
   const [gender, setGender]=useState('')
   const [firstName, setFirstName]=useState('')
@@ -18,14 +18,16 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
   const [city, setCity]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
-  const [id,setId]=useState('')
-  const [idIsSubmited,setIdIsSubmited]=useState(false)
+  const [token,setToken]=useState('')
+  const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
 
   useEffect(() => {
-    AsyncStorage.getItem('userId', (err, value) => {
-      setId(value);
-      setIdIsSubmited(true);
-      console.log(value,'from asyncstorage ------ ------ -----')
+    AsyncStorage.getItem('userToken', (err, value) => {
+      if(value){ 
+      setToken(value);
+      onSubmitToken(value);
+      setTokenIsSubmited(true);
+      console.log(value,'from asyncstorage ------ ------ -----') }
     })
   }, []);
 
@@ -45,9 +47,9 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
     // console.log("dataConsumersjson-Result", dataConsumers.result, dataConsumers.error)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
-    console.log(dataConsumers.saveUser._id)
-    onSubmitId(dataConsumers.saveUser._id)
-    AsyncStorage.setItem('userId',dataConsumers.saveUser._id );
+    console.log(dataConsumers.saveUser.token)
+    onSubmitToken(dataConsumers.saveUser.token)
+    AsyncStorage.setItem('userToken',dataConsumers.saveUser.token );
   }
 
   if(isConnect==true )
@@ -153,8 +155,8 @@ const styles = StyleSheet.create({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitId: function (id) {
-      dispatch({ type: 'informationFromSignUp', id:id})
+    onSubmitToken: function (token) {
+      dispatch({ type: 'informationFromSignUp', token:token})
     }
   }
 }
