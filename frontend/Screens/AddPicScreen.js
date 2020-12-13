@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 
 import {connect} from 'react-redux';
@@ -43,12 +43,15 @@ function AddPicScreen(props) {
         style={{
           flex: 1,
           backgroundColor: 'transparent',
-          flexDirection: 'row',
+          flexDirection: 'column',
+          justifyContent: "flex-start"
         }}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
           style={{
           alignSelf: 'flex-start',
           alignItems: 'center',
+          justifyContent:'flex-start'
+
           }}>
           <Button
             icon={<Icon name="long-arrow-left" color="white" size={24} style={{marginTop:20}}/>}
@@ -56,12 +59,15 @@ function AddPicScreen(props) {
             type="clear"
             onPress= {() => props.navigation.navigate('Sell')}
           />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={{
             
-                alignSelf: 'flex-end',
+                alignSelf: 'flex-start',
                 alignItems: 'center',
+                justifyContent:'center',
+                marginTop:50
+
             }}
             onPress={() => {
                 setType(
@@ -71,8 +77,8 @@ function AddPicScreen(props) {
                 );
             }}
           >
-           <IconIonic
-            name="md-reverse-camera"
+           <IconFontAwesome
+            name="camera"
             size={20}
             color="#ffffff"
             /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
@@ -81,8 +87,9 @@ function AddPicScreen(props) {
            <TouchableOpacity
             style={{
             
-                alignSelf: 'flex-end',
+                alignSelf: 'flex-start',
                 alignItems: 'center',
+                justifyContent:'flex-start'
             }}
             onPress={() => {
                 setFlash(
@@ -98,10 +105,65 @@ function AddPicScreen(props) {
             color="#ffffff"
             /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
            </TouchableOpacity>
+          </View>
 
+          <View
+          style={{
+            flex: 1,
+            backgroundColor: 'transparent',
+            flexDirection: 'column',
+            justifyContent: "flex-end"
+          }}>
+            <TouchableOpacity
+            style={{
+              
+              alignSelf: 'center',
+              alignItems: 'center',
+              justifyContent:'flex-end'
+          }}
+              onPress={async () => { 
+                  setVisible(true);
+                  if (camera) {
+                      let photo = await camera.takePictureAsync({quality : 0.7});
+                      setVisible(false);
+                      // console.log("photo prise",photo)
+
+                      var data = new FormData();
+                      data.append('avatar', {
+                        uri: photo.uri,
+                        type: 'image/jpeg',
+                        name: 'avatar.jpg',
+                      });
+                      const dataPhoto = await fetch("http://192.168.43.145:3000/articles/upload", {
+                      method: 'POST',
+                      body: data
+                      })
+                      
+                      const bodyImage = await dataPhoto.json()
+                      // console.log("bodyImage",bodyImage)
+                      
+                      // console.log(bodyImage)
+                      props.onIncreaseClick(bodyImage.url)
+                      // if(body.result == true){
+                      //   props.addToken(body.token)
+                      //   setUserExists(true)
+                        
+                      // } else {
+                      //   setErrorsSignup(body.error)
+                      // }
+                    }   
+              }}
+          >
+          <View style={styles.iconWrapper}>
+            <IconFontAwesome
+                name="camera"
+                size={50}
+                color="#ffffff"
+                />
+          </View>
           
-
-        </View>
+            </TouchableOpacity>
+          </View>
     </Camera>
   } else {
     cameraDisplay = <View style={{ flex: 1 }}></View>
@@ -145,53 +207,30 @@ function AddPicScreen(props) {
         </View>
 
         <Button
-            icon={
-                <IconFontAwesome
-                name="save"
-                size={20}
-                color="#ffffff"
-                />
-            } 
-            title="     Prise de photos"
-            buttonStyle={{backgroundColor: "#009788"}}
+            title="Enregistrer mes photos"
+            buttonStyle={{backgroundColor: "#82589F", }}
+            containerStyle={{marginBottom:2}}
             type="solid"
-            onPress={async () => { 
-                setVisible(true);
-                if (camera) {
-                    let photo = await camera.takePictureAsync({quality : 0.7});
-                    setVisible(false);
-                    // console.log("photo prise",photo)
+            onPress= {() => props.navigation.navigate('Sell')}
 
-                    var data = new FormData();
-                    data.append('avatar', {
-                      uri: photo.uri,
-                      type: 'image/jpeg',
-                      name: 'avatar.jpg',
-                    });
-                    const dataPhoto = await fetch("http://192.168.1.54:3000/articles/upload", {
-                    method: 'POST',
-                    body: data
-                    })
-                    
-                    const bodyImage = await dataPhoto.json()
-                    // console.log("bodyImage",bodyImage)
-                    
-                    // console.log(bodyImage)
-                    props.onIncreaseClick(bodyImage.url)
-                    // if(body.result == true){
-                    //   props.addToken(body.token)
-                    //   setUserExists(true)
-                      
-                    // } else {
-                    //   setErrorsSignup(body.error)
-                    // }
-                  }   
-            }}
         />
 
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  iconWrapper: {
+    width: 100,
+    borderRadius: 100,
+    borderColor: "white",
+    borderStyle: "solid",
+    borderWidth: 2,
+    padding: 20,
+    alignItems: "center",
+    margin:10
+  }
+})
 
 function mapStateToProps(state) {
   return { addPhoto: state.photo }

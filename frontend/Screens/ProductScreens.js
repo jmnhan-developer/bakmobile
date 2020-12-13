@@ -13,11 +13,6 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
   return (
     <ScrollView>
         <View style={styles.container}>
-
-        <Card 
-          containerStyle={{marginTop:50, borderEndColor:"white"}}
-          wrapperStyle={{borderColor:'white'}}
-         >
         <Button
         icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
         containerStyle={{alignItems:"flex-start"}}
@@ -87,7 +82,7 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
             title='Acheter'
             onPress= {() => {navigation.navigate('SignIn');onSubmitTypeOfAction(typeOfAction)}}
             />
-        </Card>
+        
     </View>
     </ScrollView>
 

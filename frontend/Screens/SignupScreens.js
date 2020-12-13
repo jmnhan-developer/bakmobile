@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage } from 'react-native';
+import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage,TouchableOpacity } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
@@ -58,7 +58,7 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
      }
     else 
      {
-       navigation.navigate('Home')
+       navigation.navigate('Sell')
      }
 }
 
@@ -117,7 +117,7 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
            }
           />
             <Text>{isNotConnect}</Text>
-          <Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text>
+            <TouchableOpacity onPress={()=>{navigation.navigate('SignIn')}}><Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text></TouchableOpacity>
 
         </ScrollView>
 

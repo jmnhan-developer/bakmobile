@@ -6,18 +6,26 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView,AsyncStorage } fro
 import { Input, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
 
+
+
+
+
+
+
+
+
 function HomeScreens({navigation, onSubmitProduct,onSubmitId}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
-
-  
  
-  
-  
-  
-  
-  
+
+ 
+
+
+
+
+
   
   useEffect(() => {
     const findProducts = async() => {

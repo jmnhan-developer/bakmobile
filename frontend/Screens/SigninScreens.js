@@ -60,7 +60,7 @@ function SigninScreens({navigation,onSubmitId,typeOfAction}) {
       }
       else
       {
-       navigation.navigate('Home')
+       navigation.navigate('Sell')
       }
    }
  console.log(id,'id from AsyncStorage SignIn')

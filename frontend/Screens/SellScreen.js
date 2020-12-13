@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,AsyncStorage } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,Platform,AsyncStorage  } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -11,10 +11,7 @@ import { SafeAreaView } from 'react-navigation';
 
 
 function SellScreen(props) {
-  const [selectedValueCategory, setSelectedValueCategory] = useState("");
-  const [selectedValueSubCategory, setSelectedValueSubCategory] = useState("");
-  const [selectedValueState, setSelectedValueState] = useState("");
-
+  
   
   const [titleInput , setTitleInput ] = useState("");
   
@@ -22,6 +19,15 @@ function SellScreen(props) {
   const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
   const [shippingFees , setShippingFees ] = useState("");
+  const [age, setAge] = useState('');
+
+  const [catName, setCatName] = useState('');
+  const [selectedCatName, setSelectedCatName] = useState(false)
+  const [DisplaySubCat, setDisplaySubCat] = useState([]);
+  const [subCatName, setSubCatName]= useState('');
+  const [selectedValueState, setSelectedValueState] = useState("");
+
+
   
 
   useEffect(() => {
@@ -29,12 +35,13 @@ function SellScreen(props) {
       if(value){ 
       
         props.onSubmitId(value);
-        console.log('value:',value);
+        console.log('value from SellScreen:',value);
         
       }
     })
   }, []);
 
+console.log("--------------------------------------hello ID",props.takeId)
 
 console.log(props.takeId,'id from sell page ------ ------')
   
@@ -42,31 +49,100 @@ console.log(props.takeId,'id from sell page ------ ------')
 
   var typeOfAction= 'vendeur';
  
-  console.log('id from reducer',props.takeId)
+  console.log('id from reducer SellScreen',props.takeId)
 
   var handleClick = async () => {
     
 
-  //  if(props.takeId!='')
+  if(props.takeId!='')
     
-  //   { 
+     { 
    
     var image = JSON.stringify(props.addPhoto);
     // console.log('tableau photos',image)
     const dataArticle = await fetch("http://192.168.43.145:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}&sellerID=${props.takeId}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerID=${props.takeId}`
     });
                                
     // console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
     console.log("dataAnnonce", dataAnnonce)
-    navigation.navigate('ArticleSell')
-  //  } else {
-  //    navigation.navigate('SignIn')
-  //  }
- }
+    props.navigation.navigate('ArticleSell')
+  }else{
+    props.navigation.navigate('SignIn')
+  }}
+
+
+  var subCat1 = [
+    {subcategory: "Sièges Auto"},
+    {subcategory: "Nacelles"},
+    {subcategory: "Poussettes"},
+    {subcategory: "Landeaux"},
+    {subcategory: "Portes-Bébé"},
+    {subcategory: "Sacs à Langer"},
+  ]
+  
+  var subCat2 = [
+    {subcategory: "de 0 à 3 mois"},
+    {subcategory: "de 4 à 6 mois"},
+    {subcategory: "de 7 à 12 mois"},
+    {subcategory: "de 13 à 18 mois"},
+    {subcategory: "de 19 à 24 mois"},
+    {subcategory: "de 2 à 3 ans"},
+  ]
+  
+  var subCat3 = [
+    {subcategory: "Baignoires"},
+    {subcategory: "Transats de bain"},
+    {subcategory: "Lingettes-Serviettes"},
+    {subcategory: "Thermometres"},
+    {subcategory: "Jouets de bain"},
+  ]
+  
+  var subCat4 = [
+    {subcategory: "Lits bébé"},
+    {subcategory: "Lits de voyage"},
+    {subcategory: "Linges de lit"},
+    {subcategory: "Gigoteuses"},
+    {subcategory: "Veilleuses"},
+    {subcategory: "Babyphones"},
+  ]
+  
+  var subCat5 = [
+    {subcategory: "Biberons"},
+    {subcategory: "Chauffe-Biberons"},
+    {subcategory: "Stérilisateurs"},
+    {subcategory: "Robots de Cuisine"},
+    {subcategory: "Vaiselles"},
+    {subcategory: "Accessoires"},
+  ]
+  
+   
+  if(catName=="Se déplacer" && selectedCatName==true){
+    setDisplaySubCat(subCat1)
+    setSelectedCatName(false)
+
+  }
+  else if (catName=="S'habiller" && selectedCatName==true){
+    setDisplaySubCat(subCat2)
+    setSelectedCatName(false)
+  }
+  else if (catName=="Se baigner" && selectedCatName==true){
+    setDisplaySubCat(subCat3)
+    setSelectedCatName(false)
+  }
+  else if (catName=="Dormir" && selectedCatName==true){
+    setDisplaySubCat(subCat4)
+    setSelectedCatName(false)
+  }
+  else if (catName=="Manger" && selectedCatName==true){
+    setDisplaySubCat(subCat5)
+    setSelectedCatName(false)
+  }
+
+
   return (
     <View style={styles.container}>
       <ScrollView style={{width: '90%'}}>
@@ -83,7 +159,7 @@ console.log(props.takeId,'id from sell page ------ ------')
           type="outline"
           onPress= {() => props.navigation.navigate('AddPic')}
         />
-
+     
          <View style={{ flexDirection:'row', marginTop:2, marginBottom:20,justifyContent:"space-between"}}>
           <View>
             <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:60}}/>
@@ -104,10 +180,18 @@ console.log(props.takeId,'id from sell page ------ ------')
           </View>
 
           <View>
-          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}}/>
+          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}} />
            
           </View>
         </View>
+
+        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
+                  <FontAwesome name="camera" size={24}  color="white"/>
+                  } />
+          {photoImage && <Image source={{ uri: photoImage }} style={{ width: 70, height: 70 }} />}
+        </View> */}
+
       
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
@@ -124,59 +208,71 @@ console.log(props.takeId,'id from sell page ------ ------')
         <Input style = {{ width: '90%'}}
           placeholder='Prix'
           onChangeText={(val) => setPrice(val)}
+          keyboardType='numeric'
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
           onChangeText={(val) => setShippingFees(val)}
+          keyboardType='numeric'
+
+        />
+        <Input style = {{ width: '90%'}}
+          placeholder='Age'
+          onChangeText={(val) => setAge(val)}
         />
 
-        <DropDownPicker 
-            zIndex={5000}
-            items={[
-              {label: 'Se déplacer', value: 'Se déplacer'},
-              {label: 'Manger', value: 'Manger'},
-              {label: 'Dormir', value: 'Dormir'},
-              ]}
-              defaultNull
-              placeholder="Catégorie"
-              containerStyle={{height: 60, margin:10}}
-              onChangeItem={itemValue => setSelectedValueCategory(itemValue.value)}
-              
+        <View style={styles.buttonRow2}>
+              <Picker
+                 selectedValue={catName}
+                  style={{height: 50, width: 300, justifyContent:'center'}}
+                  
+                  onValueChange={(itemValue, itemIndex) => {
+                    setCatName(itemValue);
+                    setSelectedCatName(true)
+                    }
+                  }>
+                    <Picker.Item label="Catégories" value="" />
+                    <Picker.Item label="Se déplacer" value="Se déplacer" />
+                    <Picker.Item label="S'habiller" value="S'habiller" />
+                    <Picker.Item label="Se baigner" value="Se baigner" />
+                    <Picker.Item label="Dormir" value="Dormir" />
+                    <Picker.Item label="Manger" value="Manger" />
+                </Picker>
+              </View>
 
-                  />
-        
-          <DropDownPicker
-            zIndex={4000}
-            items={[
-              {label: 'Poussettes', value: 'Poussettes'},
-              {label: 'Nacelle', value: 'Nacelle'},
-              ]}
-              defaultNull
-              placeholder="Sous-catégorie"
-              containerStyle={{height: 60, margin:10}}
-              onChangeItem={itemValue => setSelectedValueSubCategory(itemValue.value)}
-              
-               
-               />
-          
-          
-          <DropDownPicker
-            zIndex={3000}
-            items={[
-              {label: 'Neuf', value: 'Neuf'},
-              {label: 'Bon état', value: 'Bon état'},
-              {label: "Etat d'usage", value:  "Etat d'usage"},
-              ]}
-              defaultNull
-              placeholder="Etat"
-              
-              containerStyle={{height: 60, margin:10, marginBottom:80}}
-              onChangeItem={itemValue => setSelectedValueState(itemValue.value)}
-             
-                  />
+              <View style={styles.buttonRow2}>
+                <Picker
+                  selectedValue={subCatName}
+                  style={{height: 50, width: 300, justifyContent:'center'}}
+                  
+                  onValueChange={(itemValue, itemIndex) => {
+                    setSubCatName(itemValue)}}>
 
+                  {DisplaySubCat.map((e, i ) => {
+                  return(
+                    <Picker.Item label={e.subcategory} value={e.subcategory} />
+                  )}
+                )}
+                </Picker>
+              </View>
 
-        
+              <View style={styles.buttonRow2}>
+              <Picker
+                 selectedValue={selectedValueState}
+                  style={{height: 50, width: 300, justifyContent:'center'}}
+                  
+                  onValueChange={(itemValue, itemIndex) => {
+                    setSelectedValueState(itemValue);
+                    
+                    }
+                  }>
+                    <Picker.Item label="Etat" value="" />
+                    <Picker.Item label="Neuf" value="Neuf" />
+                    <Picker.Item label="Bon état" value="Bon état" />
+                    <Picker.Item label="Etat d'usage" value="Etat d'usage" />
+                </Picker>
+              </View>
+
 
         <Button            
           title="Ajoute ton annonce"
@@ -201,7 +297,14 @@ const styles = StyleSheet.create({
   },
   container2: {
     flex:1,
+  },
+
+  buttonRow2: {
+    flexDirection:'row',
+    justifyContent:'space-around',
+    margin:70,
   }
+
 });
 
 function mapDispatchToProps(dispatch) {
@@ -217,7 +320,7 @@ function mapDispatchToProps(dispatch) {
 
  
 function mapStateToProps(state) {
-  return { addPhoto: state.photo, takeId:state.id }
+  return { addPhoto: state.photo , takeId: state.id }
 }
 export default connect(
   mapStateToProps, 
