@@ -3,8 +3,9 @@ import React, { useReducer,useState } from 'react';
 import { StyleSheet, Text, View, FlatList,SafeAreaView } from 'react-native';
 import { Card, ListItem, Button, CheckBox } from 'react-native-elements'
 import {Picker} from '@react-native-picker/picker';
+import {connect} from 'react-redux';
 
-export default function FilterScreen({navigation}) {
+function FilterScreen(props) {
 
 const [DisplaySubCat, setDisplaySubCat] = useState([]);
 
@@ -24,7 +25,6 @@ const [colorButton5,setColorButton5]=useState(false);
 const [subCatSelected, setSubCatSelected]= useState(false);
 const [subCatName, setSubCatName]= useState('');
 
-console.log(subCatName)
 
 
 
@@ -103,7 +103,7 @@ if(subCatSelected==true){
         buttonStyle={{ marginTop:10, backgroundColor:'#82589F'}}
         containerStyle={{width:300, height:50, alignSelf:'center'}}
         title='Rechercher' 
-        onPress= {() => navigation.navigate('Result')}/>
+        onPress= {() => props.navigation.navigate('Result')}/>
 }
 
   return (
@@ -184,7 +184,11 @@ if(subCatSelected==true){
                   
                   onValueChange={(itemValue, itemIndex) => {
                     setSubCatName(itemValue);
-                    setSubCatSelected(true)}
+                    setSubCatSelected(true);
+                    props.onSubCatSelected(itemValue);
+                    console.log("subcat from filterscreen itemValue ------",itemValue);
+                    // console.log("subcat from filterscreen subcatName ------",subCatName);
+                  }
                   }>
 
                   {DisplaySubCat.map((e, i ) => {
@@ -229,3 +233,16 @@ const styles = StyleSheet.create({
   }
 
 })
+
+function mapDispatchToProps(dispatch) {
+  return{
+    onSubCatSelected : function (subcat) {
+      dispatch ({type: 'picker', subcat: subcat})
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(FilterScreen);

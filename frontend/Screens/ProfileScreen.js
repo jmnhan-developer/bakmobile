@@ -16,7 +16,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
       }
       findUser()
     },[])
-
+    
     console.log("je suis userinfo:", userInfo.length)
 
     //INOFRMATION ISSUES DE LA BASE DE DONNÉES

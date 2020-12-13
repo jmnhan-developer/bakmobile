@@ -61,7 +61,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
         <ListItem bottomDivider>
           <FontAwesome name="sign-out" size={24} color="#82589F" />
           <ListItem.Content>
-            <ListItem.Title onPress= {() => {navigation.navigate('SignIn');AsyncStorage.removeItem("userId")}}>Log Out</ListItem.Title>
+            <ListItem.Title onPress= {() => {navigation.navigate('SignIn');AsyncStorage.removeItem("userToken")}}>Log Out</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
