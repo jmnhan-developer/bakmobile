@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
-import { Card, ListItem, Button,  } from 'react-native-elements'
+import { Card, ListItem, Button  } from 'react-native-elements'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from '../components/Carousel';
@@ -8,7 +8,24 @@ import Carousel from '../components/Carousel';
 
 function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
 
+  const [Name,setName]=useState('')
   var typeOfAction='acheteur';
+  console.log('productId -----',productId.sellerToken)
+
+  useEffect(() => {
+    const findSeller = async() => {
+      const data = await fetch(`http://192.168.43.145:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
+      const body = await data.json()
+      console.log('-----------',body)
+      console.log(body.data.firstName)
+      setName(body.data.firstName)
+    }
+
+    findSeller();
+    
+    
+  },[])
+
 
   return (
     <ScrollView>
@@ -28,7 +45,7 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
           style={styles.avatar}
           /> 
             <View style={{marginLeft:10}}>
-            <Text >Axel Barateau</Text>
+        <Text >{Name}</Text>
                 <View style={{flexDirection: 'row'}}>
                   <Icon name='star'
                         color= '#f9ca24'
