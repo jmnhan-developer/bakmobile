@@ -9,14 +9,14 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
     const [userInfo, setUserInfo] = useState([])
     useEffect(() => {
       const findUser = async() => {
-        const rawData = await fetch("http://172.17.1.179:3000/users/display-profile?id=5fce2c819c05581ecc906354") //l'ID ici est un objet...et non un tableau d'objets.
+        const rawData = await fetch(`http://172.17.1.179:3000/users/display-profile?id=5fce2c819c05581ecc906354`) //l'ID ici est un objet...et non un tableau d'objets.
         const doneData = await rawData.json()
         console.log("done data est:", doneData.data)
         setUserInfo([doneData.data]) //Attention ici on a transformé le setUserInfo en tableau d'objet pour pouvoir le mapper.
       }
       findUser()
     },[])
-
+    
     console.log("je suis userinfo:", userInfo.length)
 
     //INOFRMATION ISSUES DE LA BASE DE DONNÉES

@@ -73,9 +73,19 @@ router.post('/upload', async function(req, res, next) {
 router.get('/filter-articles', async function(req, res, next) {
   console.log(req.query.subcat)
   let products = await articleModel.find({subcategory:req.query.subcat})
-  console.log(products)
+  // console.log(products)
   res.json({products})
   
 }); 
+
+router.get('/get-article-by-seller', async function(req, res, next) {
+  console.log(req.query)
+  let products = await articleModel.find({sellerID:req.query.SellerID}) 
+  console.log('product by seller-----------------',products)
+  res.json({products});
+
+});
+
+
 
 module.exports = router; 

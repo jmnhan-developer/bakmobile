@@ -2,18 +2,26 @@
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView,AsyncStorage } from 'react-native';
 import { Input, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-function HomeScreens({navigation, onSubmitProduct}) {
+function HomeScreens({navigation, onSubmitProduct,onSubmitId}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
 
+  
+ 
+  
+  
+  
+  
+  
+  
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch("http://172.17.1.179:3000/articles/get-all-articles")
+      const data = await fetch("http://192.168.43.145:3000/articles/get-all-articles")
       const body = await data.json()
       setProductList(body.products);
       setFilterAddList(body.products);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,AsyncStorage } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -23,25 +23,50 @@ function SellScreen(props) {
   const [price , setPrice ] = useState("");
   const [shippingFees , setShippingFees ] = useState("");
   
-  var typeOfAction= 'vendeur';
 
+  useEffect(() => {
+    AsyncStorage.getItem('userId', (err, value) => {
+      if(value){ 
+      
+        props.onSubmitId(value);
+        console.log('value:',value);
+        
+      }
+    })
+  }, []);
+
+
+console.log(props.takeId,'id from sell page ------ ------')
+  
+
+
+  var typeOfAction= 'vendeur';
+ 
+  console.log('id from reducer',props.takeId)
 
   var handleClick = async () => {
     
+
+  //  if(props.takeId!='')
+    
+  //   { 
+   
     var image = JSON.stringify(props.addPhoto);
     // console.log('tableau photos',image)
-    const dataArticle = await fetch("http://172.17.1.179:3000/articles/create-article", {
+    const dataArticle = await fetch("http://192.168.43.145:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&category=${selectedValueCategory}&subcategory=${selectedValueSubCategory}&state=${selectedValueState}&images=${image}&sellerID=${props.takeId}`
     });
                                
     // console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
     console.log("dataAnnonce", dataAnnonce)
-
-  }
-
+    navigation.navigate('ArticleSell')
+  //  } else {
+  //    navigation.navigate('SignIn')
+  //  }
+ }
   return (
     <View style={styles.container}>
       <ScrollView style={{width: '90%'}}>
@@ -157,7 +182,7 @@ function SellScreen(props) {
           title="Ajoute ton annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);props.navigation.navigate('SignIn')}}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction)}}
           containerStyle={{marginBottom: 20}}
         />
 
@@ -183,13 +208,16 @@ function mapDispatchToProps(dispatch) {
   return {
     onSubmitTypeOfAction: function (typeOfAction) {
       dispatch({ type: 'sell', typeOfAction})
+    },
+    onSubmitId: function (id){
+      dispatch({type:'informationFromSellScreen',id:id})
     }
   }
 }
 
  
 function mapStateToProps(state) {
-  return { addPhoto: state.photo }
+  return { addPhoto: state.photo, takeId:state.id }
 }
 export default connect(
   mapStateToProps, 

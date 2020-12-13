@@ -32,7 +32,7 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.179:3000/users/sign-up", {
+    const dataUsers = await fetch("http://192.168.43.145:3000/users/sign-up", {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
@@ -45,8 +45,8 @@ function SignUpScreens({onSubmitId,navigation,typeOfAction}) {
     // console.log("dataConsumersjson-Result", dataConsumers.result, dataConsumers.error)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
-    console.log(dataConsumers.saveUser.token)
-    onSubmitId(dataConsumers.saveUser.token)
+    console.log(dataConsumers.saveUser._id)
+    onSubmitId(dataConsumers.saveUser._id)
     AsyncStorage.setItem('userId',dataConsumers.saveUser._id );
   }
 
