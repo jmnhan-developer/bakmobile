@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     
     // ---------------- travail sur route delete dans mes annonces
 
-        var handleClickDeleteMovie = async (id) => {
+        var handleClickDeleteArticle = async (id) => {
         
-          await fetch(`http://192.168.43.53:3000/articles/cancel-article`, {
+          await fetch(`http://${IP_HOST}:3000/articles/cancel-article`, {
           method: 'POST',
           headers: {'Content-Type':'application/x-www-form-urlencoded'},
           body: `idArticle=${id}`
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
       image={{uri:e.images[0]}}>
       <Text style={{fontSize:22}}>{e.title}</Text>
     <Text>{e.price} - Mise en vente le: {e.dateSubmit}</Text>
-    <Text style={{paddingTop:15}}><FontAwesome name={'trash'} size={24} color='#82589F' style={{paddingRight:350}} onPress={() => {handleClickDeleteMovie(e._id)}}/>Supprimer l'annonce</Text>
+    <Text style={{paddingTop:15}}><FontAwesome name={'trash'} size={24} color='#82589F' style={{paddingRight:350}} onPress={() => {handleClickDeleteArticle(e._id)}}/>Supprimer l'annonce</Text>
 
     </Card>
 })
