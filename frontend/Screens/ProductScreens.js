@@ -23,10 +23,8 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
           source={{uri:productId.images[0]}}
           /> */}
           <Carousel />
-          <View style={{flexDirection:'row', marginTop:10, marginLeft:10}}>
-           <Image
-          style={styles.avatar}
-          /> 
+          <View style={{flexDirection:'row', marginTop:10}}>
+         
             <View style={{marginLeft:10}}>
             <Text >Axel Barateau</Text>
                 <View style={{flexDirection: 'row'}}>
@@ -53,31 +51,31 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
                   <Text style={{marginLeft:10}}>46 évaluation</Text>
                 </View>
             </View>
-            <Icon   style={{marginLeft:80}}
+            <Icon   style={{marginLeft:170}}
                     name='heart-o'
                     color='#82589F'
                     size={20}
               />
           </View>
-          <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:10}}>
-            <Text>{productId.title}</Text>
+          <View style={styles.containerCarac}>
+            <Text style={{fontWeight:'bold'}}>{productId.title}</Text>
             <Text>Prix: {productId.price} €</Text>
           </View>
-          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+          <View style={styles.containerCarac}>
             <Text>Marque : {productId.brand}</Text>
             <Text>Frais de Port: {productId.shippingFees}€</Text>
           </View>
-          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+          <View style={styles.containerCarac}>
             <Text>Age : {productId.kidsAge}</Text>
           </View>
-          <View style={{marginTop: 10, marginBottom:10}}>
+          <View style={{marginTop: 10, marginBottom:10, marginLeft:10}}>
             <ScrollView>
-            <Text>Description :</Text>
+            <Text style={{fontStyle:'italic'}}>Description :</Text>
             <Text>{productId.description}</Text>
             </ScrollView>
           </View>
           <Button
-            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor:"#82589F"}}
+            buttonStyle={{borderRadius: 5, marginLeft: 10, marginRight: 10, marginBottom: 0, backgroundColor:"#82589F"}}
             type='solid'
             title='Acheter'
             onPress= {() => {navigation.navigate('SignIn');onSubmitTypeOfAction(typeOfAction)}}
@@ -92,7 +90,8 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
 const styles = StyleSheet.create({
 container: {
   flex: 1,
-  justifyContent:"space-between"
+  justifyContent:"space-between",
+  marginTop: 30
 },
 
 image: {
@@ -100,9 +99,13 @@ image: {
     height: 400,
 },
 
-avatar: {
-  width: 30,
-  height:30,
+containerCarac: {
+  flexDirection: "row",
+  justifyContent:'space-between',
+  marginLeft:10,
+  marginTop: 10,
+  marginRight:10
+
 }
 });
 

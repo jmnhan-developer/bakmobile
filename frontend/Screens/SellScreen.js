@@ -288,7 +288,7 @@ console.log("--------------------------------------hello ID",props.takeId)
 
 
         <Button            
-          title="Ajoute ton annonce"
+          title="Ajouter votre annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
           onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);props.navigation.navigate('SignIn')}}
