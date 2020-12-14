@@ -13,15 +13,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
 import AddPicScreen from './Screens/AddPicScreen';
-
-
 import product from '../frontend/reducers/Article.reducer';
 import typeOfAction from './reducers/typeOfAction.reducer'
-
 import ProfileMenuScreen from './Screens/ProfileMenuScreen'
 import SignUpScreen from './Screens/SignupScreens'
-
-
 import photo from '../frontend/reducers/Pic.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
@@ -54,6 +49,7 @@ var StackNavigatorSearch = createStackNavigator({
   Result: ResultScreens, 
   Product: ProductScreens,
   Basket: BasketScreens,
+
 }, 
 {headerMode: 'none'}
 );  

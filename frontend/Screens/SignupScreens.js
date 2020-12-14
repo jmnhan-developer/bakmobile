@@ -5,6 +5,9 @@ import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage,T
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
+import {IP_HOST} from '../variable'
+
+
 function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
   const [gender, setGender]=useState('')
@@ -34,7 +37,7 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.18:3000/users/sign-up", {
+    const dataUsers = await fetch(`http://${IP_HOST}:3000/users/sign-up`, {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`

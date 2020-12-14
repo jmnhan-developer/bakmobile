@@ -3,9 +3,7 @@ import { FlatList, StyleSheet, Text, Title, View } from 'react-native';
 import { Input, ListItem, Icon, Divider, Button, NavigationContainer } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-
-
-
+import {IP_HOST} from '../variable'
 
 const ProfileScreen = ({ navigation, takeToken }) => {
 
@@ -15,7 +13,7 @@ const ProfileScreen = ({ navigation, takeToken }) => {
 
   useEffect(() => {
     const findUser = async () => {
-      const rawData = await fetch(`http://172.17.1.18:3000/users/display-profile?token=${takeToken}`)
+      const rawData = await fetch(`http://${IP_HOST}:3000/users/display-profile?token=${takeToken}`)
       const doneData = await rawData.json()
       console.log("done data est:", doneData)
       setUserInfo(doneData)

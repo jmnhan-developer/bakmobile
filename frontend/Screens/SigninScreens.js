@@ -5,6 +5,8 @@ import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView, TouchableOpac
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
+import {IP_HOST} from '../variable'
+
 
 function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
 
@@ -34,7 +36,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.18:3000/users/sign-in", {
+    const dataUsers = await fetch(`http://${IP_HOST}:3000/users/sign-in`, {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`email=${email}&password=${password}`

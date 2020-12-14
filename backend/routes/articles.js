@@ -15,7 +15,7 @@ cloudinary.config({
 
 
 router.post('/create-article', async function(req, res, next) {
-  console.log("hello1",req.body)
+  console.log("hello1 req query --------------create article",req.body)
 
     let newArticle = new articleModel({
         title:req.body.title,
@@ -43,7 +43,7 @@ router.post('/create-article', async function(req, res, next) {
 
 
 router.get('/get-all-articles', async function(req, res, next) {
-    let products = await articleModel.find()
+    let products = await articleModel.find().sort({creationDate:-1})
     // console.log(products)
     res.json({products});
   
@@ -51,18 +51,20 @@ router.get('/get-all-articles', async function(req, res, next) {
 
 
 router.post('/upload', async function(req, res, next) {
-// console.log("hello1")
+
+console.log("hello1 req query upload", req.query)
+
   var imagePath = './tmp/ '+uniqid()+'avatar.jpg'
-  // console.log("hello2",imagePath)
+  console.log("hello2-------------- imagePath",imagePath)
 
   var resultCopy = await req.files.avatar.mv(imagePath);
     console.log("fichiers",req.files.avatar)
-    // console.log("hello3")
+    console.log("hello3-----------resultCopy", resultCopy)
 
   if(!resultCopy) {    
     var resultCloudinary = await cloudinary.uploader.upload(imagePath);
     res.json(resultCloudinary);
-    // console.log("hello4",resultCloudinary)
+    console.log("hello4 ----------- resultCloudinary",resultCloudinary)
   } else {
     res.json( {error:resultCopy} );
   } 
@@ -72,20 +74,35 @@ router.post('/upload', async function(req, res, next) {
 
 router.get('/filter-articles', async function(req, res, next) {
   console.log(req.query.subcat)
-  let products = await articleModel.find({subcategory:req.query.subcat})
-  // console.log(products)
+  let products = await articleModel.find({subcategory:req.query.subcat}).sort({creationDate:-1})
   res.json({products})
   
 }); 
 
 router.get('/get-article-by-seller', async function(req, res, next) {
   console.log(req.query)
-  let products = await articleModel.find({sellerToken:req.query.SellerToken}) 
+  let products = await articleModel.find({sellerToken:req.query.SellerToken}).sort({creationDate:-1}) 
   console.log('product by seller-----------------',products)
   res.json({products});
 
 });
 
+// ---------------- travail sur route delete dans mes annonces
 
+router.post('/cancel-article', async function(req, res, next) {
+
+  var returnDb = await articleModel.deleteOne({ _id: req.body.idArticle})
+  console.log('------requ body-----------------',returnDb)
+ 
+
+  var result = false
+  if(returnDb.deletedCount == 1){
+    result = true
+  }
+
+  res.json({result})
+});
+
+// ---------------- fin travail sur route delete dans mes annonces
 
 module.exports = router; 

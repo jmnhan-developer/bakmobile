@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from '../components/Carousel';
-import Swiper from 'react-native-swiper';
+
+import {IP_HOST} from '../variable'
+
 
 
 
@@ -21,7 +23,7 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction }) {
 
   useEffect(() => {
     const findSeller = async() => {
-      const data = await fetch(`http://172.17.1.18:3000/users/get-user?UserToken=${productId.sellerToken}`)
+      const data = await fetch(`http://${IP_HOST}:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
       const body = await data.json()
       // console.log('-----------',body)
       // console.log(body.data.firstName)

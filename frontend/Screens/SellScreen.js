@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,Platform,AsyncStorage  } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,AsyncStorage  } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -7,13 +7,7 @@ import {connect} from 'react-redux';
 
 import { SafeAreaView } from 'react-navigation';
 
-
-
-// ----------------------------------------------image picker
-// import * as ImagePicker from 'expo-image-picker';
-// import Constants from 'expo-constants';
-
-
+import {IP_HOST} from '../variable'
 
 function SellScreen(props) {
   
@@ -64,7 +58,7 @@ console.log(props.takeId,'id from sell page ------ ------')
    
     var image = JSON.stringify(props.addPhoto);
     // console.log('tableau photos',image)
-    const dataArticle = await fetch("http://172.17.1.18:3000/articles/create-article", {
+    const dataArticle = await fetch(`http://${IP_HOST}:3000/articles/create-article`, {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerToken=${props.takeToken}`
@@ -194,15 +188,6 @@ console.log(props.takeId,'id from sell page ------ ------')
           </View>
         </View>
 
-
-        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
-                  <FontAwesome name="camera" size={24}  color="white"/>
-                  } />
-          {photoImage && <Image source={{ uri: photoImage }} style={{ width: 70, height: 70 }} />}
-        </View> */}
-
-      
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
           onChangeText={(val) => setTitleInput(val)}
@@ -235,7 +220,7 @@ console.log(props.takeId,'id from sell page ------ ------')
         <View style={styles.buttonRow2}>
               <Picker
                  selectedValue={catName}
-                  style={{height: 50, width: 300, justifyContent:'center'}}
+                  style={{height: 50, width: 250, justifyContent:'center'}}
                   
                   onValueChange={(itemValue, itemIndex) => {
                     setCatName(itemValue);
@@ -254,7 +239,7 @@ console.log(props.takeId,'id from sell page ------ ------')
               <View style={styles.buttonRow2}>
                 <Picker
                   selectedValue={subCatName}
-                  style={{height: 50, width: 300, justifyContent:'center'}}
+                  style={{height: 50, width: 250, justifyContent:'center'}}
                   
                   onValueChange={(itemValue, itemIndex) => {
                     setSubCatName(itemValue)}}>
@@ -270,7 +255,7 @@ console.log(props.takeId,'id from sell page ------ ------')
               <View style={styles.buttonRow2}>
               <Picker
                  selectedValue={selectedValueState}
-                  style={{height: 50, width: 300, justifyContent:'center'}}
+                  style={{height: 50, width: 250, justifyContent:'center'}}
                   
                   onValueChange={(itemValue, itemIndex) => {
                     setSelectedValueState(itemValue);

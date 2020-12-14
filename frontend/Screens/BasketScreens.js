@@ -11,6 +11,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import {IP_HOST} from '../variable'
+
 function BasketScreens({navigation,productId,takeToken}) {
 
   const [seller,setSeller]=useState({});
@@ -19,7 +21,7 @@ function BasketScreens({navigation,productId,takeToken}) {
   console.log('seller token in BasketScreen',productId.sellerToken);
   useEffect(() => {
     const findSeller = async() => {
-      const data = await fetch(`http://172.17.1.18:3000/users/get-user?UserToken=${takeToken}`)
+      const data = await fetch(`http://${IP_HOST}:3000/users/get-user?UserToken=${takeToken}`)
       const body = await data.json()
       console.log('-----------',body)
       console.log('firstname from basketscreen -----------',body.data.firstName)
