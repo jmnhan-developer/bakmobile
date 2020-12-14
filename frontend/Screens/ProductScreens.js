@@ -107,51 +107,6 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction }) {
           />
       </ScrollView>
 
-      {/* <ScrollView>
-        <Carousel />
-        <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 10 }}>
-          
-        </View>
-
-          <View style={{ flex: 1, flexDirection: 'row', marginTop: 5, justifyContent: "space-between" }}>
-            <Text >{Name}</Text>
-            <Icon name='heart-o' color='#82589F' size={20} />
-          </View>
-
-          <View style={{ flexDirection: 'row' }}>
-            <Icon name='star' color='#f9ca24' size={20} />
-            <Icon name='star' color='#f9ca24' size={20} />
-            <Icon name='star' color='#f9ca24' size={20} />
-            <Icon name='star' color='#f9ca24' size={20} />
-            <Icon name='star' color='#f9ca24' size={20} />
-            <Text style={{ marginLeft: 10, marginTop: 2 }}>46 évaluations</Text>
-          </View>
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
-            <Text>{productId.title}</Text>
-            <Text>Prix: {productId.price} €</Text>
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text>Marque : {productId.brand}</Text>
-            <Text>Frais de Port: {productId.shippingFees}€</Text>
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text>Age : {productId.kidsAge}</Text>
-          </View>
-          <View style={{ marginTop: 10, marginBottom: 10 }}>
-            <ScrollView>
-              <Text>Description :</Text>
-              <Text>{productId.description}</Text>
-            </ScrollView>
-          </View>
-          <Button
-            buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: "#82589F" }}
-            type='solid'
-            title='Acheter'
-            onPress={() => { navigation.navigate('SignIn'); onSubmitTypeOfAction(typeOfAction) }}
-          />
-
-      </ScrollView> */}
 
     </View>
 

@@ -176,7 +176,7 @@ function AddPicScreen(props) {
               onPress={async () => { 
                   setVisible(true);
                   if (camera) {
-                      let photo = await camera.takePictureAsync({quality : 0.7});
+                      let photo = await camera.takePictureAsync({quality : 0.5});
                       setVisible(false);
                       // console.log("photo prise",photo)
 
