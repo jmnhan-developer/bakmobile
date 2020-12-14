@@ -283,7 +283,7 @@ console.log(props.takeId,'id from sell page ------ ------')
 
 
         <Button            
-          title="Ajoute ton annonce"
+          title="Ajouter votre annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
           onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction)}}

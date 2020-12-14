@@ -29,7 +29,7 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.15.0",
     "react-native-snap-carousel": "^3.9.1",
-    "react-native-stripe-payments": "^1.0.6",
+    "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
     "react-native-x2-carousel": "^1.0.1",

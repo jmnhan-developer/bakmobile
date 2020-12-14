@@ -27,7 +27,7 @@ function ResultScreens(props) {
   // ]
 
 
-  console.log("helloledke,dznden",props.Product);
+  console.log("helloledke,dznden",props.Subcat);
 
   useEffect(() => {
     const findProducts = async() => {
@@ -41,19 +41,7 @@ function ResultScreens(props) {
 
   },[props.Subcat])
   
-  // let lastArticles = dataList.map((uri, i) => {
-  //   return <View style={{width:'47%', margin:5}}>
-  //     <Image source={{uri:uri.url}} style={{ height:250, width: 200 }}  onPress= {() => props.navigation.navigate('Product')}/>
-  //     <View style={{flex: 1, flexDirection:'row', marginTop:5, justifyContent:"space-between"}}>
-  //       <Text>{uri.brand}</Text>
-  //       <FontAwesome name="heart-o" size={15} color="black" />
-  //     </View>
-  //     <Text>Taille: {uri.size}</Text>
-  //     <Text>{uri.price}€</Text>
-  //   </View>
-
-  // }
-  // )
+ 
 
   let lastArticles = productList.map((productId, i) => {
     return <View style={{width:'47%', margin:5}}>
@@ -80,12 +68,11 @@ function ResultScreens(props) {
 
 
   return (
-    <View>
-      <Button style={{marginTop:25, width:200, marginLeft:204}} title="Affiner ma recherche" buttonStyle={{ backgroundColor: "#eb4d4b"}}type="solid"/>
+    <View style={{marginTop:50}}>
 
-      <Text style={{fontSize:18, textAlign:"center", marginTop:10, marginBottom:5}}>Les résultats de votre recherche pour:</Text>
+      <Text style={{fontSize:18, marginBottom:5, marginLeft:10, fontFamily:'Helvetica', fontWeight:'bold'}}>Les résultats de votre recherche pour :</Text>
 
-      <Text style={{fontSize:18, textAlign:"center", marginTop:5, marginBottom:5}}>"XXXX"</Text>
+      <Text style={{fontSize:18, marginBottom:5, marginLeft:10,fontFamily:'Helvetica' }}>"{props.Subcat}"</Text>
 
       <ScrollView> 
         <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>

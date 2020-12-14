@@ -4,13 +4,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView,AsyncStorage } from 'react-native';
 import { Input, Image } from 'react-native-elements';
+
 import { connect } from 'react-redux';
 import {IP_HOST} from '../variable'
-console.log(IP_HOST)
-
-
-
-
 
 
 
@@ -87,15 +83,16 @@ else {
   )
 
   return (
-    <View style={{flex: 1, marginTop:25 }}>
+    <View style={{flex: 1, marginTop:40 }}>
       <Input
-      containerStyle={{backgroundColor:'white'}}
+      
+      containerStyle={{backgroundColor:'white', borderRadius:10, marginLeft:10, marginBottom:10}}
       lightTheme='true'
       placeholder="Rechercher" backgroundColor='light-grey' 
       onChangeText={(val) =>setSearchTerm(val)}
       />
 
-  <Text style={{fontSize:20, textAlign:"center", marginTop:5, marginBottom:5}}>Les derniers articles mis en vente</Text>
+  <Text style={{fontSize:20, fontFamily:'Helvetica', fontWeight:'bold', marginTop:5, marginBottom:10, marginLeft:10}}>Les derniers articles mis en vente</Text>
 
   <ScrollView>
     <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>
