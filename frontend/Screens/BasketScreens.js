@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function BasketScreens({navigation,productId,takeToken}) {
 
+
+  console.log(productId);
   const [seller,setSeller]=useState({});
   console.log('seller token in BasketScreen',productId.sellerToken);
   useEffect(() => {
@@ -18,10 +20,27 @@ function BasketScreens({navigation,productId,takeToken}) {
       console.log('firstname from basketscreen -----------',body.data.firstName)
       setSeller(body.data)
     }
-
+    
     findSeller();
       
   },[])
+
+console.log(productId,'productId from basketscreen-------',takeToken,'token frombasketscreen')
+
+var handleClick = async () => {
+   
+      const dataOrder = await fetch("http://172.17.1.179:3000/orders/validate-order", {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: `articleId=${productId._id}&clientToken=${takeToken}&`
+      });
+
+      
+      const dataAnnonce = await dataArticle.json()
+      
+    }
+
+
 
 console.log('seller of the product in basket screen',seller)
 
@@ -80,7 +99,8 @@ console.log('seller of the product in basket screen',seller)
 
       <Button
         buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#82589F' }}
-        title='Finaliser le paiement' />
+        title='Finaliser le paiement'
+        onPress={()=>handleClick()} />
     </Card>
   )
 }

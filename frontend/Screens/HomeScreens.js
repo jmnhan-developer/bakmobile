@@ -8,12 +8,6 @@ import { connect } from 'react-redux';
 
 
 
-
-
-
-
-
-
 function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])

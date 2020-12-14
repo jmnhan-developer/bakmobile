@@ -13,7 +13,8 @@ const articleSchema = mongoose.Schema({
     articleSold:Boolean,
     sellerToken:String,
     images:Array,
-    creationDate:Date
+    creationDate:Date,
+    isVisible:Boolean
 })
 
 const articleModel = mongoose.model('articles',articleSchema)
