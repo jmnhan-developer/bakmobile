@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
   });
   
   const ProfileBoughtArticleScreen = () => {
+
+
     var cardData = [
       {image:'https://picsum.photos/200?random=1',title:'Poussette McLaren',price:'199€',dateSubmit:'11/02/2021'},
       {image:'https://picsum.photos/200?random=5',title:'Tire Lait',price:'30€',dateSubmit:'11/02/2021'},
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
         image={{uri:card.image}}>
         <Text style={{fontSize:22}}>{card.title}</Text>
       <Text>{card.price} - Acheté le: {card.dateSubmit}</Text>
-      <View style={{paddingTop:15}}><Button title='Confirmer la réception' color='#82589F' style={{paddingRight:350}} /></View>
+      <View style={{paddingTop:15}}><Button title='Confirmer la réception' color='#82589F' style={{paddingRight:350}}/></View>
 
       </Card>
   }

@@ -83,11 +83,27 @@ router.get('/filter-articles', async function(req, res, next) {
 router.get('/get-article-by-seller', async function(req, res, next) {
   // console.log("console log de req query",req.query)
   let products = await articleModel.find({sellerToken:req.query.SellerToken}) 
-  console.log('product by seller-----------------',products)
+  // console.log('product by seller-----------------',products)
   res.json({products});
 
 });
 
+// ---------------- travail sur route delete dans mes annonces
 
+router.post('/cancel-article', async function(req, res, next) {
+
+  var returnDb = await articleModel.deleteOne({ _id: req.body.idArticle})
+  console.log('------requ body-----------------',returnDb)
+ 
+
+  var result = false
+  if(returnDb.deletedCount == 1){
+    result = true
+  }
+
+  res.json({result})
+});
+
+// ---------------- fin travail sur route delete dans mes annonces
 
 module.exports = router; 

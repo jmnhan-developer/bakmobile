@@ -46,14 +46,26 @@ const styles = StyleSheet.create({
         
         setProductList(body.products);
         // setFilterAddList(body.products);
-        console.log('body from get article by seller -------',body);
+        // console.log('---------- body from get article by seller -------',body);
       }
       
       findProducts()
       
     },[])
-    console.log(productList);
+    
+    // ---------------- travail sur route delete dans mes annonces
 
+        var handleClickDeleteMovie = async (id) => {
+        
+          await fetch(`http://192.168.43.53:3000/articles/cancel-article`, {
+          method: 'POST',
+          headers: {'Content-Type':'application/x-www-form-urlencoded'},
+          body: `idArticle=${id}`
+          });
+        }
+      
+    // ---------------- fin travail sur route delete dans mes annonces
+    
      
     var cardData = [
       {image:'https://picsum.photos/200?random=1',title:'Poussette McLaren',price:'199€',dateSubmit:'11/02/2021'},
@@ -73,11 +85,12 @@ const styles = StyleSheet.create({
 
   
   let cardList = productList.map((e, i)=> {
+    
     return <Card
       image={{uri:e.images[0]}}>
       <Text style={{fontSize:22}}>{e.title}</Text>
     <Text>{e.price} - Mise en vente le: {e.dateSubmit}</Text>
-    <Text style={{paddingTop:15}}><FontAwesome name={'trash'} size={24} color='#82589F' style={{paddingRight:350}}/>Supprimer l'annonce</Text>
+    <Text style={{paddingTop:15}}><FontAwesome name={'trash'} size={24} color='#82589F' style={{paddingRight:350}} onPress={() => {handleClickDeleteMovie(e._id)}}/>Supprimer l'annonce</Text>
 
     </Card>
 })
