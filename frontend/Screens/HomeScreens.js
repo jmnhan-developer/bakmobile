@@ -9,11 +9,6 @@ import { connect } from 'react-redux';
 
 
 
-
-
-
-
-
 function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
@@ -62,16 +57,6 @@ else {
 }
   }, [searchTerm])
 
-  // var dataList = [
-  //   {url:'https://picsum.photos/201', brand:'Aubert', size:'M', price:"10"},
-  //   {url:'https://picsum.photos/202', brand:'BébéConfort', size:'L', price:"20"},
-  //   {url:'https://picsum.photos/203', brand:'Chicco', size:'XL', price:"30"},
-  //   {url:'https://picsum.photos/204', brand:'Text', size:'6 ans', price:"40"},
-  //   {url:'https://picsum.photos/205', brand:'Mon Bébé', size:'10 ans', price:"50"},
-  //   {url:'https://picsum.photos/206', brand:'Bambino', size:'s', price:"60"},
-  //   {url:'https://picsum.photos/207', brand:'Mon Bébé', size:'10 ans', price:"50"},
-  //   {url:'https://picsum.photos/208', brand:'Bambino', size:'s', price:"60"}
-  // ]
 
 
   let lastArticles = filterAddList.map((productId, i) => {
