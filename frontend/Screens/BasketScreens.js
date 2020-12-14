@@ -4,7 +4,6 @@ import { Card, ListItem, Button,  } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import Carousel from '../components/Carousel';
-import Swiper from 'react-native-swiper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 

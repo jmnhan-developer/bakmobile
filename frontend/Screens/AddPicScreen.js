@@ -50,23 +50,28 @@ function AddPicScreen(props) {
       quality: 1,
     });
 
-    console.log("resultat pick image -----------",result);
-    props.onIncreaseClick(result.uri)
+    console.log("----------------------resultat pick image -----------",result);
+    
     if (!result.cancelled) {
       setImage(result.uri);
     }
-
+     
     var data = new FormData();
     data.append('avatar', {
       uri: result.uri,
       type: 'image/jpeg',
       name: 'avatar.jpg',
     });
-    const dataPhoto = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
-    method: 'POST',
-    body: data
+    const dataPhotoGallery = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
+      method: 'POST',
+      body: data
     })
-    
+    console.log("------------------dataPhoto----------",dataPhotoGallery)
+    const bodyImageGallery = await dataPhotoGallery.json()
+
+    console.log("------------------bodyImage---------------------------",bodyImageGallery)
+                    
+    props.onIncreaseClick(bodyImageGallery.url)    
 
   };
   
@@ -317,6 +322,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return { addPhoto: state.photo }
+  
 }
 
 function mapDispatchToProps(dispatch) {
