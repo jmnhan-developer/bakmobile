@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { FlatList, KeyboardAvoidingView, ScrollView, StyleSheet, Text, Title, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, LogBox, ScrollView, StyleSheet, Text, Title, View } from 'react-native';
 import {Input, ListItem, Icon, Divider, Button} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -7,43 +7,40 @@ import { connect } from 'react-redux';
 
 
   
-  const ProfileUpdateScreen = ({navigation, takeid}) => {
-
-    //RECUPERER LES INFOS DE L'USER POUR LA MAP ET L'ID POUR AFFICHER SES INFOS DANS L'ECRAN PROFILEUPDATE
+  const ProfileUpdateScreen = ({navigation, takeToken}) => {
+    console.log("token form profileUpdateScreen", takeToken)
+    //RECUPERER LES INFOS DE L'USER VIA LE TOKEN POUR AFFICHER SES INFOS DANS L'ECRAN PROFILEUPDATE
     const [userInfo, setUserInfo] = useState([])
     useEffect(() => {
       const findUser = async() => {
-        const rawData = await fetch(`http://172.17.1.24:3000/users/display-profile?id=${takeid}`) //l'ID ici est un objet...et non un tableau d'objets.
+        const rawData = await fetch(`http://172.20.10.2:3000/users/display-profile?token=${takeToken}`)
         const doneData = await rawData.json()
-        console.log("done data est:", doneData.data)
-        // setUserInfo([doneData.data]) //Attention ici on a transformé le setUserInfo en tableau d'objet pour pouvoir le mapper.
-        setFirstName(doneData.data.firstName)
-        setLastName(doneData.data.lastName)
-        setMail(doneData.data.email)
-        setAddress(doneData.data.address)
-        setPostalCode(doneData.data.postalCode)
-        setCity(doneData.data.city)
+        console.log("done data est:", doneData)
+        setUserInfo(doneData)
+        setFirstName(doneData.firstName)
+        setLastName(doneData.lastName)
+        setMail(doneData.email)
+        setAddress(doneData.address)
+        setPostalCode(doneData.postalCode)
+        setCity(doneData.city)
       }
       findUser()
     },[])
-
+   
     console.log("je suis userinfo:", userInfo.length)
 
      //POUR RETENIR LES MODIFS ET RÉENREGISTRER LES INFOS DE L'USER DANS LA BASE DE DONNÉES
 
-     const [gender, setGender]=useState('')
      const [firstName, setFirstName]=useState('')
      const [lastName, setLastName]=useState('')
      const [email, setMail]=useState('')
-    //  const [password, setPassword]=useState('')
      const [address, setAddress]=useState('')
      const [postalCode, setPostalCode]=useState('')
      const [city, setCity]=useState('')
  
  
- 
      var handleClick =async () => {
-       const dataUsers = await fetch(`http://172.20.10.2:3000/users/update-profile?id=${takeid}`, {
+       const dataUsers = await fetch(`http://172.20.10.2:3000/users/update-profile?token=${takeToken}`, {
        method:'PUT',
        headers:{'Content-Type':'application/x-www-form-urlencoded'},
        body:`firstName=${firstName}&lastName=${lastName}&email=${email}&address=${address}&postalCode=${postalCode}&city=${city}`
@@ -81,11 +78,6 @@ import { connect } from 'react-redux';
               <Input name="email" value={email} onChangeText={(val) =>setMail(val)}></Input>
             </View>
 
-            {/* <View style={{flexDirection:'row', justifyContent:"space-between", width:'80%'}}>
-              <Text style={{fontSize:17, marginTop:10, width:80}}>Password: </Text>
-              <Input name="password" value={userData.password} onChangeText={(val) =>setPassword(val)}></Input>
-            </View> */}
-
             <View style={{flexDirection:'row', justifyContent:"space-between", width:'80%'}}>
               <Text style={{fontSize:17, marginTop:10, width:80}}>Adresse: </Text>
               <Input name="Address" value={address} onChangeText={(val) =>setAddress(val)}></Input>
@@ -113,7 +105,7 @@ import { connect } from 'react-redux';
     );
   }
   function mapStateToProps(state) {
-    return { takeid: state.id }
+    return { takeToken: state.token }
   }
   
   

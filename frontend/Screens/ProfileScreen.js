@@ -1,73 +1,89 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, Title, View } from 'react-native';
-import { Input, ListItem, Icon, Divider, Button } from 'react-native-elements';
+import { Input, ListItem, Icon, Divider, Button, NavigationContainer } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 
 
 
-const ProfileScreen = ({ navigation, takeid }) => {
 
-  console.log('idfromreducer', takeid)
+const ProfileScreen = ({ navigation, takeToken }) => {
+
+  console.log('idfromreducer', takeToken)
 
   const [userInfo, setUserInfo] = useState([])
 
   useEffect(() => {
     const findUser = async () => {
-      const rawData = await fetch(`http://172.20.10.2:3000/users/display-profile?id=${takeid}`) //l'ID ici est un objet...et non un tableau d'objets.
+      const rawData = await fetch(`http://172.20.10.2:3000/users/display-profile?token=${takeToken}`)
       const doneData = await rawData.json()
-      console.log("done data est:", doneData.data)
-      setUserInfo([doneData.data]) //Attention ici on a transformé le setUserInfo en tableau d'objet pour pouvoir le mapper.
+      console.log("done data est:", doneData)
+      setUserInfo(doneData)
     }
     findUser()
   }, [])
 
 
-  console.log("je suis userinfo:", userInfo.length)
+  console.log("je suis userinfo:", userInfo)
 
   //INOFRMATION ISSUES DE LA BASE DE DONNÉES
-  let myProfil = userInfo.map((userData, i) => {
-    return <View>
 
-      <View style={{ flexDirection: 'column', width: '95%', marginBottom: 20 }}>
+  let myProfil;
+
+  if(userInfo != null) {
+    
+    myProfil =  <View>
+
+    <View style={{ flexDirection: 'column', width: '95%', marginBottom: 20 }}>
 
 
-        <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-          <Text style={{ fontSize: 17, width: 110 }}>Nom:</Text>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.lastName}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-          <Text style={{ fontSize: 17, width: 110 }}>Prénom:</Text>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.firstName}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-          <Text style={{ fontSize: 17, width: 110 }}>Email:</Text>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.email}</Text>
-        </View>
-        {/* <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-          <Text style={{ fontSize: 17, width: 110 }}>Password:</Text>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.password}</Text>
-        </View> */}
-        <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-          <Text style={{ fontSize: 17, width: 110 }}>Adresse:</Text>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.address}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-          <Text style={{ fontSize: 17, width: 110 }}>Code Postal:</Text>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.postalCode}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-          <Text style={{ fontSize: 17, width: 110 }}>Ville:</Text>
-          <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.city}</Text>
-        </View>
-
+      <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, width: 110 }}>Nom:</Text>
+        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.lastName}</Text>
+      </View>
+      <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, width: 110 }}>Prénom:</Text>
+        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.firstName}</Text>
+      </View>
+      <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, width: 110 }}>Email:</Text>
+        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.email}</Text>
+      </View>
+      {/* <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, width: 110 }}>Password:</Text>
+        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.password}</Text>
+      </View> */}
+      <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, width: 110 }}>Adresse:</Text>
+        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.address}</Text>
+      </View>
+      <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, width: 110 }}>Code Postal:</Text>
+        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.postalCode}</Text>
+      </View>
+      <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
+        <Text style={{ fontSize: 17, width: 110 }}>Ville:</Text>
+        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.city}</Text>
       </View>
 
-      <Button title="Modifier mes informations personnelles" buttonStyle={{ backgroundColor: "#009788" }} type="solid" onPress={() => navigation.navigate('ProfileUp')} />
-
     </View>
+
+    <Button title="Modifier mes informations personnelles" buttonStyle={{ backgroundColor: "#009788" }} type="solid" onPress={() => navigation.navigate('ProfileUp')} />
+
+  </View>
+
+  } else {
+    myProfil = <View>
+    <Text style={{textAlign:"center", marginBottom:30}}>Vous n'êtes pas connecté.</Text>
+    <Button title="Connectez-vous" buttonStyle={{backgroundColor: "#009788"}} type="solid"
+            onPress={()=> {navigation.navigate('SignIn')}}/>
+    </View>
+
+
   }
-  );
+
+ 
+  
 
   return (
 
@@ -77,15 +93,15 @@ const ProfileScreen = ({ navigation, takeid }) => {
 
       <View style={{ backgroundColor: '#D7DBDD', height: 1, width: 300, marginLeft: 50, marginTop: 30, marginBottom: 30 }}></View>
 
-      {myProfil}
-
+     {myProfil} 
+      
     </View>
 
   );
 }
 
 function mapStateToProps(state) {
-  return { takeid: state.id }
+  return { takeToken: state.token }
 }
 
 

@@ -105,7 +105,7 @@ router.get('/display-profile', async function(req, res, next) {
   console.log('-------------test req.query',req.query);
   let data = await userModel.findOne({token:req.query.token})
   console.log("kjhmkjbk", data)
-  res.json({data});
+  res.json(data);
 });
 
 
@@ -119,8 +119,8 @@ router.put('/update-profile', async function(req, res, next) {
     postalCode: req.body.postalCode,
     city: req.body.city}
     );
-  console.log(req.query)
-  console.log(data)
+  console.log('req query from backendroute update file',req.query)
+  console.log('data from backend update file',data)
   res.json({data});
 });
 
