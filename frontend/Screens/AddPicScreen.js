@@ -134,7 +134,7 @@ function AddPicScreen(props) {
                         type: 'image/jpeg',
                         name: 'avatar.jpg',
                       });
-                      const dataPhoto = await fetch("http://192.168.43.145:3000/articles/upload", {
+                      const dataPhoto = await fetch("http://172.17.1.179:3000/articles/upload", {
                       method: 'POST',
                       body: data
                       })

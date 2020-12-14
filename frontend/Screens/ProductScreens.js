@@ -14,7 +14,7 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
 
   useEffect(() => {
     const findSeller = async() => {
-      const data = await fetch(`http://192.168.43.145:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
+      const data = await fetch(`http://172.17.1.179:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
       const body = await data.json()
       console.log('-----------',body)
       console.log(body.data.firstName)
@@ -124,18 +124,17 @@ avatar: {
 });
 
 function mapStateToProps(state) {
-  return {productId: state.product}
-};
+  return ({productId: state.product})
+}
 
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitTypeOfAction: function (typeOfAction) {
-      dispatch({ type: 'buy', typeOfAction})
+      dispatch({ type: 'buy', typeOfAction}
+      )
     }
   }
 }
-
-
 
 
 export default connect(

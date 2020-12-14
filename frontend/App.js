@@ -62,7 +62,6 @@ var StackNavigatorSearch = createStackNavigator({
 var stackNavigatorSell =  createStackNavigator({  
   
   Sell: SellScreen,
-  // SignIn:SigninScreens,
   AddPic: AddPicScreen,
   AddArticle :ProfileSellingArticleScreen,
 
