@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
      flex: 1,
      paddingTop: 50,
      color:'#D6A2E8',
-     fontFamily: 'sans-serif-light',
+     fontFamily: 'sans-serif-light'
      
     },
     item: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       fontSize:25,
       fontWeight:'bold',
       color:'black',
-      fontFamily: 'sans-serif-light',
+      fontFamily: 'sans-serif-light'
     }
   });
   

@@ -102,6 +102,8 @@ else {
       <Input
       
       containerStyle={{backgroundColor:'white', borderRadius:10, marginLeft:10, marginBottom:10}}
+      leftIcon={{ type: 'font-awesome', name: 'search', color:'grey', size:20 }}
+
       lightTheme='true'
       placeholder="Rechercher" backgroundColor='light-grey' 
       onChangeText={(val) =>setSearchTerm(val)}

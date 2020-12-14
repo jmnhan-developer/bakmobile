@@ -68,14 +68,14 @@ const ProfileScreen = ({ navigation, takeToken }) => {
 
     </View>
 
-    <Button title="Modifier mes informations personnelles" buttonStyle={{ backgroundColor: "#009788" }} type="solid" onPress={() => navigation.navigate('ProfileUp')} />
+    <Button title="Modifier mes informations personnelles" buttonStyle={{ backgroundColor: "#82589F" }} type="solid" onPress={() => navigation.navigate('ProfileUp')} />
 
   </View>
 
   } else {
-    myProfil = <View>
+    myProfil = <View style={{ flex: 1, marginTop: 10, width: '95%', marginLeft: 10 }}>
     <Text style={{textAlign:"center", marginBottom:30}}>Vous n'êtes pas connecté.</Text>
-    <Button title="Connectez-vous" buttonStyle={{backgroundColor: "#009788"}} type="solid"
+    <Button title="Connectez-vous" buttonStyle={{backgroundColor: "#82589F"}} type="solid"
             onPress={()=> {navigation.navigate('SignIn')}}/>
     </View>
 
@@ -87,11 +87,11 @@ const ProfileScreen = ({ navigation, takeToken }) => {
 
   return (
 
-    <View style={{ flex: 1, marginTop: 25, width: '95%', marginLeft: 10 }}>
+    <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
 
       <Text style={{ fontSize: 15, textAlign: "center", marginTop: 5 }}>Mes informations personnelles</Text>
 
-      <View style={{ backgroundColor: '#D7DBDD', height: 1, width: 300, marginLeft: 50, marginTop: 30, marginBottom: 30 }}></View>
+      <View style={{ backgroundColor: '#D7DBDD', height: 1, width: 300, marginLeft: 50, marginTop: 20, marginBottom: 30 }}></View>
 
      {myProfil} 
       

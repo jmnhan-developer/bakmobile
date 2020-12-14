@@ -86,6 +86,7 @@ console.log(props.takeId,'id from sell page ------ ------')
     {subcategory: "Landeaux"},
     {subcategory: "Portes-Bébé"},
     {subcategory: "Sacs à Langer"},
+    {subcategory: "Autres"},
   ]
   
   var subCat2 = [
@@ -95,6 +96,7 @@ console.log(props.takeId,'id from sell page ------ ------')
     {subcategory: "de 13 à 18 mois"},
     {subcategory: "de 19 à 24 mois"},
     {subcategory: "de 2 à 3 ans"},
+    {subcategory: "Autres"},
   ]
   
   var subCat3 = [
@@ -103,6 +105,7 @@ console.log(props.takeId,'id from sell page ------ ------')
     {subcategory: "Lingettes-Serviettes"},
     {subcategory: "Thermometres"},
     {subcategory: "Jouets de bain"},
+    {subcategory: "Autres"},
   ]
   
   var subCat4 = [
@@ -112,6 +115,7 @@ console.log(props.takeId,'id from sell page ------ ------')
     {subcategory: "Gigoteuses"},
     {subcategory: "Veilleuses"},
     {subcategory: "Babyphones"},
+    {subcategory: "Autres"},
   ]
   
   var subCat5 = [
@@ -121,6 +125,7 @@ console.log(props.takeId,'id from sell page ------ ------')
     {subcategory: "Robots de Cuisine"},
     {subcategory: "Vaiselles"},
     {subcategory: "Accessoires"},
+    {subcategory: "Autres"},
   ]
   
    
