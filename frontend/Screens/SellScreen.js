@@ -9,6 +9,11 @@ import { SafeAreaView } from 'react-navigation';
 
 
 
+// ----------------------------------------------image picker
+// import * as ImagePicker from 'expo-image-picker';
+// import Constants from 'expo-constants';
+
+
 
 function SellScreen(props) {
   
@@ -40,6 +45,11 @@ function SellScreen(props) {
       }
     })
   }, []);
+
+
+console.log(props.takeId,'id from sell page ------ ------')
+  
+
 
   var typeOfAction= 'vendeur';
  
@@ -179,6 +189,7 @@ function SellScreen(props) {
           </View>
         </View>
 
+
         {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
                   <FontAwesome name="camera" size={24}  color="white"/>
@@ -206,6 +217,7 @@ function SellScreen(props) {
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
+          keyboardType = 'numeric'
           onChangeText={(val) => setShippingFees(val)}
           keyboardType='numeric'
 

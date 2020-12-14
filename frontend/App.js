@@ -40,7 +40,6 @@ const store = createStore(combineReducers({photo,product,token,typeOfAction,subc
 var StackNavigatorHome= createStackNavigator({
    
   Home:HomeScreens,
-  // Product:ProductScreens
   Product:ProductScreens,
   SignUp: SignUpScreen, 
   SignIn:SigninScreens

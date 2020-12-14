@@ -75,7 +75,7 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
       <Text style={{fontSize:15, textAlign:"center", marginBottom: 20}}>Inscription</Text>
        
 
-      <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}>
+      {/* <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}> */}
 
         <ScrollView>
 
@@ -123,7 +123,7 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
         </ScrollView>
 
-      </KeyboardAvoidingView>
+      {/* </KeyboardAvoidingView> */}
 
     </View>
   )
