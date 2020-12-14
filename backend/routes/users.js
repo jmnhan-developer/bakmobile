@@ -124,9 +124,10 @@ router.put('/update-profile', async function(req, res, next) {
   res.json({data});
 });
 
-router.get('/get-seller', async function(req, res, next) {
+
+router.get('/get-user', async function(req, res, next) {
   console.log('route get seller --- -- --',req.query);
-  let data = await userModel.findOne({token:req.query.SellerToken})
+  let data = await userModel.findOne({token:req.query.UserToken})
   console.log(data)
   res.json({data});
 });

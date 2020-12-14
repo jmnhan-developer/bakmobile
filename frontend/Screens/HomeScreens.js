@@ -4,8 +4,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView,AsyncStorage } from 'react-native';
 import { Input, Image } from 'react-native-elements';
-import { connect } from 'react-redux';
 
+import { connect } from 'react-redux';
+import {IP_HOST} from '../variable'
 
 
 
@@ -33,7 +34,7 @@ function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch("http://172.20.10.2:3000/articles/get-all-articles")
+      const data = await fetch(`http://${IP_HOST}:3000/articles/get-all-articles`)
       const body = await data.json()
       setProductList(body.products);
       setFilterAddList(body.products);
@@ -82,15 +83,16 @@ else {
   )
 
   return (
-    <View style={{flex: 1, marginTop:25 }}>
+    <View style={{flex: 1, marginTop:40 }}>
       <Input
-      containerStyle={{backgroundColor:'white'}}
+      
+      containerStyle={{backgroundColor:'white', borderRadius:10, marginLeft:10, marginBottom:10}}
       lightTheme='true'
       placeholder="Rechercher" backgroundColor='light-grey' 
       onChangeText={(val) =>setSearchTerm(val)}
       />
 
-  <Text style={{fontSize:20, textAlign:"center", marginTop:5, marginBottom:5}}>Les derniers articles mis en vente</Text>
+  <Text style={{fontSize:20, fontFamily:'Helvetica', fontWeight:'bold', marginTop:5, marginBottom:10, marginLeft:10}}>Les derniers articles mis en vente</Text>
 
   <ScrollView>
     <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>

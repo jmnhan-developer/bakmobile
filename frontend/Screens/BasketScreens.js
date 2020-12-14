@@ -6,13 +6,15 @@ import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function BasketScreens({navigation,productId}) {
+import {IP_HOST} from '../variable'
+
+function BasketScreens({navigation,productId,takeToken}) {
 
   const [seller,setSeller]=useState({});
   console.log('seller token in BasketScreen',productId.sellerToken);
   useEffect(() => {
     const findSeller = async() => {
-      const data = await fetch(`http://192.168.43.145:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
+      const data = await fetch(`http://${IP_HOST}:3000/users/get-user?UserToken=${takeToken}`)
       const body = await data.json()
       console.log('-----------',body)
       console.log('firstname from basketscreen -----------',body.data.firstName)
@@ -20,8 +22,7 @@ function BasketScreens({navigation,productId}) {
     }
 
     findSeller();
-    
-    
+      
   },[])
 
 console.log('seller of the product in basket screen',seller)
@@ -34,9 +35,9 @@ console.log('seller of the product in basket screen',seller)
      <Text>{seller.firstName}</Text>
      <Text>{seller.lastName}</Text>
   <Text>{seller.email}</Text>
-     <Text>adresse</Text>
-     <Text>code postale</Text>
-     <Text>ville</Text>
+     <Text>{seller.address}</Text>
+  <Text>{seller.postalCode}</Text>
+  <Text>{seller.city}</Text>
  </View> 
   }
 
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   console.log("state is stable", state.product)
-  return { productId: state.product }
+  return {productId: state.product,takeToken:state.token}
 };
 
 export default connect(

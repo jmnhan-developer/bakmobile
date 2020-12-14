@@ -17,7 +17,7 @@ const ProfileBoughtArticleScreen = (props) => {
   useEffect(() => {
 
     const findProducts = async () => {
-      const data = await fetch(`http://172.20.10.2:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`) //-------------- ROUTE ET TOKEN A MODIFIER ---------------------------
+      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`) //-------------- ROUTE ET TOKEN A MODIFIER ---------------------------
       const body = await data.json()
 
       setProductList(body.products);
