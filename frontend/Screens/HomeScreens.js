@@ -2,16 +2,41 @@
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView,AsyncStorage } from 'react-native';
 import { Input, Image } from 'react-native-elements';
 
 import { connect } from 'react-redux';
 
-function HomeScreens({navigation, onSubmitProduct}) {
+
+
+
+
+
+
+
+
+function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
+ 
 
+ 
+  useEffect(() => {
+    AsyncStorage.getItem('userToken', (err, value) => {
+      if(value){ 
+      
+        onSubmitToken(value);
+        console.log('value from HomeScreen:',value);
+        
+      }
+    })
+  }, []);
+
+
+
+
+  
   useEffect(() => {
     const findProducts = async() => {
       const data = await fetch("http://172.17.1.18:3000/articles/get-all-articles")
@@ -97,9 +122,17 @@ function mapDispatchToProps(dispatch) {
   return {
     onSubmitProduct: function (product) {
       dispatch({ type: 'pickProduct', product:product})
+    },onSubmitToken: function (token){
+      dispatch({type:'informationFromHomeScreen',token:token})
     }
   }
 }
+
+
+
+
+
+
 
 export default connect(
   null,

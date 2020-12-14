@@ -11,7 +11,7 @@ const articleSchema = mongoose.Schema({
     subcategory:String,
     state:String,
     articleSold:Boolean,
-    sellerID:String,
+    sellerToken:String,
     images:Array,
     creationDate:Date
 })

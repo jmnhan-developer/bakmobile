@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,Platform  } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,Platform,AsyncStorage  } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -7,49 +7,16 @@ import {connect} from 'react-redux';
 
 import { SafeAreaView } from 'react-navigation';
 
+
+
 // ----------------------------------------------image picker
 // import * as ImagePicker from 'expo-image-picker';
 // import Constants from 'expo-constants';
 
 
-  
-
 
 function SellScreen(props) {
   
-  // ----------------------------------------------image picker
-  // const [photoImage, setImage] = useState(null);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     if (Platform.OS !== 'web') {
-  //       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //       if (status !== 'granted') {
-  //         alert('Sorry, we need camera roll permissions to make this work!');
-  //       }
-  //     }
-  //   })();
-  // }, []);
-
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-
-  //   console.log(result);
-
-  //   if (!result.cancelled) {
-  //     setImage(result.uri);
-  //   }
-  // };
-
-// ---------------------------------------------- fin image picker
-
-
-
   
   const [titleInput , setTitleInput ] = useState("");
   
@@ -67,25 +34,49 @@ function SellScreen(props) {
 
 
   
-  var typeOfAction= 'vendeur';
 
-console.log("--------------------------------------hello ID",props.takeId)
+  useEffect(() => {
+    AsyncStorage.getItem('userToken', (err, value) => {
+      if(value){ 
+      
+        props.onSubmitToken(value);
+        console.log('value from SellScreen:',value);
+        
+      }
+    })
+  }, []);
+
+
+console.log(props.takeId,'id from sell page ------ ------')
+  
+
+
+  var typeOfAction= 'vendeur';
+ 
+  console.log('id from reducer SellScreen',props.takeToken)
 
   var handleClick = async () => {
     
+
+  if(props.takeToken!='')
+    
+     { 
+   
     var image = JSON.stringify(props.addPhoto);
     // console.log('tableau photos',image)
     const dataArticle = await fetch("http://172.17.1.18:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerID=${props.takeId}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerToken=${props.takeToken}`
     });
                                
     // console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
     console.log("dataAnnonce", dataAnnonce)
-
-  }
+    props.navigation.navigate('ArticleSell')
+  }else{
+    props.navigation.navigate('SignIn')
+  }}
 
 
   var subCat1 = [
@@ -198,6 +189,7 @@ console.log("--------------------------------------hello ID",props.takeId)
           </View>
         </View>
 
+
         {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
                   <FontAwesome name="camera" size={24}  color="white"/>
@@ -225,6 +217,7 @@ console.log("--------------------------------------hello ID",props.takeId)
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
+          keyboardType = 'numeric'
           onChangeText={(val) => setShippingFees(val)}
           keyboardType='numeric'
 
@@ -291,7 +284,7 @@ console.log("--------------------------------------hello ID",props.takeId)
           title="Ajouter votre annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);props.navigation.navigate('SignIn')}}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction)}}
           containerStyle={{marginBottom: 20}}
         />
 
@@ -324,13 +317,16 @@ function mapDispatchToProps(dispatch) {
   return {
     onSubmitTypeOfAction: function (typeOfAction) {
       dispatch({ type: 'sell', typeOfAction})
+    },
+    onSubmitToken: function (token){
+      dispatch({type:'informationFromSellScreen',token:token})
     }
   }
 }
 
  
 function mapStateToProps(state) {
-  return { addPhoto: state.photo , takeId: state.id }
+  return { addPhoto: state.photo , takeToken: state.token }
 }
 export default connect(
   mapStateToProps, 

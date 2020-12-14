@@ -5,11 +5,10 @@ import { connect } from 'react-redux';
     function CarouselScreen({productId}) {
  
     const renderItem = data => (
-      <View key={data} style={{width: 420, height: 220}}>
+      <View key={data} style={{width: 420, height: 450}}>
         <Image style={{width: '100%', height: '100%'}} source={{uri:data}} />
       </View>
     );
-
 
   return (
       <View>

@@ -1,32 +1,55 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
-import { Card, ListItem, Button,  } from 'react-native-elements'
+import { Card, ListItem, Button  } from 'react-native-elements'
 import { connect } from 'react-redux';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from '../components/Carousel';
+import Swiper from 'react-native-swiper';
 
 
-function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
+
+function ProductScreens({ navigation, productId, onSubmitTypeOfAction }) {
+
+  var typeOfAction = 'acheteur';
+
+  const [firstName,setFirstName]=useState('')
+  const [lastName, setLastName]=useState('')
 
   var typeOfAction='acheteur';
+  // console.log('productId -----',productId.sellerToken)
+
+  useEffect(() => {
+    const findSeller = async() => {
+      const data = await fetch(`http://172.17.1.18:3000/users/get-user?UserToken=${productId.sellerToken}`)
+      const body = await data.json()
+      // console.log('-----------',body)
+      // console.log(body.data.firstName)
+      setFirstName(body.data.firstName)
+      setLastName(body.data.lastName)
+
+    }
+
+    findSeller();
+    
+    
+  },[])
+
 
   return (
-    <ScrollView>
-        <View style={styles.container}>
-        <Button
-        icon={<Icon name="long-arrow-left" color="#82589F" size={24}/>}
-        containerStyle={{alignItems:"flex-start"}}
-        type="clear"
-        onPress= {() => navigation.goBack()}
+    <View style={{ flex: 1, marginTop: 40, width: '95%', marginLeft: 10 }}>
+      <FontAwesome name="long-arrow-left" size={24} color="#82589F"
+        onPress={() => navigation.goBack()}
       />
           {/* <Image style={styles.image} 
           source={{uri:productId.images[0]}}
           /> */}
+        <ScrollView>
           <Carousel />
           <View style={{flexDirection:'row', marginTop:10}}>
          
             <View style={{marginLeft:10}}>
-            <Text >Axel Barateau</Text>
+        <Text >{firstName} {lastName}</Text>
                 <View style={{flexDirection: 'row'}}>
                   <Icon name='star'
                         color= '#f9ca24'
@@ -51,7 +74,7 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
                   <Text style={{marginLeft:10}}>46 évaluation</Text>
                 </View>
             </View>
-            <Icon   style={{marginLeft:170}}
+            <Icon   style={{marginLeft:150}}
                     name='heart-o'
                     color='#82589F'
                     size={20}
@@ -75,16 +98,64 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
             </ScrollView>
           </View>
           <Button
-            buttonStyle={{borderRadius: 5, marginLeft: 10, marginRight: 10, marginBottom: 0, backgroundColor:"#82589F"}}
+            buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: "#82589F" }}
             type='solid'
             title='Acheter'
-            onPress= {() => {navigation.navigate('SignIn');onSubmitTypeOfAction(typeOfAction)}}
-            />
-        
-    </View>
-    </ScrollView>
+            onPress={() => { navigation.navigate('SignIn'); onSubmitTypeOfAction(typeOfAction) }}
+          />
+      </ScrollView>
 
-)
+      {/* <ScrollView>
+        <Carousel />
+        <View style={{ flexDirection: 'row', marginTop: 10, marginLeft: 10 }}>
+          
+        </View>
+
+          <View style={{ flex: 1, flexDirection: 'row', marginTop: 5, justifyContent: "space-between" }}>
+            <Text >{Name}</Text>
+            <Icon name='heart-o' color='#82589F' size={20} />
+          </View>
+
+          <View style={{ flexDirection: 'row' }}>
+            <Icon name='star' color='#f9ca24' size={20} />
+            <Icon name='star' color='#f9ca24' size={20} />
+            <Icon name='star' color='#f9ca24' size={20} />
+            <Icon name='star' color='#f9ca24' size={20} />
+            <Icon name='star' color='#f9ca24' size={20} />
+            <Text style={{ marginLeft: 10, marginTop: 2 }}>46 évaluations</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+            <Text>{productId.title}</Text>
+            <Text>Prix: {productId.price} €</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text>Marque : {productId.brand}</Text>
+            <Text>Frais de Port: {productId.shippingFees}€</Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text>Age : {productId.kidsAge}</Text>
+          </View>
+          <View style={{ marginTop: 10, marginBottom: 10 }}>
+            <ScrollView>
+              <Text>Description :</Text>
+              <Text>{productId.description}</Text>
+            </ScrollView>
+          </View>
+          <Button
+            buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: "#82589F" }}
+            type='solid'
+            title='Acheter'
+            onPress={() => { navigation.navigate('SignIn'); onSubmitTypeOfAction(typeOfAction) }}
+          />
+
+      </ScrollView> */}
+
+    </View>
+
+
+
+  )
 }
 
 const styles = StyleSheet.create({
@@ -109,25 +180,25 @@ containerCarac: {
 }
 });
 
+
+
+
 function mapStateToProps(state) {
-  return {productId: state.product}
+  return { productId: state.product }
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitTypeOfAction: function (typeOfAction) {
-      dispatch({ type: 'buy', typeOfAction})
-    }
+        onSubmitTypeOfAction: function (typeOfAction) {
+        dispatch({ type: 'buy', typeOfAction })
+      }
   }
 }
 
-
-
-
 export default connect(
 
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 
 
-)(ProductScreens);  
+)(ProductScreens); 
