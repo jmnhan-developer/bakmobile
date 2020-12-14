@@ -5,6 +5,9 @@ import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView,AsyncStorage,T
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 
+import {IP_HOST} from '../variable'
+
+
 function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
   const [gender, setGender]=useState('')
@@ -34,7 +37,7 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
   
   var handleClick =async () => {
 
-    const dataUsers = await fetch("http://172.17.1.179:3000/users/sign-up", {
+    const dataUsers = await fetch(`http://${IP_HOST}:3000/users/sign-up`, {
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body:`gender=${gender}&firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}&phoneNumb=${phoneNumb}&address=${address}&postalCode=${postalCode}&city=${city}`
@@ -70,7 +73,7 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
   return (
     
-    <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:10}}>
+    <View style={{flex: 1, marginTop:50, width: '95%', marginLeft:10}}>
       
       <Text style={{fontSize:15, textAlign:"center", marginBottom: 20}}>Inscription</Text>
        
@@ -78,9 +81,6 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
       {/* <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}> */}
 
         <ScrollView>
-
-          <Input name="gender" placeholder='Madame ou Monsieur'
-          onChangeText={(val) =>setGender(val)}/>
 
           <Input name="firstName" placeholder='Nom'
           onChangeText={(val) =>setFirstName(val)}/>
@@ -113,13 +113,19 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
           </Icon>
           <Button style={{marginTop:20}}
             title="M'inscrire"
-            buttonStyle={{ backgroundColor: "#eb4d4b"}}
+            buttonStyle={{ backgroundColor: "#82589F"}}
             type="solid"
             onPress={() => handleClick()
            }
           />
             <Text>{isNotConnect}</Text>
-            <TouchableOpacity onPress={()=>{navigation.navigate('SignIn')}}><Text  style={{marginBottom: 20, marginTop:20, textAlign: "center"}}>J'ai déjà un compte</Text></TouchableOpacity>
+            <Button 
+            title="J'ai déjà un compte"
+            type='outline'
+            titleStyle={{fontSize:15, color:"#82589F"}}
+            buttonStyle={{justifyContent:'flex-start', borderColor:'white'}}
+            onPress={()=>{navigation.navigate('SignIn')}}
+            />
 
         </ScrollView>
 

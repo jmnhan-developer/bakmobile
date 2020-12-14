@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 
 
+import {IP_HOST} from '../variable'
 
   
   const ProfileUpdateScreen = ({navigation, takeToken}) => {
@@ -13,7 +14,7 @@ import { connect } from 'react-redux';
     const [userInfo, setUserInfo] = useState([])
     useEffect(() => {
       const findUser = async() => {
-        const rawData = await fetch("http://172.17.1.179/users/display-profile?id=5fce2c819c05581ecc906354") //l'ID ici est un objet...et non un tableau d'objets.
+        const rawData = await fetch(`http://${IP_HOST}:3000/users/display-profile?token=${takeToken}`) //l'ID ici est un objet...et non un tableau d'objets.
         const doneData = await rawData.json()
         console.log("done data est:", doneData)
         setUserInfo(doneData)
@@ -27,7 +28,7 @@ import { connect } from 'react-redux';
       findUser()
     },[])
    
-    console.log("je suis userinfo:", userInfo.length)
+
 
      //POUR RETENIR LES MODIFS ET RÉENREGISTRER LES INFOS DE L'USER DANS LA BASE DE DONNÉES
 
@@ -40,7 +41,7 @@ import { connect } from 'react-redux';
  
  
      var handleClick =async () => {
-       const dataUsers = await fetch(`http://172.20.10.2:3000/users/update-profile?token=${takeToken}`, {
+       const dataUsers = await fetch(`http://${IP_HOST}:3000/users/update-profile?token=${takeToken}`, {
        method:'PUT',
        headers:{'Content-Type':'application/x-www-form-urlencoded'},
        body:`firstName=${firstName}&lastName=${lastName}&email=${email}&address=${address}&postalCode=${postalCode}&city=${city}`
