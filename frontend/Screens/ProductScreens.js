@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { Card, ListItem, Button, } from 'react-native-elements'
+import React, {useEffect, useState} from 'react';
+import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import { Card, ListItem, Button  } from 'react-native-elements'
 import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -13,6 +13,23 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction }) {
 
   var typeOfAction = 'acheteur';
 
+  const [Name,setName]=useState('')
+  var typeOfAction='acheteur';
+  console.log('productId -----',productId.sellerToken)
+
+  useEffect(() => {
+    const findSeller = async() => {
+      const data = await fetch(`http://192.168.43.145:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
+      const body = await data.json()
+      console.log('-----------',body)
+      console.log(body.data.firstName)
+      setName(body.data.firstName)
+    }
+
+    findSeller();
+    
+    
+  },[])
 
 
   return (

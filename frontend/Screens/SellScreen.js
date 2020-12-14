@@ -9,6 +9,11 @@ import { SafeAreaView } from 'react-navigation';
 
 
 
+// ----------------------------------------------image picker
+// import * as ImagePicker from 'expo-image-picker';
+// import Constants from 'expo-constants';
+
+
 
 function SellScreen(props) {
   
@@ -41,7 +46,6 @@ function SellScreen(props) {
     })
   }, []);
 
-console.log("--------------------------------------hello ID",props.takeId)
 
 console.log(props.takeId,'id from sell page ------ ------')
   
@@ -63,7 +67,7 @@ console.log(props.takeId,'id from sell page ------ ------')
     const dataArticle = await fetch("http://172.20.10.2:3000/articles/create-article", {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerID=${props.takeToken}`
+      body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerToken=${props.takeToken}`
     });
                                
     // console.log("dataArticle",dataArticle)
@@ -185,6 +189,7 @@ console.log(props.takeId,'id from sell page ------ ------')
           </View>
         </View>
 
+
         {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
                   <FontAwesome name="camera" size={24}  color="white"/>
@@ -212,6 +217,7 @@ console.log(props.takeId,'id from sell page ------ ------')
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
+          keyboardType = 'numeric'
           onChangeText={(val) => setShippingFees(val)}
           keyboardType='numeric'
 

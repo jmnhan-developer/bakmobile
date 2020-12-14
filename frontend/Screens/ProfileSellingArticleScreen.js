@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     useEffect(() => {
 
         const findProducts = async() => {
-        const data = await fetch(`http://192.168.43.145:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
+        const data = await fetch(`http://172.20.10.2:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
         const body = await data.json()
         
         setProductList(body.products);

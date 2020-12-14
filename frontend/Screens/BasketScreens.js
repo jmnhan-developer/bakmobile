@@ -1,24 +1,43 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
-import { Card, ListItem, Button, } from 'react-native-elements'
+import React, {useState,useEffect} from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
+import { Card, ListItem, Button,  } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function BasketScreens({ navigation, productId }) {
-  let totalPrice = parseInt(productId.price) + parseInt(productId.shippingFees);
+function BasketScreens({navigation,productId}) {
+
+  const [seller,setSeller]=useState({});
+  console.log('seller token in BasketScreen',productId.sellerToken);
+  useEffect(() => {
+    const findSeller = async() => {
+      const data = await fetch(`http://192.168.43.145:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
+      const body = await data.json()
+      console.log('-----------',body)
+      console.log('firstname from basketscreen -----------',body.data.firstName)
+      setSeller(body.data)
+    }
+
+    findSeller();
+    
+    
+  },[])
+
+console.log('seller of the product in basket screen',seller)
+
+  let totalPrice = parseInt(productId.price)+parseInt(productId.shippingFees);
   const [selectedValue, setSelectedValue] = useState(false);
   var userData
-  if (selectedValue == true) {
-    userData = <View style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 10 }}>
-      <Text>Axel</Text>
-      <Text>Barateau</Text>
-      <Text>axel@live.fr</Text>
-      <Text>adresse</Text>
-      <Text>code postale</Text>
-      <Text>ville</Text>
-    </View>
+  if(selectedValue==true) {
+     userData= <View style={{flexDirection:'column', justifyContent:'flex-start', margin:10}}>
+     <Text>{seller.firstName}</Text>
+     <Text>{seller.lastName}</Text>
+  <Text>{seller.email}</Text>
+     <Text>adresse</Text>
+     <Text>code postale</Text>
+     <Text>ville</Text>
+ </View> 
   }
 
 
