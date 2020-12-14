@@ -15,7 +15,7 @@ cloudinary.config({
 
 
 router.post('/create-article', async function(req, res, next) {
-  console.log("hello1",req.body)
+  console.log("hello1 req query --------------create article",req.body)
 
     let newArticle = new articleModel({
         title:req.body.title,
@@ -51,18 +51,20 @@ router.get('/get-all-articles', async function(req, res, next) {
 
 
 router.post('/upload', async function(req, res, next) {
-// console.log("hello1")
+
+console.log("hello1 req query upload", req.query)
+
   var imagePath = './tmp/ '+uniqid()+'avatar.jpg'
-  // console.log("hello2",imagePath)
+  console.log("hello2-------------- imagePath",imagePath)
 
   var resultCopy = await req.files.avatar.mv(imagePath);
     console.log("fichiers",req.files.avatar)
-    // console.log("hello3")
+    console.log("hello3-----------resultCopy", resultCopy)
 
   if(!resultCopy) {    
     var resultCloudinary = await cloudinary.uploader.upload(imagePath);
     res.json(resultCloudinary);
-    // console.log("hello4",resultCloudinary)
+    console.log("hello4 ----------- resultCloudinary",resultCloudinary)
   } else {
     res.json( {error:resultCopy} );
   } 
@@ -71,15 +73,15 @@ router.post('/upload', async function(req, res, next) {
 });
 
 router.get('/filter-articles', async function(req, res, next) {
-  console.log(req.query.subcat)
+  // console.log(req.query.subcat)
   let products = await articleModel.find({subcategory:req.query.subcat})
-  // console.log(products)
+  console.log(products)
   res.json({products})
   
 }); 
 
 router.get('/get-article-by-seller', async function(req, res, next) {
-  console.log(req.query)
+  // console.log("console log de req query",req.query)
   let products = await articleModel.find({sellerToken:req.query.SellerToken}) 
   console.log('product by seller-----------------',products)
   res.json({products});

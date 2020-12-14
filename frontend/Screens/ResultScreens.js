@@ -29,7 +29,7 @@ function ResultScreens(props) {
 
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch(`http://192.168.1.23.145:3000/articles/filter-articles?subcat=${props.Subcat}`)
+      const data = await fetch(`http://192.168.43.53:3000/articles/filter-articles?subcat=${props.Subcat}`)
       const body = await data.json()
       setProductList(body.products);
       

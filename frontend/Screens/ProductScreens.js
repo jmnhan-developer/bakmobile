@@ -14,7 +14,7 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
 
   useEffect(() => {
     const findSeller = async() => {
-      const data = await fetch(`http://192.168.43.145:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
+      const data = await fetch(`http://192.168.43.53:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
       const body = await data.json()
       console.log('-----------',body)
       console.log(body.data.firstName)

@@ -108,7 +108,9 @@ router.get('/display-profile', async function(req, res, next) {
 });
 
 router.get('/get-seller', async function(req, res, next) {
-  console.log('route get seller --- -- --',req.query);
+
+  console.log('------------- hello route get seller --- -- --',req.query);
+
   let data = await userModel.findOne({token:req.query.SellerToken})
   console.log(data)
   res.json({data});

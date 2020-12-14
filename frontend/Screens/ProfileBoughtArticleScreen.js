@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         image={{uri:card.image}}>
         <Text style={{fontSize:22}}>{card.title}</Text>
       <Text>{card.price} - Acheté le: {card.dateSubmit}</Text>
-      <View style={{paddingTop:15}}><Button title='Confirmer la réception' color='#82589F' style={{paddingRight:350}}/></View>
+      <View style={{paddingTop:15}}><Button title='Confirmer la réception' color='#82589F' style={{paddingRight:350}} /></View>
 
       </Card>
   }

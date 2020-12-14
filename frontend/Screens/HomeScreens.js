@@ -38,7 +38,7 @@ function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   
   useEffect(() => {
     const findProducts = async() => {
-      const data = await fetch("http://192.168.1.23:3000/articles/get-all-articles")
+      const data = await fetch("http://192.168.43.53:3000/articles/get-all-articles")
       const body = await data.json()
       setProductList(body.products);
       setFilterAddList(body.products);
