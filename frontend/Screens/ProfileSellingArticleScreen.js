@@ -3,7 +3,6 @@ import { Text, StyleSheet, ScrollView, View, Image } from 'react-native';
 import { Card } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-
 import { IP_HOST } from '../variable'
 
 
@@ -26,6 +25,19 @@ const ProfileSellingArticleScreen = (props) => {
   findProducts()
 
 }, [])
+
+// ---------------- travail sur route delete dans mes annonces
+
+var handleClickDeleteArticle = async (id) => {
+        
+  await fetch(`http://${IP_HOST}:3000/articles/cancel-article`, {
+  method: 'POST',
+  headers: {'Content-Type':'application/x-www-form-urlencoded'},
+  body: `idArticle=${id}`
+  });
+}
+
+// ---------------- fin travail sur route delete dans mes annonces
   console.log(productList);
 
 
@@ -36,14 +48,14 @@ const ProfileSellingArticleScreen = (props) => {
     return finalFormat;
   }
 
-  let cardList1 = productList.map((e, i) => {
+  let cardList = productList.map((e, i) => {
     return <View>
       <Image style={{ width: "100%", height: 350 }} source={{ uri: e.images[0] }}></Image>
       <Text style={{ fontSize: 22, padding: 2 }}>{e.title}</Text>
       <Text style={{ padding: 2 }}>{e.price}€ - Date de mise en vente: {formatDate(e.creationDate)}</Text>
       <View style={{ flex: 1, flexDirection: "row", padding: 2 }}>
         <FontAwesome name={'trash'} size={24} color='#82589F' />
-        <Text style={{ marginTop: 5, marginLeft: 5, marginBottom: 25 }}>Supprimer l'annonce</Text>
+        <Text style={{ marginTop: 5, marginLeft: 5, marginBottom: 25 }} onPress={() => {handleClickDeleteArticle(e._id)}}>Supprimer l'annonce</Text>
       </View>
     </View>
   });
@@ -52,7 +64,7 @@ const ProfileSellingArticleScreen = (props) => {
     <View style={{ flex: 1, marginTop: 25, width: '95%', marginLeft: 10 }}>
       <Text style={{ fontSize: 18, textAlign: "center" }}>Mes ventes en cours</Text>
       <ScrollView style={{ marginTop: 10 }}>
-        {cardList1}
+        {cardList}
       </ScrollView>
     </View>
   );

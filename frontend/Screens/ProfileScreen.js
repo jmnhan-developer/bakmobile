@@ -5,7 +5,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import {IP_HOST} from '../variable'
 
-  
 const ProfileScreen = ({ navigation, takeToken }) => {
 
   console.log('idfromreducer', takeToken)

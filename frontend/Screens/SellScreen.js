@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,Platform,AsyncStorage  } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,AsyncStorage  } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -8,14 +8,6 @@ import {connect} from 'react-redux';
 import { SafeAreaView } from 'react-navigation';
 
 import {IP_HOST} from '../variable'
-
-
-
-// ----------------------------------------------image picker
-// import * as ImagePicker from 'expo-image-picker';
-// import Constants from 'expo-constants';
-
-
 
 function SellScreen(props) {
   
@@ -191,15 +183,6 @@ console.log(props.takeId,'id from sell page ------ ------')
           </View>
         </View>
 
-
-        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Button title="   Photo de ton téléphone" onPress={pickImage}  buttonStyle={{backgroundColor:'#D6A2E8'}} icon={
-                  <FontAwesome name="camera" size={24}  color="white"/>
-                  } />
-          {photoImage && <Image source={{ uri: photoImage }} style={{ width: 70, height: 70 }} />}
-        </View> */}
-
-      
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
           onChangeText={(val) => setTitleInput(val)}

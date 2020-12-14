@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet,Platform } from 'react-native';
 import { Camera } from 'expo-camera';
 
 import {connect} from 'react-redux';
@@ -12,6 +12,13 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 
 import {Button, Overlay, Image} from 'react-native-elements';
+
+
+// ----------------------------------------------image picker
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import { Ionicons } from '@expo/vector-icons';
+//----------------- fin image picker
 
 import {IP_HOST} from '../variable'
 
@@ -32,7 +39,39 @@ function AddPicScreen(props) {
         setHasPermission(status === 'granted');
     })();
   }, []);
+
+  //----------------- pickImage
+  const [image, setImage] = useState(null);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log("resultat pick image -----------",result);
+    props.onIncreaseClick(result.uri)
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+
+    var data = new FormData();
+    data.append('avatar', {
+      uri: result.uri,
+      type: 'image/jpeg',
+      name: 'avatar.jpg',
+    });
+    const dataPhoto = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
+    method: 'POST',
+    body: data
+    })
+    
+
+  };
   
+//-----------------fin  pickImage
+
   var cameraDisplay;
   if(hasPermission && props.isFocused){
     cameraDisplay = <Camera 
@@ -108,6 +147,11 @@ function AddPicScreen(props) {
             color="#ffffff"
             /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
            </TouchableOpacity>
+
+           <TouchableOpacity> 
+           
+          </TouchableOpacity>
+
           </View>
 
           <View
@@ -127,7 +171,7 @@ function AddPicScreen(props) {
               onPress={async () => { 
                   setVisible(true);
                   if (camera) {
-                      let photo = await camera.takePictureAsync({quality : 0.7});
+                      let photo = await camera.takePictureAsync({quality : 0.5});
                       setVisible(false);
                       // console.log("photo prise",photo)
 
@@ -145,7 +189,7 @@ function AddPicScreen(props) {
                       const bodyImage = await dataPhoto.json()
                       // console.log("bodyImage",bodyImage)
                       
-                      // console.log(bodyImage)
+                      
                       props.onIncreaseClick(bodyImage.url)
                       // if(body.result == true){
                       //   props.addToken(body.token)
@@ -157,13 +201,26 @@ function AddPicScreen(props) {
                     }   
               }}
           >
-          <View style={styles.iconWrapper}>
-            <IconFontAwesome
-                name="camera"
-                size={50}
-                color="#ffffff"
-                />
+          <View style={{flexDirection:"row"}}>
+            <View style={styles.iconWrapper}>
+              <IconFontAwesome
+                  name="camera"
+                  size={50}
+                  color="#ffffff"
+                  
+                  />
+            </View>
+            <View style={styles.iconWrapper2}>
+              <Text style={{ fontSize: 15, marginBottom: 2, color: 'white' }}> + </Text>
+                <Ionicons
+                    onPress={pickImage}
+                    name="md-images"
+                    size={25}
+                    color="#ffffff"
+                    />
+            </View>
           </View>
+         
           
             </TouchableOpacity>
           </View>
@@ -204,10 +261,22 @@ function AddPicScreen(props) {
           </View>
 
           <View>
-          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:70}}/>
+        <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:70}} onPress={pickImage}/>
            
           </View>
         </View>
+
+
+        {/* ----------------- pickImage */}
+
+        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button title="Pick an image from camera roll" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+       </View> */}
+
+      
+
+
 
         <Button
             title="Enregistrer mes photos"
@@ -232,6 +301,17 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     margin:10
+  },
+  iconWrapper2: {
+    width: 60,
+    borderRadius: 100,
+    borderColor: "white",
+    borderStyle: "solid",
+    borderWidth: 2,
+    padding: 5,
+    alignItems: "center",
+    margin:28,
+    flexDirection:"row"
   }
 })
 
