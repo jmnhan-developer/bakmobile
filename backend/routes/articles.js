@@ -43,7 +43,7 @@ router.post('/create-article', async function(req, res, next) {
 
 
 router.get('/get-all-articles', async function(req, res, next) {
-    let products = await articleModel.find()
+    let products = await articleModel.find().sort({creationDate:-1})
     // console.log(products)
     res.json({products});
   
@@ -72,20 +72,17 @@ router.post('/upload', async function(req, res, next) {
 
 router.get('/filter-articles', async function(req, res, next) {
   console.log(req.query.subcat)
-  let products = await articleModel.find({subcategory:req.query.subcat})
-  // console.log(products)
+  let products = await articleModel.find({subcategory:req.query.subcat}).sort({creationDate:-1})
   res.json({products})
   
 }); 
 
 router.get('/get-article-by-seller', async function(req, res, next) {
   console.log(req.query)
-  let products = await articleModel.find({sellerToken:req.query.SellerToken}) 
+  let products = await articleModel.find({sellerToken:req.query.SellerToken}).sort({creationDate:-1}) 
   console.log('product by seller-----------------',products)
   res.json({products});
 
 });
-
-
 
 module.exports = router; 

@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from '../components/Carousel';
 
+import {IP_HOST} from '../variable'
+
+
 
 function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
 
@@ -14,7 +17,7 @@ function ProductScreens({navigation,productId,onSubmitTypeOfAction}){
 
   useEffect(() => {
     const findSeller = async() => {
-      const data = await fetch(`http://192.168.43.145:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
+      const data = await fetch(`http://${IP_HOST}:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
       const body = await data.json()
       console.log('-----------',body)
       console.log(body.data.firstName)

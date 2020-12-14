@@ -7,6 +7,8 @@ import {connect} from 'react-redux';
 
 import { SafeAreaView } from 'react-navigation';
 
+import {IP_HOST} from '../variable'
+
 
 
 // ----------------------------------------------image picker
@@ -64,7 +66,7 @@ console.log(props.takeId,'id from sell page ------ ------')
    
     var image = JSON.stringify(props.addPhoto);
     // console.log('tableau photos',image)
-    const dataArticle = await fetch("http://192.168.1.23:3000/articles/create-article", {
+    const dataArticle = await fetch(`http://${IP_HOST}:3000/articles/create-article`, {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerToken=${props.takeToken}`

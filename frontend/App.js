@@ -13,6 +13,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
 import AddPicScreen from './Screens/AddPicScreen';
+import PaymentScreens from './Screens/PaymentScreens';
 
 
 import product from '../frontend/reducers/Article.reducer';
@@ -54,6 +55,7 @@ var StackNavigatorSearch = createStackNavigator({
   Result: ResultScreens, 
   Product: ProductScreens,
   Basket: BasketScreens,
+  Payment: PaymentScreens
 }, 
 {headerMode: 'none'}
 );  

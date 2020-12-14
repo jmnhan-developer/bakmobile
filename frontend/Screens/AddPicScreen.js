@@ -13,6 +13,9 @@ import IconIonic from 'react-native-vector-icons/Ionicons';
 
 import {Button, Overlay, Image} from 'react-native-elements';
 
+import {IP_HOST} from '../variable'
+
+
 function AddPicScreen(props) {
 
   const [hasPermission, setHasPermission] = useState(null);
@@ -134,7 +137,7 @@ function AddPicScreen(props) {
                         type: 'image/jpeg',
                         name: 'avatar.jpg',
                       });
-                      const dataPhoto = await fetch("http://192.168.1.23:3000/articles/upload", {
+                      const dataPhoto = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
                       method: 'POST',
                       body: data
                       })
