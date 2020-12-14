@@ -4,6 +4,8 @@ import {Card} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 
+import {IP_HOST} from '../variable'
+
 
 
 const styles = StyleSheet.create({
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     useEffect(() => {
 
         const findProducts = async() => {
-        const data = await fetch(`http://192.168.43.53:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
+        const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
         const body = await data.json()
         
         setProductList(body.products);

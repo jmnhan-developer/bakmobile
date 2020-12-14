@@ -4,6 +4,7 @@ import {Input, ListItem, Icon, Divider, Button} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
 
+import {IP_HOST} from '../variable'
 
 
 function WalletScreens () {

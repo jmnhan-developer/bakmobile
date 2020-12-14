@@ -14,7 +14,6 @@ import HomeScreens from './Screens/HomeScreens'
 import ResultScreens from './Screens/ResultScreens';
 import AddPicScreen from './Screens/AddPicScreen';
 
-
 import product from '../frontend/reducers/Article.reducer';
 import typeOfAction from './reducers/typeOfAction.reducer'
 
@@ -61,7 +60,6 @@ var StackNavigatorSearch = createStackNavigator({
 var stackNavigatorSell =  createStackNavigator({  
   
   Sell: SellScreen,
-  // SignIn:SigninScreens,
   AddPic: AddPicScreen,
   AddArticle :ProfileSellingArticleScreen,
 

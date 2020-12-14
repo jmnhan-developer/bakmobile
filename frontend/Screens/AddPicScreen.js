@@ -18,8 +18,10 @@ import {Button, Overlay, Image} from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
-
 //----------------- fin image picker
+
+import {IP_HOST} from '../variable'
+
 
 function AddPicScreen(props) {
 
@@ -179,7 +181,7 @@ function AddPicScreen(props) {
                         type: 'image/jpeg',
                         name: 'avatar.jpg',
                       });
-                      const dataPhoto = await fetch("http://192.168.43.53:3000/articles/upload", {
+                      const dataPhoto = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
                       method: 'POST',
                       body: data
                       })
