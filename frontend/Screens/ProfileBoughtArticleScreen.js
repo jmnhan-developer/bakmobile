@@ -45,7 +45,7 @@ const ProfileBoughtArticleScreen = (props) => {
       <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
       <View style={{flex:1, flexDirection:"row", padding:2}}>
         <FontAwesome name={'trash'} size={24} color='#82589F' />
-        <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}}>Supprimer cet achat</Text>
+        <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}}>Valider la réception de cet achat</Text>
       </View>
     </View>
   });

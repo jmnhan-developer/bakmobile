@@ -28,17 +28,5 @@ router.get('/get-all-orders', async function(req, res, next) {
 });
 
 
-router.post('/process-payment/', (req, res) => {
-    return stripe.charges
-      .create({
-        amount: req.body.amount, // Unit: cents
-        currency: 'eur',
-        source: req.body.tokenId,
-        description: 'Test payment',
-      })
-      .then(result => res.status(200).json(result));
-  });
-  
-
 
 module.exports = router;

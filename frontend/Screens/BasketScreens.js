@@ -1,44 +1,45 @@
-import React, {useState,useEffect} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
-import { Card, ListItem, Button,  } from 'react-native-elements'
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { Card, ListItem, Button, } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {IP_HOST} from '../variable'
+import { IP_HOST } from '../variable'
 
-function BasketScreens({navigation,productId,takeToken}) {
+function BasketScreens({ navigation, productId, takeToken }) {
 
-  const [seller,setSeller]=useState({});
-  console.log('seller token in BasketScreen',productId.sellerToken);
+  const [seller, setSeller] = useState({});
+  console.log('seller token in BasketScreen', productId.sellerToken);
   useEffect(() => {
-    const findSeller = async() => {
+    const findSeller = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/users/get-user?UserToken=${takeToken}`)
       const body = await data.json()
-      console.log('-----------',body)
-      console.log('firstname from basketscreen -----------',body.data.firstName)
+      console.log('-----------', body)
+      console.log('firstname from basketscreen -----------', body.data.firstName)
       setSeller(body.data)
     }
 
     findSeller();
-      
-  },[])
 
-console.log('seller of the product in basket screen',seller)
+  }, [])
 
-  let totalPrice = parseInt(productId.price)+parseInt(productId.shippingFees);
+  console.log('seller of the product in basket screen', seller)
+
+  let totalPrice = parseInt(productId.price) + parseInt(productId.shippingFees);
   const [selectedValue, setSelectedValue] = useState(false);
   var userData
-  if(selectedValue==true) {
-     userData= <View style={{flexDirection:'column', justifyContent:'flex-start', margin:10}}>
-     <Text>{seller.firstName}</Text>
-     <Text>{seller.lastName}</Text>
-  <Text>{seller.email}</Text>
-     <Text>{seller.address}</Text>
-  <Text>{seller.postalCode}</Text>
-  <Text>{seller.city}</Text>
- </View> 
+  if (selectedValue == true) {
+    userData = <View style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 10 }}>
+      <Text>Mon adresse de livraison: </Text>
+      <Text>{seller.firstName}</Text>
+      <Text>{seller.lastName}</Text>
+      <Text>{seller.email}</Text>
+      <Text>{seller.address}</Text>
+      <Text>{seller.postalCode}</Text>
+      <Text>{seller.city}</Text>
+    </View>
   }
 
 
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   console.log("state is stable", state.product)
-  return {productId: state.product,takeToken:state.token}
+  return { productId: state.product, takeToken: state.token }
 };
 
 export default connect(
