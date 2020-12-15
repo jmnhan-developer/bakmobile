@@ -22,8 +22,8 @@ function AddPicScreen(props) {
  
   useEffect(() => {  
     (async () => {
-        const { status } = await Camera.requestPermissionsAsync();
-        setHasPermission(status === 'granted');
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
     })();
   }, []);
 
@@ -60,15 +60,15 @@ function AddPicScreen(props) {
   
 // CAMERA
   var cameraDisplay;
-  if(hasPermission && props.isFocused){
-    cameraDisplay = <Camera 
+  if (hasPermission && props.isFocused) {
+    cameraDisplay = <Camera
       style={{ flex: 1 }}
       type={type}
       flashMode={flash}
       ref={ref => (camera = ref)}
-      >
-      
-       <View    
+    >
+
+      <View
         style={{
           flex: 1,
           backgroundColor: 'transparent',
@@ -121,19 +121,20 @@ function AddPicScreen(props) {
         </View>
 
         <View
+        style={{
+          flex: 1,
+          backgroundColor: 'transparent',
+          flexDirection: 'column',
+          justifyContent: "flex-end"
+        }}>
+        <TouchableOpacity
           style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'column',
-            justifyContent: "flex-end"
-          }}>
-            <TouchableOpacity
-            style={{
-              
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent:'flex-end'
+
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'flex-end'
           }}
+        
               onPress={async () => { 
                   setVisible(true);
                   if (camera) {
@@ -159,20 +160,20 @@ function AddPicScreen(props) {
           <View style={{flexDirection:"row"}}>
             <View style={styles.iconWrapper}>
               <IconFontAwesome
-                  name="camera"
-                  size={50}
-                  color="#ffffff"
-                  
-                  />
+                name="camera"
+                size={50}
+                color="#ffffff"
+
+              />
             </View>
             <View style={styles.iconWrapper2}>
               <Text style={{ fontSize: 15, marginBottom: 2, color: 'white' }}> + </Text>
-                <Ionicons
-                    onPress={pickImage}
-                    name="md-images"
-                    size={25}
-                    color="#ffffff"
-                    />
+              <Ionicons
+                onPress={pickImage}
+                name="md-images"
+                size={25}
+                color="#ffffff"
+              />
             </View>
           </View>          
         </TouchableOpacity>
@@ -235,7 +236,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 20,
     alignItems: "center",
-    margin:10
+    margin: 10
   },
   iconWrapper2: {
     width: 60,
@@ -245,8 +246,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 5,
     alignItems: "center",
-    margin:28,
-    flexDirection:"row"
+    margin: 28,
+    flexDirection: "row"
   }
 })
 
@@ -256,14 +257,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onIncreaseClick: function(url) { 
-        dispatch( {type: 'increase', photoUrl: url } ) 
+    onIncreaseClick: function (url) {
+      dispatch({ type: 'increase', photoUrl: url })
     }
   }
 }
 
 export default connect(
-    mapStateToProps, 
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withNavigationFocus(AddPicScreen));
 

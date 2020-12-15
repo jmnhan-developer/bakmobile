@@ -3,28 +3,47 @@ import { Text, StyleSheet, ScrollView, View, Image} from 'react-native';
 import {Card} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
+import { IP_HOST } from '../variable'
+
 
 
 const ProfileBoughtArticleScreen = (props) => {
 
-  const [productList, setProductList] = useState([]);
+const [loading,setLoading]=useState('')
+  var handleClick = async (value) => {
+    
+    console.log('value argument from handleClick ProfileBought',value);
+    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value}`) 
+    const body = await data.json()
+    console.log('body from handleClick ProfileBought',body)
+    }
+    
+   
+    const [productList, setProductList] = useState([]);
+    const [productListReceive, setProductListReceive] = useState([]);
+    const [stateOfOrder,setStateOfOrder]= useState('Valider la réception de cet achat')
+
   useEffect(() => {
-
+     
+    console.log('enter useEffect')
     const findProducts = async () => {
-      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`) //-------------- ROUTE ET TOKEN A MODIFIER ---------------------------
-      const body = await data.json()
 
-      setProductList(body.products);
-      // setFilterAddList(body.products);
-      console.log('body from get article by seller -------', body);
+      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-buyer?buyerToken=${props.takeToken}`) 
+      const body = await data.json()
+      
+      console.log('body from profilebought screen',body.articlesTab)
+      
+      setProductList(body.articlesTab);
+      setProductListReceive(body.articlesTabValidate)
+
+      //setFilterAddList(body.products);
     }
 
     findProducts()
 
-  }, [])
-  console.log(productList);
+  }, [loading])
 
-  
+
 
   function formatDate(date){
     var newDate = new Date(date);
@@ -38,8 +57,19 @@ const ProfileBoughtArticleScreen = (props) => {
       <Text style={{ fontSize:22, padding:2}}>{e.title}</Text>
       <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
       <View style={{flex:1, flexDirection:"row", padding:2}}>
-        <FontAwesome name={'trash'} size={24} color='#82589F' />
-        <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}}>Supprimer cet achat</Text>
+        <FontAwesome name={'truck'} size={24} color='#82589F' />
+  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e._id),setLoading('loading')}}>Achat à Valider dés votre réception</Text>
+      </View>
+    </View>
+  });
+  let cardList2 = productListReceive.map((e, i) => {
+    return <View>
+      <Image style={{ width: "100%", height: 350 }} source={{ uri: e.images[0] }}></Image>
+      <Text style={{ fontSize:22, padding:2}}>{e.title}</Text>
+      <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
+      <View style={{flex:1, flexDirection:"row", padding:2}}>
+        <FontAwesome name={'check'} size={24} color='#82589F' />
+  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} >Achat validé</Text>
       </View>
     </View>
   });
@@ -49,6 +79,7 @@ const ProfileBoughtArticleScreen = (props) => {
       <Text style={{ fontSize: 18, textAlign: "center" }}>Mes achats effectués</Text>
       <ScrollView style={{ marginTop:10}}>
         {cardList1}
+        {cardList2}
       </ScrollView>
     </View>
   );
