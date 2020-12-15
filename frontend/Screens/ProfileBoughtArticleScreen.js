@@ -3,20 +3,25 @@ import { Text, StyleSheet, ScrollView, View, Image} from 'react-native';
 import {Card} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-
+import { IP_HOST } from '../variable'
 
 const ProfileBoughtArticleScreen = (props) => {
 
+  console.log(props.takeToken)
+
   const [productList, setProductList] = useState([]);
+
   useEffect(() => {
-
+     
+    console.log('enter useEffect')
     const findProducts = async () => {
-      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`) //-------------- ROUTE ET TOKEN A MODIFIER ---------------------------
+      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-buyer?buyerToken=${props.takeToken}`) 
       const body = await data.json()
-
+   
       setProductList(body.products);
       // setFilterAddList(body.products);
       console.log('body from get article by seller -------', body);
+
     }
 
     findProducts()

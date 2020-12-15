@@ -1,1 +1,1 @@
-export const IP_HOST='192.168.1.54' //change your IP here !
+export const IP_HOST='192.168.43.145' //change your IP here !
