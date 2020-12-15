@@ -14,7 +14,7 @@ function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
- 
+  const [loading,setLoading]=useState('')
 
  
   useEffect(() => {
@@ -26,7 +26,7 @@ function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
         
       }
     })
-  }, []);
+  }, [loading]);
 
 
 
@@ -42,7 +42,7 @@ function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
 
     findProducts()
 
-  },[])
+  },[loading])
 
   useEffect(() => {
 
@@ -94,7 +94,7 @@ else {
       onChangeText={(val) =>setSearchTerm(val)}
       />
 
-  <Text style={{fontSize:20, fontFamily:'Helvetica', fontWeight:'bold', marginTop:5, marginBottom:10, marginLeft:10}}>Les derniers articles mis en vente</Text>
+  <Text style={{fontSize:20, fontFamily:'Helvetica', fontWeight:'bold', marginTop:5, marginBottom:10, marginLeft:10}} onPress={()=>setLoading('loading')}>Les derniers articles mis en vente</Text>
 
   <ScrollView>
     <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>

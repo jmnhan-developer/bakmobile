@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef} from 'react';
-import { View, TouchableOpacity, Text, StyleSheet,Platform } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native';
 import { Camera } from 'expo-camera';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import { withNavigationFocus } from 'react-navigation';
 
@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonic from 'react-native-vector-icons/Ionicons';
 
-import {Button, Overlay, Image} from 'react-native-elements';
+import { Button, Overlay, Image } from 'react-native-elements';
 
 
 // ----------------------------------------------image picker
@@ -20,7 +20,7 @@ import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 //----------------- fin image picker
 
-import {IP_HOST} from '../variable'
+import { IP_HOST } from '../variable'
 
 
 function AddPicScreen(props) {
@@ -28,15 +28,15 @@ function AddPicScreen(props) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.torch);
-  
+
   var camera = useRef(null);
- 
+
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {  
+  useEffect(() => {
     (async () => {
-        const { status } = await Camera.requestPermissionsAsync();
-        setHasPermission(status === 'granted');
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
     })();
   }, []);
 
@@ -50,8 +50,8 @@ function AddPicScreen(props) {
       quality: 1,
     });
 
-    console.log("----------------------resultat pick image -----------",result);
-    
+    console.log("resultat pick image -----------", result);
+    props.onIncreaseClick(result.uri)
     if (!result.cancelled) {
       setImage(result.uri);
     }
@@ -74,26 +74,26 @@ function AddPicScreen(props) {
     props.onIncreaseClick(bodyImageGallery.url)    
 
   };
-  
-//-----------------fin  pickImage
+
+  //-----------------fin  pickImage
 
   var cameraDisplay;
-  if(hasPermission && props.isFocused){
-    cameraDisplay = <Camera 
+  if (hasPermission && props.isFocused) {
+    cameraDisplay = <Camera
       style={{ flex: 1 }}
       type={type}
       flashMode={flash}
       ref={ref => (camera = ref)}
-      >
-      
-       <View    
+    >
+
+      <View
         style={{
           flex: 1,
           backgroundColor: 'transparent',
           flexDirection: 'column',
           justifyContent: "flex-start"
         }}>
-          {/* <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
           alignSelf: 'flex-start',
           alignItems: 'center',
@@ -107,190 +107,190 @@ function AddPicScreen(props) {
             onPress= {() => props.navigation.navigate('Sell')}
           />
           </TouchableOpacity> */}
-          <TouchableOpacity
-            style={{
-            
-                alignSelf: 'flex-start',
-                alignItems: 'center',
-                justifyContent:'center',
-                marginTop:50
+        <TouchableOpacity
+          style={{
 
-            }}
-            onPress={() => {
-                setType(
-                    type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-            }}
-          >
-           <IconFontAwesome
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 50
+
+          }}
+          onPress={() => {
+            setType(
+              type === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+            );
+          }}
+        >
+          <IconFontAwesome
             name="camera"
             size={20}
             color="#ffffff"
-            /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-          </TouchableOpacity>
+          /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+        </TouchableOpacity>
 
-           <TouchableOpacity
-            style={{
-            
-                alignSelf: 'flex-start',
-                alignItems: 'center',
-                justifyContent:'flex-start'
-            }}
-            onPress={() => {
-                setFlash(
-                  flash === Camera.Constants.FlashMode.off
-                    ? Camera.Constants.FlashMode.torch
-                    : Camera.Constants.FlashMode.off
-                );
-              }}
-            >
-            <IconFontAwesome
+        <TouchableOpacity
+          style={{
+
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+            justifyContent: 'flex-start'
+          }}
+          onPress={() => {
+            setFlash(
+              flash === Camera.Constants.FlashMode.off
+                ? Camera.Constants.FlashMode.torch
+                : Camera.Constants.FlashMode.off
+            );
+          }}
+        >
+          <IconFontAwesome
             name="flash"
             size={20}
             color="#ffffff"
-            /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
-           </TouchableOpacity>
+          /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
+        </TouchableOpacity>
 
-           <TouchableOpacity> 
-           
-          </TouchableOpacity>
+        <TouchableOpacity>
 
-          </View>
+        </TouchableOpacity>
 
-          <View
+      </View>
+
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'transparent',
+          flexDirection: 'column',
+          justifyContent: "flex-end"
+        }}>
+        <TouchableOpacity
           style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'column',
-            justifyContent: "flex-end"
-          }}>
-            <TouchableOpacity
-            style={{
-              
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent:'flex-end'
-          }}
-              onPress={async () => { 
-                  setVisible(true);
-                  if (camera) {
-                      let photo = await camera.takePictureAsync({quality : 0.5});
-                      setVisible(false);
-                      // console.log("photo prise",photo)
 
-                      var data = new FormData();
-                      data.append('avatar', {
-                        uri: photo.uri,
-                        type: 'image/jpeg',
-                        name: 'avatar.jpg',
-                      });
-                      const dataPhoto = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
-                      method: 'POST',
-                      body: data
-                      })
-                      
-                      const bodyImage = await dataPhoto.json()
-                      // console.log("bodyImage",bodyImage)
-                      
-                      
-                      props.onIncreaseClick(bodyImage.url)
-                      // if(body.result == true){
-                      //   props.addToken(body.token)
-                      //   setUserExists(true)
-                        
-                      // } else {
-                      //   setErrorsSignup(body.error)
-                      // }
-                    }   
-              }}
-          >
-          <View style={{flexDirection:"row"}}>
+            alignSelf: 'center',
+            alignItems: 'center',
+            justifyContent: 'flex-end'
+          }}
+          onPress={async () => {
+            setVisible(true);
+            if (camera) {
+              let photo = await camera.takePictureAsync({ quality: 0.3 });
+              setVisible(false);
+              // console.log("photo prise",photo)
+
+              var data = new FormData();
+              data.append('avatar', {
+                uri: photo.uri,
+                type: 'image/jpeg',
+                name: 'avatar.jpg',
+              });
+              const dataPhoto = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
+                method: 'POST',
+                body: data
+              })
+
+              const bodyImage = await dataPhoto.json()
+              // console.log("bodyImage",bodyImage)
+
+
+              props.onIncreaseClick(bodyImage.url)
+              // if(body.result == true){
+              //   props.addToken(body.token)
+              //   setUserExists(true)
+
+              // } else {
+              //   setErrorsSignup(body.error)
+              // }
+            }
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
             <View style={styles.iconWrapper}>
               <IconFontAwesome
-                  name="camera"
-                  size={50}
-                  color="#ffffff"
-                  
-                  />
+                name="camera"
+                size={50}
+                color="#ffffff"
+
+              />
             </View>
             <View style={styles.iconWrapper2}>
               <Text style={{ fontSize: 15, marginBottom: 2, color: 'white' }}> + </Text>
-                <Ionicons
-                    onPress={pickImage}
-                    name="md-images"
-                    size={25}
-                    color="#ffffff"
-                    />
+              <Ionicons
+                onPress={pickImage}
+                name="md-images"
+                size={25}
+                color="#ffffff"
+              />
             </View>
           </View>
-         
-          
-            </TouchableOpacity>
-          </View>
+
+
+        </TouchableOpacity>
+      </View>
     </Camera>
   } else {
     cameraDisplay = <View style={{ flex: 1 }}></View>
   }
 
-//  console.log("coucou Store" , props.addPhoto)
-  
+  //  console.log("coucou Store" , props.addPhoto)
+
 
   return (
-    <View style={{flex: 1}}>
-        
-        <Overlay isVisible={visible}  width="auto" height="auto">
-            <Text>Loading</Text>
-        </Overlay>
-        
-        {cameraDisplay}
+    <View style={{ flex: 1 }}>
 
-        <View style={{ flexDirection:'row', marginTop:2, marginBottom:2,justifyContent:"space-between"}}>
-          <View>
-            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:70}}/>
-            
-          </View>
-          <View>
-          <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:70}}/>
-            
-          </View>
-          <View>
-          <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:70}}/>
-           
-          </View>
+      <Overlay isVisible={visible} width="auto" height="auto">
+        <Text>Loading</Text>
+      </Overlay>
 
-          <View>
-          <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:70}}/>
-           
-          </View>
+      {cameraDisplay}
 
-          <View>
-        <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:70}} onPress={pickImage}/>
-           
-          </View>
+      <View style={{ flexDirection: 'row', marginTop: 2, marginBottom: 2, justifyContent: "space-between" }}>
+        <View>
+          <Image source={{ uri: props.addPhoto[0] }} style={{ height: 70, width: 70 }} />
+
+        </View>
+        <View>
+          <Image source={{ uri: props.addPhoto[1] }} style={{ height: 70, width: 70 }} />
+
+        </View>
+        <View>
+          <Image source={{ uri: props.addPhoto[2] }} style={{ height: 70, width: 70 }} />
+
         </View>
 
+        <View>
+          <Image source={{ uri: props.addPhoto[3] }} style={{ height: 70, width: 70 }} />
 
-        {/* ----------------- pickImage */}
+        </View>
 
-        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View>
+          <Image source={{ uri: props.addPhoto[4] }} style={{ height: 70, width: 70 }} onPress={pickImage} />
+
+        </View>
+      </View>
+
+
+      {/* ----------------- pickImage */}
+
+      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button title="Pick an image from camera roll" onPress={pickImage} />
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
        </View> */}
 
-      
 
 
 
-        <Button
-            title="Enregistrer mes photos"
-            buttonStyle={{backgroundColor: "#82589F", }}
-            containerStyle={{marginBottom:2}}
-            type="solid"
-            onPress= {() => props.navigation.navigate('Sell')}
 
-        />
+      <Button
+        title="Enregistrer mes photos"
+        buttonStyle={{ backgroundColor: "#82589F", }}
+        containerStyle={{ marginBottom: 2 }}
+        type="solid"
+        onPress={() => props.navigation.navigate('Sell')}
+
+      />
 
     </View>
   );
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 20,
     alignItems: "center",
-    margin:10
+    margin: 10
   },
   iconWrapper2: {
     width: 60,
@@ -315,8 +315,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 5,
     alignItems: "center",
-    margin:28,
-    flexDirection:"row"
+    margin: 28,
+    flexDirection: "row"
   }
 })
 
@@ -327,14 +327,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onIncreaseClick: function(url) { 
-        dispatch( {type: 'increase', photoUrl: url } ) 
+    onIncreaseClick: function (url) {
+      dispatch({ type: 'increase', photoUrl: url })
     }
   }
 }
 
 export default connect(
-    mapStateToProps, 
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withNavigationFocus(AddPicScreen));
 

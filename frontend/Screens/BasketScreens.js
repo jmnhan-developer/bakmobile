@@ -1,6 +1,6 @@
-import React, {useState,useEffect} from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList} from 'react-native';
-import { Card, ListItem, Button,  } from 'react-native-elements'
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { Card, ListItem, Button, } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import Carousel from '../components/Carousel';
@@ -10,9 +10,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {IP_HOST} from '../variable'
+import { IP_HOST } from '../variable'
 
-function BasketScreens({navigation,productId,takeToken}) {
+function BasketScreens({ navigation, productId, takeToken }) {
 
 
   console.log(productId);
@@ -21,20 +21,19 @@ function BasketScreens({navigation,productId,takeToken}) {
   const [lastName, setLastName]=useState('')
   console.log('seller token in BasketScreen',productId.sellerToken);
   useEffect(() => {
-    const findSeller = async() => {
+    const findSeller = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/users/get-user?UserToken=${takeToken}`)
       const body = await data.json()
-      console.log('-----------',body)
-      console.log('firstname from basketscreen -----------',body.data.firstName)
+      console.log('-----------', body)
+      console.log('firstname from basketscreen -----------', body.data.firstName)
       setSeller(body.data)
       setFirstName(body.data.firstName)
       setLastName(body.data.lastName)
     }
     
     findSeller();
-      
-  },[])
 
+  }, [])
 console.log(productId,'productId from basketscreen-------',takeToken,'token frombasketscreen')
 
 var handleClick = async () => {
@@ -54,18 +53,21 @@ var handleClick = async () => {
 
 console.log('seller of the product in basket screen',seller)
 
-  let totalPrice = parseInt(productId.price)+parseInt(productId.shippingFees);
+  console.log('seller of the product in basket screen', seller)
+
+  let totalPrice = parseInt(productId.price) + parseInt(productId.shippingFees);
   const [selectedValue, setSelectedValue] = useState(false);
   var userData
-  if(selectedValue==true) {
-     userData= <View style={{flexDirection:'column', justifyContent:'flex-start', margin:10}}>
-     <Text>Prénom : {seller.firstName}</Text>
-     <Text>Nom : {seller.lastName}</Text>
-  <Text>e-mail : {seller.email}</Text>
-     <Text>Adresse : {seller.address}</Text>
-  <Text>Code postal : {seller.postalCode}</Text>
-  <Text>Ville : {seller.city}</Text>
- </View> 
+  if (selectedValue == true) {
+    userData = <View style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 10 }}>
+      <Text>Mon adresse de livraison: </Text>
+      <Text>{seller.firstName}</Text>
+      <Text>{seller.lastName}</Text>
+      <Text>{seller.email}</Text>
+      <Text>{seller.address}</Text>
+      <Text>{seller.postalCode}</Text>
+      <Text>{seller.city}</Text>
+    </View>
   }
 
 
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   console.log("state is stable", state.product)
-  return {productId: state.product,takeToken:state.token}
+  return { productId: state.product, takeToken: state.token }
 };
 
 export default connect(

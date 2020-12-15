@@ -16,7 +16,7 @@ router.post('/validate-order', async function(req, res, next) {
          
          articleId:req.body.articleId,
          clientId:req.body.clientToken,
-         orderState:'en cours',
+         orderState:'En cours',
          orderDate:new Date()
          
        })
@@ -39,6 +39,31 @@ router.post('/validate-order', async function(req, res, next) {
 
 });
 
+router.get('/receive-order', async function(req, res, next) {
+  
+  console.log(req.query);
+
+  var today= new Date()
+  function formatDate(date){
+    var newDate = new Date(date);
+    var finalFormat = newDate.getDate()+"/"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+    return finalFormat;
+  }
+
+  
+  
+  let order = await orderModel.updateOne(
+
+    
+
+    {articleId:req.query.idArticle},
+    {orderState:`validé le ${(formatDate(today))}`} )
+
+
+ 
+  res.json(order)
+  
+})
 
 
 
@@ -47,9 +72,6 @@ router.get('/get-all-orders', async function(req, res, next) {
     res.json({orders});
 });
 
-
-
-  
 
 
 module.exports = router;
