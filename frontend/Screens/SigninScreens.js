@@ -70,9 +70,9 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
  console.log(tokenIsSubmited,'etat de id submit')
 
   return (
-    <View style={{flex: 1, marginTop: 40, alignItems: 'center',justifyContent: 'center'}}>
+    <View style={{flex: 1, marginTop: 50, alignItems: 'center',justifyContent: 'center'}}>
 
-      <Text style={{marginBottom: 20}}>CONNECTION</Text>
+      <Text style={{marginBottom: 20}}>Connection</Text>
 
       <ScrollView>
 
@@ -89,13 +89,22 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
           </Icon>
           <Button style={{marginTop:20}}
             title="Me connecter"
-            buttonStyle={{ backgroundColor: "#eb4d4b"}}
+            buttonStyle={{ backgroundColor: "#82589F"}}
             type="solid"
             onPress={()=>handleClick()}
-            
           />
+
            <Text>{isNotConnect}</Text>
-           <TouchableOpacity onPress={()=>{navigation.navigate('SignUp')}}><Text>Créer un compte</Text></TouchableOpacity>
+            
+           <Button 
+            title="Créer un compte"
+            type='outline'
+            titleStyle={{fontSize:15, color:"#82589F"}}
+            buttonStyle={{justifyContent:'flex-start', borderColor:'white'}}
+            onPress={()=>{navigation.navigate('SignUp')}}
+            />
+          
+           
         </KeyboardAvoidingView>
 
       </ScrollView>

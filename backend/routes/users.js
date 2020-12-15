@@ -130,6 +130,10 @@ router.get('/get-seller', async function(req, res, next) {
 
   let data = await userModel.findOne({token:req.query.SellerToken})
 
+  console.log(data);
+  
+  res.json(data)
+
 });
 
 router.get('/get-user', async function(req, res, next) {

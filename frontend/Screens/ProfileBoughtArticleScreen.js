@@ -5,12 +5,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 
 
-
-
-
-
-
-
 const ProfileBoughtArticleScreen = (props) => {
 
   const [productList, setProductList] = useState([]);
@@ -59,6 +53,35 @@ const ProfileBoughtArticleScreen = (props) => {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 50,
+   color:'#D6A2E8',
+   fontFamily: 'sans-serif-light'
+   
+  },
+  item: {
+    paddingTop: 10,
+    fontFamily: 'sans-serif-light',
+    fontSize: 18,
+    height: 44,
+    borderBottomColor: '#82589F',
+    color:'#82589F',
+    borderBottomWidth:1,
+    
+  },
+  icon: {
+    padding:300,
+  },
+  title: {
+    fontSize:25,
+    fontWeight:'bold',
+    color:'black',
+    fontFamily: 'sans-serif-light'
+  }
+})
 
 function mapStateToProps(state) {
   return {takeToken:state.token}
