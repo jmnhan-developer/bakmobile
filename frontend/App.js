@@ -62,6 +62,7 @@ var stackNavigatorSell =  createStackNavigator({
 
 },
 {headerMode: 'none'})
+
 var StackNavigatorProfile = createStackNavigator({ 
 
   Menu: ProfileMenuScreen,
@@ -71,7 +72,9 @@ var StackNavigatorProfile = createStackNavigator({
   MyWallet:WalletScreens,
   ProfileUp:ProfileUpdateScreen
 }, 
+
 {headerMode: 'none'}
+
 );  
 
 

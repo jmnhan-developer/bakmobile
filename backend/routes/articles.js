@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var articleModel = require('../models/articles');
-
+var orderModel = require('../models/orders');
 
 var uniqid = require('uniqid');
-const fs = require('fs')
+const fs = require('fs');
+const { exec } = require('child_process');
 var cloudinary = require('cloudinary').v2;
 
 cloudinary.config({ 
@@ -12,6 +13,7 @@ cloudinary.config({
   api_key: '544843767135618', 
   api_secret: 'FRzV3kMqg2-g8mpCduExkzLFY1o' 
 });
+
 
 
 router.post('/create-article', async function(req, res, next) {
@@ -29,7 +31,8 @@ router.post('/create-article', async function(req, res, next) {
         state:req.body.state,
         sellerToken:req.body.sellerToken,
         images:JSON.parse(req.body.images),
-        creationDate:new Date()
+        creationDate:new Date(),
+        isVisible:true
       })
     
     let result = false;
@@ -43,7 +46,9 @@ router.post('/create-article', async function(req, res, next) {
 
 
 router.get('/get-all-articles', async function(req, res, next) {
-    let products = await articleModel.find().sort({creationDate:-1})
+
+
+    let products = await articleModel.find({isVisible:true}).sort({creationDate:-1})
     // console.log(products)
     res.json({products});
   
@@ -80,6 +85,7 @@ router.get('/filter-articles', async function(req, res, next) {
 }); 
 
 router.get('/get-article-by-seller', async function(req, res, next) {
+
   console.log(req.query)
   let products = await articleModel.find({sellerToken:req.query.SellerToken}).sort({creationDate:-1}) 
   console.log('product by seller-----------------',products)
@@ -87,6 +93,29 @@ router.get('/get-article-by-seller', async function(req, res, next) {
 
 });
 
+
+
+router.get('/get-article-by-buyer', async function(req, res, next) {
+
+console.log('route get article by buyer',req.query)
+ 
+var order = await orderModel.find({clientId:req.query.buyerToken});
+
+console.log(order);
+
+var articlesTab=[];
+for (var i=0;i<order.length;i++){ 
+
+var articles= await articleModel.find({_id:order[i].articleId})
+articlesTab.push(articles);
+
+}
+
+console.log(articlesTab);
+  
+res.json({order,articlesTab});
+
+});
 // ---------------- travail sur route delete dans mes annonces
 
 router.post('/cancel-article', async function(req, res, next) {

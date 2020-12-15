@@ -16,7 +16,7 @@ const ProfileSellingArticleScreen = (props) => {
   const findProducts = async () => {
     const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
     const body = await data.json()
-
+    
     setProductList(body.products);
     // setFilterAddList(body.products);
     console.log('body from get article by seller -------', body);
@@ -61,7 +61,7 @@ var handleClickDeleteArticle = async (id) => {
   });
 
   return (
-    <View style={{ flex: 1, marginTop: 25, width: '95%', marginLeft: 10 }}>
+    <View style={{ flex: 1, marginTop: 40, width: '95%', marginLeft: 10 }}>
       <Text style={{ fontSize: 18, textAlign: "center" }}>Mes ventes en cours</Text>
       <ScrollView style={{ marginTop: 10 }}>
         {cardList}
