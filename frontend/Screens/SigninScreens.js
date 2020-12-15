@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import {IP_HOST} from '../variable'
 
 
+
+
 function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
 
 
@@ -19,7 +21,14 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
   
   console.log('type of action -------',typeOfAction)
-  
+
+// FUNCTION TO CLEAN ALL INPUTS
+  function clickToClean () {
+    setMail ("");
+    setPassword("");
+      // console.log("----------clean input-----", firstName)
+  }
+
   useEffect(() => {
     AsyncStorage.getItem('userToken', (err, value) => {
       if(value){ 
@@ -79,8 +88,8 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
         <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
 
 
-          <Input name="email" placeholder='e-mail' onChangeText={(val) =>setMail(val)} />
-          <Input name="password" placeholder='Mot de passe' onChangeText={(val) =>setPassword(val)} />
+          <Input name="email" placeholder='e-mail' value={email} onChangeText={(val) =>setMail(val)} />
+          <Input name="password" placeholder='Mot de passe' value={password} onChangeText={(val) =>setPassword(val)} />
 
           <Icon>
             <FontAwesome name="facebook-f" size={24} color="black" />
@@ -91,7 +100,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
             title="Me connecter"
             buttonStyle={{ backgroundColor: "#82589F"}}
             type="solid"
-            onPress={()=>handleClick()}
+            onPress={()=>{handleClick(); clickToClean()}}
           />
 
            <Text>{isNotConnect}</Text>

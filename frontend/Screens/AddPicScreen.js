@@ -1,38 +1,25 @@
 import React, { useState, useEffect, useRef} from 'react';
-import { View, TouchableOpacity, Text, StyleSheet,Platform } from 'react-native';
-import { Camera } from 'expo-camera';
-
-import {connect} from 'react-redux';
-
-import { withNavigationFocus } from 'react-navigation';
-
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconIonic from 'react-native-vector-icons/Ionicons';
-
 import {Button, Overlay, Image} from 'react-native-elements';
-
-
-// ----------------------------------------------image picker
+import { withNavigationFocus } from 'react-navigation';
+import {connect} from 'react-redux';
+import { Camera } from 'expo-camera';
+// IMAGE PICKER
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
-//----------------- fin image picker
-
+// IMAGE PICKER
 import {IP_HOST} from '../variable'
-
 
 function AddPicScreen(props) {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.torch);
-  
+  const [visible, setVisible] = useState(false);
   var camera = useRef(null);
  
-  const [visible, setVisible] = useState(false);
-
   useEffect(() => {  
     (async () => {
         const { status } = await Camera.requestPermissionsAsync();
@@ -40,7 +27,7 @@ function AddPicScreen(props) {
     })();
   }, []);
 
-  //----------------- pickImage
+  //IMAGE PICKER
   const [image, setImage] = useState(null);
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -49,8 +36,7 @@ function AddPicScreen(props) {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log("----------------------resultat pick image -----------",result);
+    // console.log("----------resultat pick image ----------",result);
     
     if (!result.cancelled) {
       setImage(result.uri);
@@ -66,17 +52,13 @@ function AddPicScreen(props) {
       method: 'POST',
       body: data
     })
-    console.log("------------------dataPhoto----------",dataPhotoGallery)
+    // console.log("---------------dataPhoto----------",dataPhotoGallery)
     const bodyImageGallery = await dataPhotoGallery.json()
-
-    console.log("------------------bodyImage---------------------------",bodyImageGallery)
-                    
+    // console.log("-------------bodyImage--------------",bodyImageGallery)                    
     props.onIncreaseClick(bodyImageGallery.url)    
-
   };
   
-//-----------------fin  pickImage
-
+// CAMERA
   var cameraDisplay;
   if(hasPermission && props.isFocused){
     cameraDisplay = <Camera 
@@ -92,29 +74,13 @@ function AddPicScreen(props) {
           backgroundColor: 'transparent',
           flexDirection: 'column',
           justifyContent: "flex-start"
-        }}>
-          {/* <TouchableOpacity
-          style={{
-          alignSelf: 'flex-start',
-          alignItems: 'center',
-          justifyContent:'flex-start'
-
-          }}>
-          <Button
-            icon={<Icon name="long-arrow-left" color="white" size={24} style={{marginTop:20}}/>}
-            containerStyle={{alignItems:"flex-start"} }
-            type="clear"
-            onPress= {() => props.navigation.navigate('Sell')}
-          />
-          </TouchableOpacity> */}
+        }}>         
           <TouchableOpacity
-            style={{
-            
+            style={{            
                 alignSelf: 'flex-start',
                 alignItems: 'center',
                 justifyContent:'center',
                 marginTop:50
-
             }}
             onPress={() => {
                 setType(
@@ -132,12 +98,12 @@ function AddPicScreen(props) {
           </TouchableOpacity>
 
            <TouchableOpacity
-            style={{
-            
+            style={{            
                 alignSelf: 'flex-start',
                 alignItems: 'center',
                 justifyContent:'flex-start'
             }}
+
             onPress={() => {
                 setFlash(
                   flash === Camera.Constants.FlashMode.off
@@ -152,14 +118,9 @@ function AddPicScreen(props) {
             color="#ffffff"
             /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
            </TouchableOpacity>
+        </View>
 
-           <TouchableOpacity> 
-           
-          </TouchableOpacity>
-
-          </View>
-
-          <View
+        <View
           style={{
             flex: 1,
             backgroundColor: 'transparent',
@@ -179,7 +140,6 @@ function AddPicScreen(props) {
                       let photo = await camera.takePictureAsync({quality : 0.5});
                       setVisible(false);
                       // console.log("photo prise",photo)
-
                       var data = new FormData();
                       data.append('avatar', {
                         uri: photo.uri,
@@ -189,20 +149,10 @@ function AddPicScreen(props) {
                       const dataPhoto = await fetch(`http://${IP_HOST}:3000/articles/upload`, {
                       method: 'POST',
                       body: data
-                      })
-                      
+                      })                      
                       const bodyImage = await dataPhoto.json()
-                      // console.log("bodyImage",bodyImage)
-                      
-                      
-                      props.onIncreaseClick(bodyImage.url)
-                      // if(body.result == true){
-                      //   props.addToken(body.token)
-                      //   setUserExists(true)
-                        
-                      // } else {
-                      //   setErrorsSignup(body.error)
-                      // }
+                      // console.log("bodyImage",bodyImage)                      
+                      props.onIncreaseClick(bodyImage.url)                     
                     }   
               }}
           >
@@ -224,18 +174,14 @@ function AddPicScreen(props) {
                     color="#ffffff"
                     />
             </View>
-          </View>
-         
-          
-            </TouchableOpacity>
-          </View>
+          </View>          
+        </TouchableOpacity>
+      </View>
     </Camera>
   } else {
     cameraDisplay = <View style={{ flex: 1 }}></View>
   }
-
-//  console.log("coucou Store" , props.addPhoto)
-  
+//  console.log("coucou Store" , props.addPhoto) 
 
   return (
     <View style={{flex: 1}}>
@@ -248,40 +194,26 @@ function AddPicScreen(props) {
 
         <View style={{ flexDirection:'row', marginTop:2, marginBottom:2,justifyContent:"space-between"}}>
           <View>
-            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:70}}/>
-            
+            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:70}}/>            
           </View>
           <View>
-          <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:70}}/>
-            
+            <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:70}}/>            
           </View>
           <View>
-          <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:70}}/>
-           
+            <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:70}}/>           
           </View>
-
           <View>
-          <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:70}}/>
-           
+            <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:70}}/>           
           </View>
-
           <View>
-        <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:70}} onPress={pickImage}/>
-           
+            <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:70}} onPress={pickImage}/>           
           </View>
         </View>
-
-
         {/* ----------------- pickImage */}
-
         {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button title="Pick an image from camera roll" onPress={pickImage} />
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
        </View> */}
-
-      
-
-
 
         <Button
             title="Enregistrer mes photos"
@@ -289,9 +221,7 @@ function AddPicScreen(props) {
             containerStyle={{marginBottom:2}}
             type="solid"
             onPress= {() => props.navigation.navigate('Sell')}
-
         />
-
     </View>
   );
 }
@@ -321,8 +251,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return { addPhoto: state.photo }
-  
+  return { addPhoto: state.photo }  
 }
 
 function mapDispatchToProps(dispatch) {
