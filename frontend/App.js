@@ -32,16 +32,6 @@ import subcat from './reducers/Filtre.reducer';
 const store = createStore(combineReducers({photo,product,token,typeOfAction,subcat}));
 
 
-var StackNavigatorHome= createStackNavigator({
-   
-  Home:HomeScreens,
-  Product:ProductScreens,
-  SignUp: SignUpScreen, 
-  SignIn:SigninScreens
-
-},{headerMode: 'none'}
-);
-
 var StackNavigatorSearch = createStackNavigator({ 
 
   
@@ -70,7 +60,9 @@ var StackNavigatorProfile = createStackNavigator({
   ArticleBought: ProfileBoughtArticleScreen, 
   ArticleSell: ProfileSellingArticleScreen,
   MyWallet:WalletScreens,
-  ProfileUp:ProfileUpdateScreen
+  ProfileUp:ProfileUpdateScreen,
+  SignUp: SignUpScreen, 
+  SignIn:SigninScreens
 }, 
 
 {headerMode: 'none'}
@@ -79,7 +71,7 @@ var StackNavigatorProfile = createStackNavigator({
 
 var BottomNavigator = createBottomTabNavigator({
   
-  Home:StackNavigatorHome,
+  Home:HomeScreens,
   Vendre: stackNavigatorSell,
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,

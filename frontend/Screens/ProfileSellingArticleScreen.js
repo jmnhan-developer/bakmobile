@@ -15,14 +15,9 @@ useEffect(() => {
     const findProducts = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
       const body = await data.json()
-
       setProductList(body.products);
-      // setFilterAddList(body.products);
-      console.log('body from get article by seller -------', body);
     }
-
     findProducts()
-
   }, [])
 
   // ---------------- travail sur route delete dans mes annonces
@@ -37,10 +32,7 @@ useEffect(() => {
   }
 
   // ---------------- fin travail sur route delete dans mes annonces
-  console.log(productList);
-
-
-
+  
   function formatDate(date) {
     var newDate = new Date(date);
     var finalFormat = newDate.getDate() + "/" + (newDate.getMonth() + 1) + "/" + newDate.getFullYear();

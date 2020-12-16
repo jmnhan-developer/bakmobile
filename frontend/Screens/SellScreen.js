@@ -52,6 +52,8 @@ function SellScreen(props) {
   
   if(props.takeToken!='')
      { 
+    clickToClean();
+    props.onSubmitDecreasePhoto();
     var image = JSON.stringify(props.addPhoto);
     const dataArticle = await fetch(`http://${IP_HOST}:3000/articles/create-article`, {
       method: 'POST',
@@ -268,7 +270,7 @@ function SellScreen(props) {
           title="Ajouter votre annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);clickToClean();props.onSubmitDecreasePhoto()}}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);}}
           containerStyle={{marginBottom: 20}}
         />
 
