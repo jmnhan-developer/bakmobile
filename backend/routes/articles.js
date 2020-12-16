@@ -79,7 +79,7 @@ console.log("hello1 req query upload", req.query)
 
 router.get('/filter-articles', async function(req, res, next) {
   console.log(req.query.subcat)
-  let products = await articleModel.find({subcategory:req.query.subcat}).sort({creationDate:-1})
+  let products = await articleModel.find({subcategory:req.query.subcat,isVisible:true}).sort({creationDate:-1})
   res.json({products})
   
 }); 
@@ -104,17 +104,21 @@ var order = await orderModel.find({clientId:req.query.buyerToken});
 console.log(order);
 
 var articlesTab=[];
+var articlesTabValidate=[];
 for (var i=0;i<order.length;i++){ 
-
-var articles= await articleModel.find({_id:order[i].articleId})
+if(order[i].orderState=='En cours'){ 
+var articles= await articleModel.findOne({_id:order[i].articleId})
 articlesTab.push(articles);
-
+ } else {
+var articles= await articleModel.findOne({_id:order[i].articleId})
+articlesTabValidate.push(articles);
+ } 
 }
 
 console.log(articlesTab);
+console.log(articlesTabValidate);
   
-res.json({order,articlesTab});
-
+res.json({articlesTab,articlesTabValidate});
 });
 // ---------------- travail sur route delete dans mes annonces
 

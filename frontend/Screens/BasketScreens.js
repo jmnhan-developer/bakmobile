@@ -44,7 +44,7 @@ var handleClick = async () => {
       const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: `articleId=${productId._id}&clientToken=${takeToken}&`
+        body: `articleId=${productId._id}&clientToken=${takeToken}`
       });
 
       

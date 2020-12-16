@@ -78,12 +78,14 @@ var StackNavigatorProfile = createStackNavigator({
 );  
 
 
+
 var BottomNavigator = createBottomTabNavigator({
   
   Home:StackNavigatorHome,
   Vendre: stackNavigatorSell,
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,
+  
 
  },
   {
