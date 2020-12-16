@@ -10,7 +10,7 @@ import {IP_HOST} from '../variable'
 function WalletScreens () {
 
   return (
-    <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:10}}>
+    <View style={{flex: 1, marginTop:50, width: '95%', marginLeft:10}}>
 
       <Text style={{fontSize:20, textAlign:"center", marginTop:5}}>Mon porte-monnaie</Text>
 
@@ -26,7 +26,7 @@ function WalletScreens () {
       <View style={{marginTop:20, marginBottom:20, alignItems:'center'}}>
         <Text style={{fontSize: 30, marginTop:10, marginBottom:10}}>75,00€</Text>
         <Text style={{fontSize:15, marginBottom: 30}}>Montant disponible</Text>
-        <Button title="Transférer vers mon compte bancaire" buttonStyle={{backgroundColor: "#009788"}} type="solid"/>
+        <Button title="Transférer vers mon compte bancaire" buttonStyle={{backgroundColor: "#82589F"}} type="solid"/>
       </View>
 
     </View>
