@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import { Text, StyleSheet, ScrollView, View, Image} from 'react-native';
-import {Card} from 'react-native-elements';
+import {Card, Button} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
@@ -58,7 +58,8 @@ const [loading,setLoading]=useState('')
       <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
       <View style={{flex:1, flexDirection:"row", padding:2}}>
         <FontAwesome name={'truck'} size={24} color='#82589F' />
-  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e._id),setLoading('loading')}}>Achat à Valider dés votre réception</Text>
+        <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e._id),setLoading('loading')}}>Tout est OK, je valide!</Text>
+      
       </View>
     </View>
   });
@@ -69,7 +70,7 @@ const [loading,setLoading]=useState('')
       <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
       <View style={{flex:1, flexDirection:"row", padding:2}}>
         <FontAwesome name={'check'} size={24} color='#82589F' />
-  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} >Achat validé</Text>
+        <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} >Achat validé</Text>
       </View>
     </View>
   });
