@@ -1,19 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View, Picker,TouchableOpacity,AsyncStorage  } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, ScrollView, View, Picker, AsyncStorage  } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {connect} from 'react-redux';
-
-import { SafeAreaView } from 'react-navigation';
-
 import {IP_HOST} from '../variable'
 
 function SellScreen(props) {
   
-  
   const [titleInput , setTitleInput ] = useState("");
-  
   const [desc , setDesc ] = useState("");
   const [brand , setBrand ] = useState("");
   const [price , setPrice ] = useState("");
@@ -26,53 +20,53 @@ function SellScreen(props) {
   const [subCatName, setSubCatName]= useState('');
   const [selectedValueState, setSelectedValueState] = useState("");
 
-
-  
+// FUNCTION TO CLEAN ALL INPUTS
+  function clickToClean () {
+    setTitleInput ("");
+    setDesc("");
+    setBrand("");
+    setPrice("");
+    setShippingFees("");
+    setAge("");
+    setAge("");
+    setCatName("");
+    setSubCatName("");
+    setSelectedValueState(false);
+    setDisplaySubCat([]);
+    }
 
   useEffect(() => {
     AsyncStorage.getItem('userToken', (err, value) => {
       if(value){ 
-      
-        props.onSubmitToken(value);
-        console.log('value from SellScreen:',value);
-        
+        props.onSubmitToken(value);   
       }
     })
   }, []);
 
-
-console.log(props.takeId,'id from sell page ------ ------')
-  
-
-
   var typeOfAction= 'vendeur';
  
-  console.log('id from reducer SellScreen',props.takeToken)
-
+// FUNCTION TO PASS ALL ARTICLE'S DATA
   var handleClick = async () => {
-    
-
+  
   if(props.takeToken!='')
-    
      { 
-   
     var image = JSON.stringify(props.addPhoto);
-    // console.log('tableau photos',image)
     const dataArticle = await fetch(`http://${IP_HOST}:3000/articles/create-article`, {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: `title=${titleInput}&description=${desc}&brand=${brand}&price=${price}&shippingFees=${shippingFees}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&images=${image}&sellerToken=${props.takeToken}`
     });
                                
-    // console.log("dataArticle",dataArticle)
     const dataAnnonce = await dataArticle.json()
-    console.log("dataAnnonce", dataAnnonce)
     props.navigation.navigate('ArticleSell')
-  }else{
+  }
+  else
+  {
     props.navigation.navigate('SignIn')
-  }}
+  }
+}
 
-
+ // FILTERS FOR PICKERS
   var subCat1 = [
     {subcategory: "Sièges Auto"},
     {subcategory: "Nacelles"},
@@ -146,6 +140,8 @@ console.log(props.takeId,'id from sell page ------ ------')
   }
 
 
+
+
   return (
     <View style={styles.container}>
       <ScrollView style={{width: '90%'}}>
@@ -162,58 +158,56 @@ console.log(props.takeId,'id from sell page ------ ------')
           type="outline"
           onPress= {() => props.navigation.navigate('AddPic')}
         />
-     
+
          <View style={{ flexDirection:'row', marginTop:2, marginBottom:20,justifyContent:"space-between"}}>
           <View>
-            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:60}}/>
-            
+            <Image source={{uri:props.addPhoto[0]}} style={{height:70, width:60}}/>            
           </View>
           <View>
-          <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:60}}/>
-            
+          <Image source={{uri:props.addPhoto[1]}} style={{height:70, width:60}}/>            
           </View>
           <View>
-          <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:60}}/>
-           
+          <Image source={{uri:props.addPhoto[2]}} style={{height:70, width:60}}/>           
           </View>
-
           <View>
-          <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:60}}/>
-           
+          <Image source={{uri:props.addPhoto[3]}} style={{height:70, width:60}}/>           
           </View>
-
           <View>
-          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}} />
-           
+          <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:60}} />           
           </View>
         </View>
 
         <Input style = {{ width: '90%'}}
           placeholder='Titre'
+          value={titleInput}
           onChangeText={(val) => setTitleInput(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder="Descrition de l'annonce"
+          value={desc}
           onChangeText={(val) => setDesc(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder="Marque"
+          value={brand}
           onChangeText={(val) => setBrand(val)}
         />
         <Input style = {{ width: '90%'}}
           placeholder='Prix'
+          value={price}
           onChangeText={(val) => setPrice(val)}
           keyboardType='numeric'
         />
         <Input style = {{ width: '90%'}}
           placeholder='Frais de port'
+          value={shippingFees}
           keyboardType = 'numeric'
           onChangeText={(val) => setShippingFees(val)}
           keyboardType='numeric'
-
         />
         <Input style = {{ width: '90%'}}
           placeholder='Age'
+          value={age}
           onChangeText={(val) => setAge(val)}
         />
 
@@ -269,17 +263,15 @@ console.log(props.takeId,'id from sell page ------ ------')
                 </Picker>
               </View>
 
-
         <Button            
           title="Ajouter votre annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction)}}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);clickToClean();props.onSubmitDecreasePhoto()}}
           containerStyle={{marginBottom: 20}}
         />
 
       </ScrollView>
-
   </View>
   );
 }
@@ -294,13 +286,11 @@ const styles = StyleSheet.create({
   container2: {
     flex:1,
   },
-
   buttonRow2: {
     flexDirection:'row',
     justifyContent:'space-around',
     margin:70,
   }
-
 });
 
 function mapDispatchToProps(dispatch) {
@@ -310,10 +300,12 @@ function mapDispatchToProps(dispatch) {
     },
     onSubmitToken: function (token){
       dispatch({type:'informationFromSellScreen',token:token})
+    },
+    onSubmitDecreasePhoto: function (){
+      dispatch({type:'decrease', picture:null})
     }
   }
 }
-
  
 function mapStateToProps(state) {
   return { addPhoto: state.photo , takeToken: state.token }

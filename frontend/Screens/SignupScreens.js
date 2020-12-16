@@ -24,6 +24,20 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
   const [token,setToken]=useState('')
   const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
 
+  // FUNCTION TO CLEAN ALL INPUTS
+  function clickToClean () {
+    setFirstName ("");
+    setLastName("");
+    setMail("");
+    setPassword("");
+    setPhoneNumb("");
+    setAddress("");
+    setPostalCode("");
+    setCity("");
+    
+    // console.log("----------clean input-----", firstName)
+  }
+
   useEffect(() => {
     AsyncStorage.getItem('userToken', (err, value) => {
       if(value){ 
@@ -82,28 +96,28 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
         <ScrollView>
 
-          <Input name="firstName" placeholder='Nom'
+          <Input name="firstName" placeholder='Nom' value={firstName}
           onChangeText={(val) =>setFirstName(val)}/>
 
-          <Input name="lastName" placeholder='Prénom'
+          <Input name="lastName" placeholder='Prénom' value={lastName}
           onChangeText={(val) =>setLastName(val)}/>
 
-          <Input name="mail" placeholder='e-mail'
+          <Input name="mail" placeholder='e-mail' value={email}
           onChangeText={(val) =>setMail(val)}/>
 
-          <Input name="password" placeholder='Mot de passe'
+          <Input name="password" placeholder='Mot de passe' value={password}
           onChangeText={(val) =>setPassword(val)}/>
 
-          <Input name="PhoneNumb" placeholder='Tél.'
+          <Input name="PhoneNumb" placeholder='Tél.' value={phoneNumb} keyboardType='numeric'
           onChangeText={(val) =>setPhoneNumb(val)}/>
 
-          <Input name="Address" placeholder='Adresse'
+          <Input name="Address" placeholder='Adresse'value={address}
           onChangeText={(val) =>setAddress(val)}/>
 
-          <Input name="Zip" placeholder='CP'
+          <Input name="Zip" placeholder='CP' value={postalCode} keyboardType='numeric'
           onChangeText={(val) =>setPostalCode(val)}/>
 
-          <Input name="City" placeholder='Ville'
+          <Input name="City" placeholder='Ville' value={city}
           onChangeText={(val) =>setCity(val)}/>
 
           <Icon style={{display: 'flex', justifyContent: 'center'}}>
@@ -115,7 +129,7 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
             title="M'inscrire"
             buttonStyle={{ backgroundColor: "#82589F"}}
             type="solid"
-            onPress={() => handleClick()
+            onPress={() => {handleClick(); clickToClean()}
            }
           />
             <Text>{isNotConnect}</Text>
