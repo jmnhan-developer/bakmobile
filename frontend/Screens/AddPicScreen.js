@@ -5,6 +5,9 @@ import {Button, Overlay, Image} from 'react-native-elements';
 import { withNavigationFocus } from 'react-navigation';
 import {connect} from 'react-redux';
 import { Camera } from 'expo-camera';
+
+
+
 // IMAGE PICKER
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -116,9 +119,10 @@ function AddPicScreen(props) {
             name="flash"
             size={20}
             color="#ffffff"
-            /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
-           </TouchableOpacity>
-        </View>
+          /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
+        </TouchableOpacity>
+
+      </View>
 
         <View
         style={{
