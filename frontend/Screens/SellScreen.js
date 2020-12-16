@@ -59,9 +59,12 @@ function SellScreen(props) {
                                
     const dataAnnonce = await dataArticle.json()
     props.navigation.navigate('ArticleSell')
-  }else{
+  }
+  else
+  {
     props.navigation.navigate('SignIn')
-  }}
+  }
+}
 
  // FILTERS FOR PICKERS
   var subCat1 = [

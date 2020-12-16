@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
-
+import {withNavigation} from 'react-navigation'
 import {IP_HOST} from '../variable'
 
 
@@ -12,14 +12,13 @@ import {IP_HOST} from '../variable'
 
 function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
 
-
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
   const [token,setToken]=useState('')
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
   const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
-  
+
   console.log('type of action -------',typeOfAction)
 
 // FUNCTION TO CLEAN ALL INPUTS
@@ -88,8 +87,24 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
         <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
 
 
-          <Input name="email" placeholder='e-mail' value={email} onChangeText={(val) =>setMail(val)} />
-          <Input name="password" placeholder='Mot de passe' value={password} onChangeText={(val) =>setPassword(val)} />
+          <Input 
+            name="email" 
+            placeholder='e-mail' 
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            value={email} 
+            returnKeyType="next"
+            onChangeText={(val) =>setMail(val)} />
+          <Input 
+            name="password" 
+            placeholder='Mot de passe' 
+            returnKeyType="next"
+            autoCapitalize="none"
+            value={password} 
+            autoCorrect={false}
+
+            onChangeText={(val) =>setPassword(val)} />
 
           <Icon>
             <FontAwesome name="facebook-f" size={24} color="black" />
@@ -110,7 +125,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
             type='outline'
             titleStyle={{fontSize:15, color:"#82589F"}}
             buttonStyle={{justifyContent:'flex-start', borderColor:'white'}}
-            onPress={()=>{navigation.navigate('SignUp')}}
+            onPress={()=>navigation.navigate('SignUp')}
             />
           
            
@@ -142,10 +157,18 @@ function mapStateToProps(state) {
   return { typeOfAction: state.typeOfAction }
 }
 
-
-export default connect(
-  
+export default connect (
   mapStateToProps,
   mapDispatchToProps
-
 )(SigninScreens);
+
+
+
+// var SignInRedux = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(SigninScreens);
+
+// export default withNavigation(SignInRedux);
+
+

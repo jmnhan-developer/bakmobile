@@ -116,9 +116,10 @@ function AddPicScreen(props) {
             name="flash"
             size={20}
             color="#ffffff"
-            /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
-           </TouchableOpacity>
-        </View>
+          /><Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flash </Text>
+        </TouchableOpacity>
+
+      </View>
 
         <View
         style={{

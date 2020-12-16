@@ -113,7 +113,7 @@ if(subCatSelected==true){
 
   return (
       <View>
-           <Text style={styles.titlePage} >Choisissez une catégorie</Text>
+           <Text style={{ fontSize: 15, textAlign: "center", marginTop: 80, marginBottom:40 }} >Choisissez une catégorie</Text>
       
 
         <View style={styles.buttonRow}>

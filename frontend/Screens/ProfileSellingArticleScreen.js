@@ -5,13 +5,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
 
-
-
-
 const ProfileSellingArticleScreen = (props) => {
+// const [loading,setLoading]=useState('');
+const [productList, setProductList] = useState([]);
 
-  const [productList, setProductList] = useState([]);
-  useEffect(() => {
+
+useEffect(() => {
 
   const findProducts = async () => {
     const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
@@ -61,7 +60,7 @@ var handleClickDeleteArticle = async (id) => {
   });
 
   return (
-    <View style={{ flex: 1, marginTop: 40, width: '95%', marginLeft: 10 }}>
+    <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
       <Text style={{ fontSize: 18, textAlign: "center" }}>Mes ventes en cours</Text>
       <ScrollView style={{ marginTop: 10 }}>
         {cardList}

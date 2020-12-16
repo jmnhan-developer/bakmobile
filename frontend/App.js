@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList,SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList,SafeAreaView, ImageBackground, ActivityIndicator } from 'react-native';
 import FilterScreen from './Screens/FilterScreen'
 import ProfileScreen from './Screens/ProfileScreen'
 import SellScreen from './Screens/SellScreen'
@@ -78,12 +78,14 @@ var StackNavigatorProfile = createStackNavigator({
 );  
 
 
+
 var BottomNavigator = createBottomTabNavigator({
   
   Home:StackNavigatorHome,
   Vendre: stackNavigatorSell,
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,
+  
 
  },
   {
@@ -114,7 +116,6 @@ var BottomNavigator = createBottomTabNavigator({
 
   });
 
- 
 
 
 const Navigation = createAppContainer(BottomNavigator);

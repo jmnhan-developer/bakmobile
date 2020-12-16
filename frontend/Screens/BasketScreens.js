@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList, Modal, TouchableHighlight } from 'react-native';
 import { Card, ListItem, Button, } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
@@ -19,6 +19,9 @@ function BasketScreens({ navigation, productId, takeToken }) {
   const [seller,setSeller]=useState({});
   const [firstName,setFirstName]=useState('')
   const [lastName, setLastName]=useState('')
+
+  const [modalVisible, setModalVisible]=useState(false)
+
   console.log('seller token in BasketScreen',productId.sellerToken);
   useEffect(() => {
     const findSeller = async () => {
@@ -143,7 +146,36 @@ console.log('seller of the product in basket screen',seller)
       <Button
         buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#82589F' }}
         title='Finaliser le paiement' 
-        onPress={()=>handleClick()}/>
+        onPress={()=>{handleClick(); setModalVisible(true)}}/>
+
+      
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Merci pour votre achat ! Le vendeur {firstName} {lastName} prépare votre colis !</Text>
+            <Text style={styles.modalText}>Une fois la commande reçu, vous pourrez celle-ci sur votre compte utilisateur</Text>
+
+
+            <TouchableHighlight
+              style={{ ...styles.openButton, backgroundColor: "#82589F" }}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                navigation.navigate('ArticleBought')
+              }}
+            >
+              <Text style={styles.textStyle}>Voir ma commande</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
+
     </ScrollView>
 
     </View>
@@ -165,7 +197,44 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginRight:10
   
-  }
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 50,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+  
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
 });
 
 function mapStateToProps(state) {
