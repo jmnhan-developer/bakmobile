@@ -41,8 +41,7 @@ router.post('/validate-order', async function(req, res, next) {
 
 router.get('/receive-order', async function(req, res, next) {
   
-  console.log(req.query);
-
+  console.log("-------------------req query validation reception ok----------------",req.query);
   var today= new Date()
   function formatDate(date){
     var newDate = new Date(date);
