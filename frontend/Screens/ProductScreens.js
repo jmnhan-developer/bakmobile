@@ -5,35 +5,38 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from '../components/Carousel';
-
 import { IP_HOST } from '../variable'
 
 
 
 
-function ProductScreens({ navigation, productId, onSubmitTypeOfAction }) {
+function ProductScreens({ navigation, productId, onSubmitTypeOfAction,takeToken }) {
 
   var typeOfAction = 'acheteur';
-
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
   var typeOfAction = 'acheteur';
-  // console.log('productId -----',productId.sellerToken)
 
+  var handleClick = async () => {
+
+    if(takeToken){
+      navigation.navigate('Basket')
+    }else{
+      navigation.navigate('SignIn')
+    }
+  }
+  
   useEffect(() => {
     const findSeller = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
       const body = await data.json()
-      // console.log('-----------',body)
-      // console.log(body.data.firstName)
       setFirstName(body.firstName)
       setLastName(body.lastName)
       
     }
 
     findSeller();
-
 
   }, [])
 
@@ -104,7 +107,7 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction }) {
           buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: "#82589F" }}
           type='solid'
           title='Acheter'
-          onPress={() => { navigation.navigate('SignIn'); onSubmitTypeOfAction(typeOfAction) }}
+          onPress={() => { handleClick(); onSubmitTypeOfAction(typeOfAction) }}
         />
       </ScrollView>
 
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state) {
-  return { productId: state.product }
+  return { productId: state.product, takeToken:state.token }
 };
 
 function mapDispatchToProps(dispatch) {

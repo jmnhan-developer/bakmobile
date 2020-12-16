@@ -17,7 +17,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [liked, setLiked] = useState('')
   const [favorate, setFavorate] = useState(false)
-
+  const [loading,setLoading]=useState('')
 
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
 
       }
     })
-  }, []);
+  }, [loading]);
 
 
   useEffect(() => {
@@ -40,8 +40,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
       setFilterAddList(body.products);
     }
     findProducts()
-  }, [])
-
+  },[loading])
 
   useEffect(() => {
     if (searchTerm != '') {

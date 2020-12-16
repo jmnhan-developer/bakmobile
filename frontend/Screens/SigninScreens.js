@@ -4,12 +4,13 @@ import { FontAwesome } from '@expo/vector-icons';
 import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
-
+import {withNavigation} from 'react-navigation'
 import {IP_HOST} from '../variable'
 
 
-function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
 
+
+function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
 
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
@@ -17,9 +18,16 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
   const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
-  
+
   console.log('type of action -------',typeOfAction)
-  
+
+// FUNCTION TO CLEAN ALL INPUTS
+  function clickToClean () {
+    setMail ("");
+    setPassword("");
+      // console.log("----------clean input-----", firstName)
+  }
+
   useEffect(() => {
     AsyncStorage.getItem('userToken', (err, value) => {
       if(value){ 
@@ -79,14 +87,14 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
         <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
 
 
-          <Input name="email" placeholder='e-mail' onChangeText={(val) =>setMail(val)} />
-          <Input name="password" placeholder='Mot de passe' onChangeText={(val) =>setPassword(val)} />
+          <Input name="email" placeholder='e-mail' value={email} onChangeText={(val) =>setMail(val)} />
+          <Input name="password" placeholder='Mot de passe' value={password} onChangeText={(val) =>setPassword(val)} />
 
           <Button style={{marginTop:20}}
             title="Me connecter"
             buttonStyle={{ backgroundColor: "#82589F"}}
             type="solid"
-            onPress={()=>handleClick()}
+            onPress={()=>{handleClick(); clickToClean()}}
           />
 
            <Text>{isNotConnect}</Text>
@@ -96,7 +104,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
             type='outline'
             titleStyle={{fontSize:15, color:"#82589F"}}
             buttonStyle={{justifyContent:'flex-start', borderColor:'white'}}
-            onPress={()=>{navigation.navigate('SignUp')}}
+            onPress={()=>navigation.navigate('SignUp')}
             />
           
            
@@ -128,10 +136,18 @@ function mapStateToProps(state) {
   return { typeOfAction: state.typeOfAction }
 }
 
-
-export default connect(
-  
+export default connect (
   mapStateToProps,
   mapDispatchToProps
-
 )(SigninScreens);
+
+
+
+// var SignInRedux = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(SigninScreens);
+
+// export default withNavigation(SignInRedux);
+
+

@@ -5,13 +5,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
 
-
-
-
 const ProfileSellingArticleScreen = (props) => {
+// const [loading,setLoading]=useState('');
+const [productList, setProductList] = useState([]);
 
-  const [productList, setProductList] = useState([]);
-  useEffect(() => {
+
+useEffect(() => {
 
     const findProducts = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)

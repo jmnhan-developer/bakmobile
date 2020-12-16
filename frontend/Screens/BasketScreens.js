@@ -36,22 +36,22 @@ function BasketScreens({ navigation, productId, takeToken }) {
   }, [])
   console.log(productId, 'productId from basketscreen-------', takeToken, 'token frombasketscreen')
 
-  var handleClick = async () => {
+    var handleClick = async () => {
 
-    const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `articleId=${productId._id}&clientToken=${takeToken}&`
-    });
-
-
-    const dataAnnonce = await dataArticle.json()
-
-  }
+      const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `articleId=${productId._id}&clientToken=${takeToken}`
+      });
 
 
+      const dataAnnonce = await dataArticle.json()
 
-  console.log('seller of the product in basket screen', seller)
+    }
+
+  
+
+
 
   console.log('seller of the product in basket screen', seller)
 
