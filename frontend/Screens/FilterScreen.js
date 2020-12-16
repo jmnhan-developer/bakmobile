@@ -112,110 +112,104 @@ function FilterScreen(props) {
   }
 
   return (
-    <View>
-      <Text style={styles.titlePage} >Choisissez une catégorie</Text>
+      <View>
+           <Text style={{ fontSize: 15, textAlign: "center", marginTop: 80, marginBottom:40 }} >Choisissez une catégorie</Text>
+      
 
+        <View style={styles.buttonRow}>
+          <Button title='Se déplacer'
+          containerStyle={{width:140, height:50}}
+          buttonStyle={colorButton1?{backgroundColor:'#82589F'}:{backgroundColor:'#D6A2E8'}}
+          onPress={() =>{ 
+          setDisplaySecondFilter1(true); 
+          setColorButton1(!colorButton1); 
+          setColorButton2(false); 
+          setColorButton3(false);
+          setColorButton4(false);
+          setColorButton5(false)}} 
+           />
+        
+          
+          <Button title="S'habiller"
+          containerStyle={{width:140, height:50}}
+          buttonStyle={colorButton2?{backgroundColor:'#82589F'}:{backgroundColor:'#D6A2E8'}}
+          onPress={() =>{ 
+          setDisplaySecondFilter2(true); 
+          setColorButton2(!colorButton2); 
+          setColorButton1(false); 
+          setColorButton3(false);
+          setColorButton4(false);
+          setColorButton5(false)}} 
+           />  
+        </View>
+        
+        <View style={styles.buttonRow}>
+          <Button title='Se baigner'  
+          containerStyle={{width:140, height:50}}
+          buttonStyle={colorButton3?{backgroundColor:'#82589F'}:{backgroundColor:'#D6A2E8'}}
+          onPress={() =>{ 
+          setDisplaySecondFilter3(true); 
+          setColorButton3(!colorButton3); 
+          setColorButton1(false); 
+          setColorButton2(false);
+          setColorButton4(false);
+          setColorButton5(false)}} 
+           />  
 
-      <View style={styles.buttonRow}>
-        <Button title='Se déplacer'
-          containerStyle={{ width: 140, height: 50 }}
-          buttonStyle={colorButton1 ? { backgroundColor: '#82589F' } : { backgroundColor: '#D6A2E8' }}
-          onPress={() => {
-            setDisplaySecondFilter1(true);
-            setColorButton1(!colorButton1);
-            setColorButton2(false);
-            setColorButton3(false);
-            setColorButton4(false);
-            setColorButton5(false)
-          }}
-        />
+          <Button title='Dormir'
+          containerStyle={{width:140, height:50}}
+          buttonStyle={colorButton4?{backgroundColor:'#82589F'}:{backgroundColor:'#D6A2E8'}}
+          onPress={() =>{ 
+          setDisplaySecondFilter4(true); 
+          setColorButton4(!colorButton4); 
+          setColorButton1(false); 
+          setColorButton2(false);
+          setColorButton3(false);
+          setColorButton5(false)}} 
+           /> 
+        </View>
+        
+        <View style={styles.buttonRow}>
+          <Button title='Manger'
+          containerStyle={{width:140, height:50}}
+          buttonStyle={colorButton5?{backgroundColor:'#82589F'}:{backgroundColor:'#D6A2E8'}}
+          onPress={() =>{ 
+          setDisplaySecondFilter5(true); 
+          setColorButton5(!colorButton5); 
+          setColorButton1(false); 
+          setColorButton2(false);
+          setColorButton3(false);
+          setColorButton4(false)}} 
+           /> 
+        </View>    
+            <View style={styles.buttonRow2}>
+                <Picker
+                  selectedValue={subCatName}
+                  style={{height: 50, width: 300, justifyContent:'center'}}
+                  
+                  onValueChange={(itemValue, itemIndex) => {
+                    setSubCatName(itemValue);
+                    setSubCatSelected(true);
+                    props.onSubCatSelected(itemValue);
+                    console.log("subcat from filterscreen itemValue ------",itemValue);
+                    // console.log("subcat from filterscreen subcatName ------",subCatName);
+                  }
+                  }>
 
+                  {DisplaySubCat.map((e, i ) => {
+                  return(
+                    <Picker.Item label={e.subcategory} value={e.subcategory} />
+                  )}
+                )}
 
-        <Button title="S'habiller"
-          containerStyle={{ width: 140, height: 50 }}
-          buttonStyle={colorButton2 ? { backgroundColor: '#82589F' } : { backgroundColor: '#D6A2E8' }}
-          onPress={() => {
-            setDisplaySecondFilter2(true);
-            setColorButton2(!colorButton2);
-            setColorButton1(false);
-            setColorButton3(false);
-            setColorButton4(false);
-            setColorButton5(false)
-          }}
-        />
-      </View>
+                    
+                </Picker>
+              </View>
 
-      <View style={styles.buttonRow}>
-        <Button title='Se baigner'
-          containerStyle={{ width: 140, height: 50 }}
-          buttonStyle={colorButton3 ? { backgroundColor: '#82589F' } : { backgroundColor: '#D6A2E8' }}
-          onPress={() => {
-            setDisplaySecondFilter3(true);
-            setColorButton3(!colorButton3);
-            setColorButton1(false);
-            setColorButton2(false);
-            setColorButton4(false);
-            setColorButton5(false)
-          }}
-        />
-
-        <Button title='Dormir'
-          containerStyle={{ width: 140, height: 50 }}
-          buttonStyle={colorButton4 ? { backgroundColor: '#82589F' } : { backgroundColor: '#D6A2E8' }}
-          onPress={() => {
-            setDisplaySecondFilter4(true);
-            setColorButton4(!colorButton4);
-            setColorButton1(false);
-            setColorButton2(false);
-            setColorButton3(false);
-            setColorButton5(false)
-          }}
-        />
-      </View>
-
-      <View style={styles.buttonRow}>
-        <Button title='Manger'
-          containerStyle={{ width: 140, height: 50 }}
-          buttonStyle={colorButton5 ? { backgroundColor: '#82589F' } : { backgroundColor: '#D6A2E8' }}
-          onPress={() => {
-            setDisplaySecondFilter5(true);
-            setColorButton5(!colorButton5);
-            setColorButton1(false);
-            setColorButton2(false);
-            setColorButton3(false);
-            setColorButton4(false)
-          }}
-        />
-      </View>
-      <View style={styles.buttonRow2}>
-        <Picker
-          selectedValue={subCatName}
-          style={{ height: 50, width: 300, justifyContent: 'center' }}
-
-          onValueChange={(itemValue, itemIndex) => {
-            setSubCatName(itemValue);
-            setSubCatSelected(true);
-            props.onSubCatSelected(itemValue);
-            console.log("subcat from filterscreen itemValue ------", itemValue);
-            // console.log("subcat from filterscreen subcatName ------",subCatName);
-          }
-          }>
-
-          {DisplaySubCat.map((e, i) => {
-            return (
-              <Picker.Item label={e.subcategory} value={e.subcategory} />
-            )
-          }
-          )}
-
-
-        </Picker>
-      </View>
-
-      {validationButton}
-    </View>
-
-
+        {validationButton}
+          </View>
+     
+    
   );
 }
 

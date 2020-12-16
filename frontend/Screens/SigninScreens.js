@@ -87,8 +87,24 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
         <KeyboardAvoidingView behavior="padding" enabled style={{ width: 370 }}>
 
 
-          <Input name="email" placeholder='e-mail' value={email} onChangeText={(val) =>setMail(val)} />
-          <Input name="password" placeholder='Mot de passe' value={password} onChangeText={(val) =>setPassword(val)} />
+          <Input 
+            name="email" 
+            placeholder='e-mail' 
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            value={email} 
+            returnKeyType="next"
+            onChangeText={(val) =>setMail(val)} />
+          <Input 
+            name="password" 
+            placeholder='Mot de passe' 
+            returnKeyType="next"
+            autoCapitalize="none"
+            value={password} 
+            autoCorrect={false}
+
+            onChangeText={(val) =>setPassword(val)} />
 
           <Button style={{marginTop:20}}
             title="Me connecter"

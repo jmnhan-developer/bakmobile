@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList, Modal, TouchableHighlight } from 'react-native';
 import { Card, ListItem, Button, } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
@@ -19,6 +19,9 @@ function BasketScreens({ navigation, productId, takeToken }) {
   const [seller, setSeller] = useState({});
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+
+  const [modalVisible, setModalVisible] = useState(false)
+
   console.log('seller token in BasketScreen', productId.sellerToken);
   useEffect(() => {
     const findSeller = async () => {
@@ -36,20 +39,20 @@ function BasketScreens({ navigation, productId, takeToken }) {
   }, [])
   console.log(productId, 'productId from basketscreen-------', takeToken, 'token frombasketscreen')
 
-    var handleClick = async () => {
+  var handleClick = async () => {
 
-      const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `articleId=${productId._id}&clientToken=${takeToken}`
-      });
+    const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `articleId=${productId._id}&clientToken=${takeToken}`
+    });
 
 
-      const dataAnnonce = await dataArticle.json()
+    const dataAnnonce = await dataArticle.json()
 
-    }
+  }
 
-  
+
 
 
 
@@ -107,43 +110,68 @@ function BasketScreens({ navigation, productId, takeToken }) {
               <Text style={{ marginLeft: 10 }}>46 évaluation</Text>
             </View>
           </View>
-          <Icon style={{ marginLeft: 150 }}
-            name='heart-o'
-            color='#82589F'
-            size={20}
+
+
+          <View style={styles.containerCarac}>
+            <Text style={{ fontWeight: 'bold' }}>{productId.title}</Text>
+            <Text>Prix : {productId.price} €</Text>
+          </View>
+          <View style={styles.containerCarac}>
+            <Text>Marque : {productId.brand}</Text>
+            <Text>Frais de Port : {productId.shippingFees} €</Text>
+          </View>
+          <View style={{ flexDirection: 'row-reverse', marginTop: 10, marginLeft: 10 }}>
+            <Text> Total : {totalPrice} €</Text>
+          </View>
+          <DropDownPicker
+            items={[
+              { label: 'Colissimo', value: 'Colissimo' },
+              { label: 'DHL', value: 'DHL' },
+              { label: 'Happy-Post', value: 'Happy-Post' },
+            ]}
+            defaultIndex={0}
+            defaultNull
+            placeholder="Choisissez votre mode de livraison"
+            containerStyle={{ height: 40, margin: 10 }}
+            onChangeItem={() => { setSelectedValue(true) }}
           />
-        </View>
+          {userData}
+
+          <Button
+            buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#82589F' }}
+            title='Finaliser le paiement'
+            onPress={() => { handleClick(); setModalVisible(true) }} />
 
 
-        <View style={styles.containerCarac}>
-          <Text style={{ fontWeight: 'bold' }}>{productId.title}</Text>
-          <Text>Prix : {productId.price} €</Text>
-        </View>
-        <View style={styles.containerCarac}>
-          <Text>Marque : {productId.brand}</Text>
-          <Text>Frais de Port : {productId.shippingFees} €</Text>
-        </View>
-        <View style={{ flexDirection: 'row-reverse', marginTop: 10, marginLeft: 10 }}>
-          <Text> Total : {totalPrice} €</Text>
-        </View>
-        <DropDownPicker
-          items={[
-            { label: 'Colissimo', value: 'Colissimo' },
-            { label: 'DHL', value: 'DHL' },
-            { label: 'Happy-Post', value: 'Happy-Post' },
-          ]}
-          defaultIndex={0}
-          defaultNull
-          placeholder="Choisissez votre mode de livraison"
-          containerStyle={{ height: 40, margin: 10 }}
-          onChangeItem={() => { setSelectedValue(true) }}
-        />
-        {userData}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Merci pour votre achat ! Le vendeur {firstName} {lastName} prépare votre colis !</Text>
+                <Text style={styles.modalText}>Une fois la commande reçu, vous pourrez celle-ci sur votre compte utilisateur</Text>
 
-        <Button
-          buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#82589F' }}
-          title='Finaliser le paiement'
-          onPress={() => handleClick()} />
+
+                <TouchableHighlight
+                  style={{ ...styles.openButton, backgroundColor: "#82589F" }}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                    navigation.navigate('ArticleBought')
+                  }}
+                >
+                  <Text style={styles.textStyle}>Voir ma commande</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+
+        </View>
+
       </ScrollView>
 
     </View>
@@ -163,9 +191,46 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 10,
     marginTop: 10,
-    marginRight: 10
+    marginRight:10
 
-  }
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 50,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
 });
 
 function mapStateToProps(state) {

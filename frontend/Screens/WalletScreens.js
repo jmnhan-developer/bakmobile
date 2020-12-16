@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import {Input, ListItem, Icon, Divider, Button} from 'react-native-elements';
+import { FlatList, StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
+import {Input, ListItem, Icon, Divider, Button, SearchBar} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
 import {IP_HOST} from '../variable'
@@ -41,7 +41,10 @@ const WalletScreens = (props) => {
 
     </View>
 
-  )
-}
+  
+
+
+)};
+
 
 export default WalletScreens;
