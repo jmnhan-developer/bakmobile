@@ -16,7 +16,10 @@ function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading,setLoading]=useState('')
 
- 
+
+
+
+
   useEffect(() => {
     AsyncStorage.getItem('userToken', (err, value) => {
       if(value){ 

@@ -3,9 +3,9 @@ import { FlatList, StyleSheet, Text, View,AsyncStorage } from 'react-native';
 import {Button, Input, ListItem, Icon} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
-
+import { connect } from 'react-redux';
   
-  const ProfileMenuScreen = ({navigation}) => {
+  const ProfileMenuScreen = ({navigation,onSubmitToken}) => {
     return (
 
       <View style={{marginTop: 50}}>
@@ -58,7 +58,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider onPress= {() => {navigation.navigate('SignIn');AsyncStorage.removeItem("userToken")}}>
+        <ListItem bottomDivider onPress= {() => {navigation.navigate('SignIn');AsyncStorage.removeItem("userToken");onSubmitToken()}}>
           <FontAwesome name="sign-out" size={24} color="#82589F" />
           <ListItem.Content>
             <ListItem.Title >Log Out</ListItem.Title>
@@ -68,5 +68,18 @@ import { FontAwesome5 } from '@expo/vector-icons';
       </View>
     );
   }
+
+  function mapDispatchToProps(dispatch) {
+    return {
+      onSubmitToken: function (token) {
+        dispatch({ type: 'informationFromLogOut', token:token})
+      }
+    }
+  }
+
+  export default connect(
   
-  export default ProfileMenuScreen;
+    null,
+    mapDispatchToProps
+  
+  )(ProfileMenuScreen);

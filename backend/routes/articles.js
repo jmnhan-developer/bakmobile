@@ -79,7 +79,7 @@ console.log("hello1 req query upload", req.query)
 
 router.get('/filter-articles', async function(req, res, next) {
   console.log(req.query.subcat)
-  let products = await articleModel.find({subcategory:req.query.subcat}).sort({creationDate:-1})
+  let products = await articleModel.find({subcategory:req.query.subcat,isVisible:true}).sort({creationDate:-1})
   res.json({products})
   
 }); 

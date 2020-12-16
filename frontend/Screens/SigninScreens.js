@@ -4,12 +4,11 @@ import { FontAwesome } from '@expo/vector-icons';
 import { View, KeyboardAvoidingView, Text, StyleSheet, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
-
+import {withNavigation} from 'react-navigation'
 import {IP_HOST} from '../variable'
 
 
 function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
-
 
   const [email, setMail]=useState('')
   const [password, setPassword]=useState('')
@@ -17,7 +16,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   const [isConnect,setIsConnect]=useState(false)
   const [isNotConnect,setIsNotConnect]=useState('')
   const [tokenIsSubmited,setTokenIsSubmited]=useState(false)
-  
+
   console.log('type of action -------',typeOfAction)
   
   useEffect(() => {
@@ -101,7 +100,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
             type='outline'
             titleStyle={{fontSize:15, color:"#82589F"}}
             buttonStyle={{justifyContent:'flex-start', borderColor:'white'}}
-            onPress={()=>{navigation.navigate('SignUp')}}
+            onPress={()=>navigation.navigate('SignUp')}
             />
           
            
@@ -133,10 +132,18 @@ function mapStateToProps(state) {
   return { typeOfAction: state.typeOfAction }
 }
 
-
-export default connect(
-  
+export default connect (
   mapStateToProps,
   mapDispatchToProps
-
 )(SigninScreens);
+
+
+
+// var SignInRedux = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(SigninScreens);
+
+// export default withNavigation(SignInRedux);
+
+
