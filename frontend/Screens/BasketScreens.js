@@ -75,7 +75,7 @@ console.log('seller of the product in basket screen',seller)
 
     <View style={{ flex: 1, marginTop: 40, width: '95%', marginLeft: 10 }}>
       <FontAwesome name="long-arrow-left" size={24} color="#82589F"
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigation('Product')}
       />
       <ScrollView>
           <Carousel />

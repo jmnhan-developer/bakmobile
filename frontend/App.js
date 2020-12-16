@@ -77,8 +77,6 @@ var StackNavigatorProfile = createStackNavigator({
 
 );  
 
-
-
 var BottomNavigator = createBottomTabNavigator({
   
   Home:StackNavigatorHome,
@@ -86,7 +84,6 @@ var BottomNavigator = createBottomTabNavigator({
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,
   
-
  },
   {
    defaultNavigationOptions: ({ navigation }) => ({

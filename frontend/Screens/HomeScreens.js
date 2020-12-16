@@ -8,17 +8,11 @@ import { Input, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
 import {IP_HOST} from '../variable'
 
-
-
 function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading,setLoading]=useState('')
-
-
-
-
+  const [loading,setLoading]=useState(false)
 
   useEffect(() => {
     AsyncStorage.getItem('userToken', (err, value) => {
@@ -30,9 +24,6 @@ function HomeScreens({navigation, onSubmitProduct,onSubmitToken}) {
       }
     })
   }, [loading]);
-
-
-
 
   
   useEffect(() => {
@@ -97,7 +88,7 @@ else {
       onChangeText={(val) =>setSearchTerm(val)}
       />
 
-  <Text style={{fontSize:20, fontFamily:'Helvetica', fontWeight:'bold', marginTop:5, marginBottom:10, marginLeft:10}} onPress={()=>setLoading('loading')}>Les derniers articles mis en vente</Text>
+  <Text style={{fontSize:20, fontFamily:'Helvetica', fontWeight:'bold', marginTop:5, marginBottom:10, marginLeft:10}} onPress={()=>setLoading(!loading)}>Les derniers articles mis en vente</Text>
 
   <ScrollView>
     <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>

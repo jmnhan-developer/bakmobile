@@ -58,6 +58,8 @@ var handleClickDeleteArticle = async (id) => {
       </View>
     </View>
   });
+  
+  
 
   return (
     <View style={{ flex: 1, marginTop: 40, width: '95%', marginLeft: 10 }}>

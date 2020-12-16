@@ -5,6 +5,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import {connect} from 'react-redux';
 import {IP_HOST} from '../variable'
 
+
+
 function SellScreen(props) {
   
   const [titleInput , setTitleInput ] = useState("");
@@ -65,7 +67,6 @@ function SellScreen(props) {
     props.navigation.navigate('SignIn')
   }
 }
-
  // FILTERS FOR PICKERS
   var subCat1 = [
     {subcategory: "Sièges Auto"},
