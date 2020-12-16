@@ -10,12 +10,12 @@ import { IP_HOST } from '../variable'
 const ProfileBoughtArticleScreen = (props) => {
 
 const [loading,setLoading]=useState('')
+
   var handleClick = async (value) => {
-    
-    console.log('value argument from handleClick ProfileBought',value);
-    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value}`) 
+    console.log("JE SUIS VALEUUUUUR:", value)
+    console.log("le prix est ", value.price)
+    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value._id}&clientToken=${props.takeToken}&productPrice=${value.price}`) 
     const body = await data.json()
-    console.log('body from handleClick ProfileBought',body)
     }
     
    
@@ -58,7 +58,7 @@ const [loading,setLoading]=useState('')
       <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
       <View style={{flex:1, flexDirection:"row", padding:2}}>
         <FontAwesome name={'truck'} size={24} color='#82589F' />
-  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e._id),setLoading('loading')}}>Achat à Valider dés votre réception</Text>
+  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e),setLoading('loading')}}>Achat à Valider dés votre réception</Text>
       </View>
     </View>
   });

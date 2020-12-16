@@ -43,6 +43,7 @@ router.post('/sign-up', async function(req,res,next){
       city:req.body.city,
       postalCode:req.body.postalCode,
       salt:salt,
+      moneyWallet:0,
       password: SHA256(req.body.password+salt).toString(encBase64),
       token:uid2(32)
     })
@@ -142,6 +143,14 @@ router.get('/get-user', async function(req, res, next) {
   console.log(data)
   res.json({data});
 });
+
+router.get('/get-Wallet', async function(req, res, next) {
+  let dataWallet = await userModel.findOne({token:req.query.profileToken})
+  console.log("---------------dataWallet",dataWallet)
+  res.json({dataWallet});
+});
+
+
 
 
 module.exports = router;
