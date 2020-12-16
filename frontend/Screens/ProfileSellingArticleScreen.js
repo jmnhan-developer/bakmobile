@@ -13,31 +13,31 @@ const ProfileSellingArticleScreen = (props) => {
   const [productList, setProductList] = useState([]);
   useEffect(() => {
 
-  const findProducts = async () => {
-    const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
-    const body = await data.json()
-    
-    setProductList(body.products);
-    // setFilterAddList(body.products);
-    console.log('body from get article by seller -------', body);
+    const findProducts = async () => {
+      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
+      const body = await data.json()
+
+      setProductList(body.products);
+      // setFilterAddList(body.products);
+      console.log('body from get article by seller -------', body);
+    }
+
+    findProducts()
+
+  }, [])
+
+  // ---------------- travail sur route delete dans mes annonces
+
+  var handleClickDeleteArticle = async (id) => {
+
+    await fetch(`http://${IP_HOST}:3000/articles/cancel-article`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `idArticle=${id}`
+    });
   }
 
-  findProducts()
-
-}, [])
-
-// ---------------- travail sur route delete dans mes annonces
-
-var handleClickDeleteArticle = async (id) => {
-        
-  await fetch(`http://${IP_HOST}:3000/articles/cancel-article`, {
-  method: 'POST',
-  headers: {'Content-Type':'application/x-www-form-urlencoded'},
-  body: `idArticle=${id}`
-  });
-}
-
-// ---------------- fin travail sur route delete dans mes annonces
+  // ---------------- fin travail sur route delete dans mes annonces
   console.log(productList);
 
 
@@ -55,14 +55,17 @@ var handleClickDeleteArticle = async (id) => {
       <Text style={{ padding: 2 }}>{e.price}€ - Date de mise en vente: {formatDate(e.creationDate)}</Text>
       <View style={{ flex: 1, flexDirection: "row", padding: 2 }}>
         <FontAwesome name={'trash'} size={24} color='#82589F' />
-        <Text style={{ marginTop: 5, marginLeft: 5, marginBottom: 25 }} onPress={() => {handleClickDeleteArticle(e._id)}}>Supprimer l'annonce</Text>
+        <Text style={{ marginTop: 5, marginLeft: 5, marginBottom: 25 }} onPress={() => { handleClickDeleteArticle(e._id) }}>Supprimer l'annonce</Text>
       </View>
     </View>
   });
 
   return (
-    <View style={{ flex: 1, marginTop: 25, width: '95%', marginLeft: 10 }}>
-      <Text style={{ fontSize: 18, textAlign: "center" }}>Mes ventes en cours</Text>
+    <View style={{ flex: 1, marginTop: 30, width: '95%', marginLeft: 10 }}>
+      <View style={{ flexDirection: 'row', width: '100%' }}>
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
+        <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 80 }}>Mes ventes en cours</Text>
+      </View>
       <ScrollView style={{ marginTop: 10 }}>
         {cardList}
       </ScrollView>

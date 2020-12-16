@@ -46,7 +46,10 @@ const ProfileBoughtArticleScreen = (props) => {
 
   return (
     <View style={{ flex: 1, marginTop: 25, width: '95%', marginLeft: 10 }}>
-      <Text style={{ fontSize: 18, textAlign: "center" }}>Mes achats effectués</Text>
+       <View style={{ flexDirection: 'row', width: '100%' }}>
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
+        <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 120 }}>Mes achats</Text>
+      </View>
       <ScrollView style={{ marginTop:10}}>
         {cardList1}
       </ScrollView>

@@ -75,10 +75,10 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
     
     <View style={{flex: 1, marginTop:50, width: '95%', marginLeft:10}}>
       
-      <Text style={{fontSize:15, textAlign:"center", marginBottom: 20}}>Inscription</Text>
+      <Text style={{fontSize:20, textAlign:"center", marginBottom: 20}}>Inscription</Text>
        
 
-      {/* <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}> */}
+      <KeyboardAvoidingView  behavior="padding" enabled   keyboardVerticalOffset={150}>
 
         <ScrollView>
 
@@ -106,11 +106,6 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
           <Input name="City" placeholder='Ville'
           onChangeText={(val) =>setCity(val)}/>
 
-          <Icon style={{display: 'flex', justifyContent: 'center'}}>
-            <FontAwesome name="facebook-f" size={24} color="black" />
-            <FontAwesome name="instagram" size={24} color="black" />
-            <FontAwesome name="twitter" size={24} color="black" />
-          </Icon>
           <Button style={{marginTop:20}}
             title="M'inscrire"
             buttonStyle={{ backgroundColor: "#82589F"}}
@@ -129,7 +124,7 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
 
         </ScrollView>
 
-      {/* </KeyboardAvoidingView> */}
+      </KeyboardAvoidingView>
 
     </View>
   )

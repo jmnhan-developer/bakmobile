@@ -16,10 +16,10 @@ function BasketScreens({ navigation, productId, takeToken }) {
 
 
   console.log(productId);
-  const [seller,setSeller]=useState({});
-  const [firstName,setFirstName]=useState('')
-  const [lastName, setLastName]=useState('')
-  console.log('seller token in BasketScreen',productId.sellerToken);
+  const [seller, setSeller] = useState({});
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  console.log('seller token in BasketScreen', productId.sellerToken);
   useEffect(() => {
     const findSeller = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/users/get-user?UserToken=${takeToken}`)
@@ -30,28 +30,28 @@ function BasketScreens({ navigation, productId, takeToken }) {
       setFirstName(body.data.firstName)
       setLastName(body.data.lastName)
     }
-    
+
     findSeller();
 
   }, [])
-console.log(productId,'productId from basketscreen-------',takeToken,'token frombasketscreen')
+  console.log(productId, 'productId from basketscreen-------', takeToken, 'token frombasketscreen')
 
-var handleClick = async () => {
-   
-      const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
-        method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: `articleId=${productId._id}&clientToken=${takeToken}&`
-      });
+  var handleClick = async () => {
 
-      
-      const dataAnnonce = await dataArticle.json()
-      
-    }
+    const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `articleId=${productId._id}&clientToken=${takeToken}&`
+    });
 
 
+    const dataAnnonce = await dataArticle.json()
 
-console.log('seller of the product in basket screen',seller)
+  }
+
+
+
+  console.log('seller of the product in basket screen', seller)
 
   console.log('seller of the product in basket screen', seller)
 
@@ -78,73 +78,73 @@ console.log('seller of the product in basket screen',seller)
         onPress={() => navigation.goBack()}
       />
       <ScrollView>
-          <Carousel />
-          <View style={{flexDirection:'row', marginTop:10}}>
-         
-            <View style={{marginLeft:10}}>
-        <Text >{firstName} {lastName}</Text>
-                <View style={{flexDirection: 'row'}}>
-                  <Icon name='star'
-                        color= '#f9ca24'
-                        size={20}
-                  />
-                  <Icon name='star'
-                        color= '#f9ca24'
-                        size={20}
-                  />
-                  <Icon name='star'
-                        color= '#f9ca24'
-                        size={20}
-                  />
-                  <Icon name='star-o'
-                        color= '#f9ca24'
-                        size={20}
-                  />
-                  <Icon name='star-o'
-                        color= '#f9ca24'
-                        size={20}
-                  />
-                  <Text style={{marginLeft:10}}>46 évaluation</Text>
-                </View>
-            </View>
-            <Icon   style={{marginLeft:150}}
-                    name='heart-o'
-                    color='#82589F'
-                    size={20}
+        <Carousel />
+        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+
+          <View style={{ marginLeft: 10 }}>
+            <Text >{firstName} {lastName}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Icon name='star'
+                color='#f9ca24'
+                size={20}
               />
+              <Icon name='star'
+                color='#f9ca24'
+                size={20}
+              />
+              <Icon name='star'
+                color='#f9ca24'
+                size={20}
+              />
+              <Icon name='star-o'
+                color='#f9ca24'
+                size={20}
+              />
+              <Icon name='star-o'
+                color='#f9ca24'
+                size={20}
+              />
+              <Text style={{ marginLeft: 10 }}>46 évaluation</Text>
+            </View>
           </View>
+          <Icon style={{ marginLeft: 150 }}
+            name='heart-o'
+            color='#82589F'
+            size={20}
+          />
+        </View>
 
-  
-      <View style={styles.containerCarac}>
-        <Text style={{fontWeight:'bold'}}>{productId.title}</Text>
-        <Text>Prix : {productId.price} €</Text>
-      </View>
-      <View style={styles.containerCarac}>
-        <Text>Marque : {productId.brand}</Text>
-        <Text>Frais de Port : {productId.shippingFees} €</Text>
-      </View>
-      <View style={{ flexDirection: 'row-reverse', marginTop: 10, marginLeft:10}}>
-        <Text> Total : {totalPrice} €</Text>
-      </View>
-      <DropDownPicker
-        items={[
-          { label: 'Colissimo', value: 'Colissimo' },
-          { label: 'DHL', value: 'DHL' },
-          { label: 'Happy-Post', value: 'Happy-Post' },
-        ]}
-        defaultIndex={0}
-        defaultNull
-        placeholder="Choisissez votre mode de livraison"
-        containerStyle={{ height: 40, margin: 10 }}
-        onChangeItem={() => { setSelectedValue(true) }}
-      />
-      {userData}
 
-      <Button
-        buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#82589F' }}
-        title='Finaliser le paiement' 
-        onPress={()=>handleClick()}/>
-    </ScrollView>
+        <View style={styles.containerCarac}>
+          <Text style={{ fontWeight: 'bold' }}>{productId.title}</Text>
+          <Text>Prix : {productId.price} €</Text>
+        </View>
+        <View style={styles.containerCarac}>
+          <Text>Marque : {productId.brand}</Text>
+          <Text>Frais de Port : {productId.shippingFees} €</Text>
+        </View>
+        <View style={{ flexDirection: 'row-reverse', marginTop: 10, marginLeft: 10 }}>
+          <Text> Total : {totalPrice} €</Text>
+        </View>
+        <DropDownPicker
+          items={[
+            { label: 'Colissimo', value: 'Colissimo' },
+            { label: 'DHL', value: 'DHL' },
+            { label: 'Happy-Post', value: 'Happy-Post' },
+          ]}
+          defaultIndex={0}
+          defaultNull
+          placeholder="Choisissez votre mode de livraison"
+          containerStyle={{ height: 40, margin: 10 }}
+          onChangeItem={() => { setSelectedValue(true) }}
+        />
+        {userData}
+
+        <Button
+          buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#82589F' }}
+          title='Finaliser le paiement'
+          onPress={() => handleClick()} />
+      </ScrollView>
 
     </View>
 
@@ -160,11 +160,11 @@ const styles = StyleSheet.create({
   },
   containerCarac: {
     flexDirection: "row",
-    justifyContent:'space-between',
-    marginLeft:10,
+    justifyContent: 'space-between',
+    marginLeft: 10,
     marginTop: 10,
-    marginRight:10
-  
+    marginRight: 10
+
   }
 });
 

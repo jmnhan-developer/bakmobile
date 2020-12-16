@@ -72,7 +72,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   return (
     <View style={{flex: 1, marginTop: 50, alignItems: 'center',justifyContent: 'center'}}>
 
-      <Text style={{marginBottom: 20}}>Connection</Text>
+      <Text style={{marginBottom: 20, fontSize:20}}>Connection</Text>
 
       <ScrollView>
 
@@ -82,11 +82,6 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
           <Input name="email" placeholder='e-mail' onChangeText={(val) =>setMail(val)} />
           <Input name="password" placeholder='Mot de passe' onChangeText={(val) =>setPassword(val)} />
 
-          <Icon>
-            <FontAwesome name="facebook-f" size={24} color="black" />
-            <FontAwesome name="instagram" size={24} color="black" />
-            <FontAwesome name="twitter" size={24} color="black" />
-          </Icon>
           <Button style={{marginTop:20}}
             title="Me connecter"
             buttonStyle={{ backgroundColor: "#82589F"}}

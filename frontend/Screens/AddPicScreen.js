@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native';
 import { Camera } from 'expo-camera';
-
 import { connect } from 'react-redux';
-
 import { withNavigationFocus } from 'react-navigation';
-
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonic from 'react-native-vector-icons/Ionicons';
-
 import { Button, Overlay, Image } from 'react-native-elements';
 
 

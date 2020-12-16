@@ -85,10 +85,12 @@ const ProfileScreen = ({ navigation, takeToken }) => {
 
   return (
 
-    <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
+    <View style={{ flex: 1, marginTop: 30, width: '95%', marginLeft: 10 }}>
 
-      <Text style={{ fontSize: 15, textAlign: "center", marginTop: 5 }}>Mes informations personnelles</Text>
-
+      <View style={{flexDirection:'row', width:'100%'}}>
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{marginTop:5}} onPress={() => navigation.goBack()}/>
+        <Text style={{ fontSize:20, marginTop: 5, marginLeft:40}}>Mes informations personnelles</Text>
+      </View>
       <View style={{ backgroundColor: '#D7DBDD', height: 1, width: 300, marginLeft: 50, marginTop: 20, marginBottom: 30 }}></View>
 
      {myProfil} 
