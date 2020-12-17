@@ -35,7 +35,6 @@ function AddPicScreen(props) {
       aspect: [4, 3],
       quality: 1,
     });
-    // console.log("----------resultat pick image ----------",result);
     
     if (!result.cancelled) {
       setImage(result.uri);
@@ -51,9 +50,9 @@ function AddPicScreen(props) {
       method: 'POST',
       body: data
     })
-    // console.log("---------------dataPhoto----------",dataPhotoGallery)
+
     const bodyImageGallery = await dataPhotoGallery.json()
-    // console.log("-------------bodyImage--------------",bodyImageGallery)                    
+                   
     props.onIncreaseClick(bodyImageGallery.url)    
   };
   
@@ -210,11 +209,6 @@ function AddPicScreen(props) {
             <Image source={{uri:props.addPhoto[4]}} style={{height:70, width:70}} onPress={pickImage}/>           
           </View>
         </View>
-        {/* ----------------- pickImage */}
-        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-       </View> */}
 
         <Button
             title="Enregistrer mes photos"

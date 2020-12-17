@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList, Modal, TouchableHighlight } from 'react-native';
-import { Card, ListItem, Button, } from 'react-native-elements'
+import { View, Text, StyleSheet, ScrollView, Modal, TouchableHighlight } from 'react-native';
+import { Button } from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import Carousel from '../components/Carousel';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import { IP_HOST } from '../variable'
 
 function BasketScreens({ navigation, productId, takeToken }) {
@@ -23,8 +21,6 @@ function BasketScreens({ navigation, productId, takeToken }) {
     const findBuyer = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/users/get-user?UserToken=${takeToken}`)
       const body = await data.json()
-      console.log('-----------', body)
-      console.log('firstname from basketscreen -----------', body.data.firstName)
       setBuyer(body.data)
 
     }
@@ -47,8 +43,6 @@ function BasketScreens({ navigation, productId, takeToken }) {
   }, [])
 
 
-  console.log(productId, 'productId from basketscreen-------', takeToken, 'token frombasketscreen')
-
   var handleClick = async () => {
 
     const dataOrder = await fetch(`http://${IP_HOST}:3000/orders/validate-order`, {
@@ -56,7 +50,6 @@ function BasketScreens({ navigation, productId, takeToken }) {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `articleId=${productId._id}&clientToken=${takeToken}`
     });
-
 
     const dataAnnonce = await dataArticle.json()
 

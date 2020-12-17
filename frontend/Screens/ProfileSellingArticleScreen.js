@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet, ScrollView, View, Image } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Text, ScrollView, View, Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
 
 const ProfileSellingArticleScreen = (props) => {
-// const [loading,setLoading]=useState('');
+
 const [productList, setProductList] = useState([]);
 
 

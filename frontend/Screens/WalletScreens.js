@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, ScrollView, Dimensions, Modal, TouchableHighlight } from 'react-native';
-import { Input, ListItem, Icon, Divider, Button, SearchBar } from 'react-native-elements';
+import { StyleSheet, Text, View, Modal, TouchableHighlight } from 'react-native';
+import { Button } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
 
@@ -17,14 +16,11 @@ function WalletScreens(props) {
   useEffect(() => {
     const updateWallet = async () => {
       const dataWallet = await fetch(`http://${IP_HOST}:3000/users/get-Wallet?profileToken=${props.takeToken}`)
-      // console.log("----------dataWallet     updateWallet---------",dataWallet)
       const body = await dataWallet.json()
-      console.log("----------body     updateWallet---------", body)
       setWalletAmount(body.dataWallet.moneyWallet);
     }
     updateWallet()
   }, [])
-
 
 
   let colorFont = "black"

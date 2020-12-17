@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { Card, ListItem, Button } from 'react-native-elements'
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -39,23 +39,19 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction,takeToken 
     findSeller();
 
   }, [])
-
-  console.log('firstName in productScreen',firstName,'lastName',lastName)
   
   return (
     <View style={{ flex: 1, marginTop: 40, width: '95%', marginLeft: 10 }}>
       <FontAwesome name="long-arrow-left" size={24} color="#82589F"
         onPress={() => navigation.goBack()}
       />
-      {/* <Image style={styles.image} 
-          source={{uri:productId.images[0]}}
-          /> */}
+      
       <ScrollView>
         <Carousel />
         <View style={{ flexDirection: 'row', marginTop: 10 }}>
 
           <View style={{ marginLeft: 10 }}>
-            <Text >{firstName} {lastName}</Text>
+            <Text style={{color:"black"}}>{firstName} {lastName}</Text>
             <View style={{ flexDirection: 'row' }}>
               <Icon name='star'
                 color='#f9ca24'
@@ -140,8 +136,6 @@ const styles = StyleSheet.create({
 
   }
 });
-
-
 
 
 function mapStateToProps(state) {

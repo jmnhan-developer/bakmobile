@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { Input, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
@@ -23,7 +22,6 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
       if (value) {
 
         onSubmitToken(value);
-        console.log('value from HomeScreen:', value);
 
       }
     })
@@ -112,11 +110,6 @@ function mapDispatchToProps(dispatch) {
     }
   }
 }
-
-
-
-
-
 
 
 export default connect(

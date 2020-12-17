@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, ScrollView, View, Picker, AsyncStorage, Modal, TouchableHighlight } from 'react-native';
+import { StyleSheet, ScrollView, View, Picker, AsyncStorage } from 'react-native';
 import { Button, Input, Image } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
-
 
 
 function SellScreen(props) {
@@ -21,8 +20,7 @@ function SellScreen(props) {
   const [DisplaySubCat, setDisplaySubCat] = useState([]);
   const [subCatName, setSubCatName] = useState('');
   const [selectedValueState, setSelectedValueState] = useState("");
-  const [modalVisible, setModalVisible] = useState(false)
-
+  
 
   // FUNCTION TO CLEAN ALL INPUTS
   function clickToClean() {
@@ -77,7 +75,7 @@ function SellScreen(props) {
     { subcategory: "Landeaux" },
     { subcategory: "Portes-Bébé" },
     { subcategory: "Sacs à Langer" },
-    { subcategory: "Autres" },
+    { subcategory: "Se déplacer / Autre" },
   ]
 
   var subCat2 = [
@@ -96,7 +94,7 @@ function SellScreen(props) {
     { subcategory: "Lingettes-Serviettes" },
     { subcategory: "Thermometres" },
     { subcategory: "Jouets de bain" },
-    { subcategory: "Autres" },
+    { subcategory: "Se baigner / Autre" },
   ]
 
   var subCat4 = [
@@ -106,7 +104,7 @@ function SellScreen(props) {
     { subcategory: "Gigoteuses" },
     { subcategory: "Veilleuses" },
     { subcategory: "Babyphones" },
-    { subcategory: "Autres" },
+    { subcategory: "Dormir / Autre" },
   ]
 
   var subCat5 = [
@@ -116,7 +114,7 @@ function SellScreen(props) {
     { subcategory: "Robots de Cuisine" },
     { subcategory: "Vaiselles" },
     { subcategory: "Accessoires" },
-    { subcategory: "Autres" },
+    { subcategory: "Manger / Autre" },
   ]
 
 
@@ -142,37 +140,12 @@ function SellScreen(props) {
     setSelectedCatName(false)
   }
 
-  let modalDisplay = <Modal
-    animationType="slide"
-    transparent={true}
-    visible={modalVisible}
-    onRequestClose={() => {
-      Alert.alert("Modal has been closed.");
-    }}>
-    <View style={styles.centeredView}>
-      <View style={styles.modalView}>
-        <Text style={styles.modalText}>Merci d'avoir proposé votre article sur Babies and Kids!</Text>
-        <Text style={styles.modalText}>Votre annonce sera en ligne d'ici quelques minutes après sa vérification par notre équipe.</Text>
 
-        <TouchableHighlight
-          style={{ ...styles.openButton, backgroundColor: "#82589F" }}
-          onPress={() => {
-            setModalVisible(!modalVisible);
-            props.navigation.navigate('ArticleSell')
-          }}
-        >
-          <Text style={styles.textStyle}>Voir mes ventes</Text>
-        </TouchableHighlight>
-      </View>
-    </View>
-  </Modal>
 
 
   return (
     <View style={styles.container}>
       <ScrollView style={{ width: '90%' }}>
-
-        {/* <Text style={{marginTop:40,textAlign: 'center'}}>Jusqu'à 6 photos</Text> */}
 
         <Button
           buttonStyle={{ marginTop: 60, marginBottom: 40, borderColor: "#82589F" }}
@@ -290,12 +263,12 @@ function SellScreen(props) {
             <Picker.Item label="Etat d'usage" value="Etat d'usage" />
           </Picker>
         </View>
-        {modalDisplay}
+
         <Button
           title="Ajouter mon annonce"
           type="solid"
           buttonStyle={{ backgroundColor: "#82589F" }}
-          onPress={() => { handleClick(); setModalVisible(true); props.onSubmitTypeOfAction(typeOfAction) }}
+          onPress={() => { handleClick(); props.onSubmitTypeOfAction(typeOfAction) }}
           containerStyle={{ marginBottom: 20 }}
         />
 

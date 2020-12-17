@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, Title, View } from 'react-native';
-import { Input, ListItem, Icon, Divider, Button, NavigationContainer } from 'react-native-elements';
+import { Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import {IP_HOST} from '../variable'
 
 const ProfileScreen = ({ navigation, takeToken }) => {
-
-  console.log('idfromreducer', takeToken)
 
   const [userInfo, setUserInfo] = useState([])
 
@@ -15,14 +13,10 @@ const ProfileScreen = ({ navigation, takeToken }) => {
     const findUser = async () => {
       const rawData = await fetch(`http://${IP_HOST}:3000/users/display-profile?token=${takeToken}`)
       const doneData = await rawData.json()
-      console.log("done data est:", doneData)
       setUserInfo(doneData)
     }
     findUser()
   }, [])
-
-
-  console.log("je suis userinfo:", userInfo)
 
   //INOFRMATION ISSUES DE LA BASE DE DONNÉES
 
@@ -47,10 +41,6 @@ const ProfileScreen = ({ navigation, takeToken }) => {
         <Text style={{ fontSize: 17, width: 110 }}>Email:</Text>
         <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.email}</Text>
       </View>
-      {/* <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
-        <Text style={{ fontSize: 17, width: 110 }}>Password:</Text>
-        <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userData.password}</Text>
-      </View> */}
       <View style={{ flexDirection: 'row', width: '80%', marginBottom: 10 }}>
         <Text style={{ fontSize: 17, width: 110 }}>Adresse:</Text>
         <Text style={{ color: 'grey', fontWeight: 'bold', fontSize: 17 }}>{userInfo.address}</Text>
@@ -76,12 +66,8 @@ const ProfileScreen = ({ navigation, takeToken }) => {
     <Button title="Connectez-vous" buttonStyle={{backgroundColor: "#82589F"}} type="solid"
             onPress={()=> {navigation.navigate('SignIn')}}/>
     </View>
-
-
   }
 
- 
-  
 
   return (
 

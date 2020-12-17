@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View,AsyncStorage } from 'react-native';
-import {Button, Input, ListItem, Icon} from 'react-native-elements';
+import { View,AsyncStorage } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { connect } from 'react-redux';

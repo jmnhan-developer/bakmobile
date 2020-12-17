@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { Button, Image } from 'react-native-elements';
+import { Image } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import {connect} from 'react-redux';
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-
 import {IP_HOST} from '../variable'
 
 
@@ -14,20 +11,6 @@ function ResultScreens(props) {
 
   const [productList, setProductList] = useState([])
 
-  
-  // var dataList = [
-  //   {url:'https://picsum.photos/201', brand:'Aubert', size:'M', price:"10"},
-  //   {url:'https://picsum.photos/202', brand:'BébéConfort', size:'L', price:"20"},
-  //   {url:'https://picsum.photos/203', brand:'Chicco', size:'XL', price:"30"},
-  //   {url:'https://picsum.photos/204', brand:'Text', size:'6 ans', price:"40"},
-  //   {url:'https://picsum.photos/205', brand:'Mon Bébé', size:'10 ans', price:"50"},
-  //   {url:'https://picsum.photos/206', brand:'Bambino', size:'s', price:"60"},
-  //   {url:'https://picsum.photos/207', brand:'Mon Bébé', size:'10 ans', price:"50"},
-  //   {url:'https://picsum.photos/208', brand:'Bambino', size:'s', price:"60"}
-  // ]
-
-
-  console.log("helloledke,dznden",props.Subcat);
 
   useEffect(() => {
     const findProducts = async() => {
@@ -41,7 +24,6 @@ function ResultScreens(props) {
 
   },[props.Subcat])
   
- 
 
   let lastArticles = productList.map((productId, i) => {
     return <View style={{width:'47%', margin:5}}>
@@ -82,6 +64,8 @@ function ResultScreens(props) {
     </View>
   )
 }
+
+
 function mapStateToProps(state){
   return{Subcat : state.subcat, product: state.product}
 }

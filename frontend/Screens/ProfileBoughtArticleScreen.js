@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet, ScrollView, View, Image, Modal, TouchableHighlight} from 'react-native';
-import { Card, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
@@ -26,18 +26,14 @@ const ProfileBoughtArticleScreen = (props) => {
 
   useEffect(() => {
 
-    console.log('enter useEffect')
     const findProducts = async () => {
 
       const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-buyer?buyerToken=${props.takeToken}`)
       const body = await data.json()
 
-      console.log('body from profilebought screen', body.articlesTab)
-
       setProductList(body.articlesTab);
       setProductListReceive(body.articlesTabValidate)
 
-      //setFilterAddList(body.products);
     }
 
     findProducts()
@@ -101,8 +97,6 @@ const ProfileBoughtArticleScreen = (props) => {
       </View>
     </View>
   </Modal>
-
-
 
 
   return (
