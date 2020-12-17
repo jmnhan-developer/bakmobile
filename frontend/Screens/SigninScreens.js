@@ -25,7 +25,6 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   function clickToClean () {
     setMail ("");
     setPassword("");
-      // console.log("----------clean input-----", firstName)
   }
 
   useEffect(() => {
@@ -50,18 +49,14 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
       body:`email=${email}&password=${password}`
     },
     );
-    
-    // console.log("dataUsersXXX", dataUsers)
-    
+       
     const dataConsumers = await dataUsers.json()
     // console.log("dataConsumersjson-Result", dataConsumers)
     console.log('-----------------',dataConsumers.token)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
     onSubmitToken(dataConsumers.token)
-    
     AsyncStorage.setItem('userToken',dataConsumers.token );
-  
   }
    if(isConnect==true )
    {
@@ -73,6 +68,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
       {
        navigation.navigate('Sell')
       }
+      
    }
  console.log(token,'id from AsyncStorage SignIn')
  console.log(tokenIsSubmited,'etat de id submit')
@@ -103,7 +99,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
             autoCapitalize="none"
             value={password} 
             autoCorrect={false}
-
+            secureTextEntry={true}
             onChangeText={(val) =>setPassword(val)} />
 
           <Button style={{marginTop:20}}
@@ -156,14 +152,5 @@ export default connect (
   mapStateToProps,
   mapDispatchToProps
 )(SigninScreens);
-
-
-
-// var SignInRedux = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(SigninScreens);
-
-// export default withNavigation(SignInRedux);
 
 

@@ -13,17 +13,16 @@ const ProfileBoughtArticleScreen = (props) => {
   const [modalVisible, setModalVisible]=useState(false)
 
   var handleClick = async (value) => {
-
-    console.log('value argument from handleClick ProfileBought', value);
-    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value}`)
+    console.log("JE SUIS VALEUUUUUR:", value)
+    console.log("le prix est ", value.price)
+    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value._id}&sellerToken=${value.sellerToken}&productPrice=${value.price}`) 
     const body = await data.json()
-    console.log('body from handleClick ProfileBought', body)
-  }
-
-
-  const [productList, setProductList] = useState([]);
-  const [productListReceive, setProductListReceive] = useState([]);
-  const [stateOfOrder, setStateOfOrder] = useState('Valider la réception de cet achat')
+    }
+    
+   
+    const [productList, setProductList] = useState([]);
+    const [productListReceive, setProductListReceive] = useState([]);
+    const [stateOfOrder,setStateOfOrder]= useState('Valider la réception de cet achat')
 
   useEffect(() => {
 
@@ -60,7 +59,7 @@ const ProfileBoughtArticleScreen = (props) => {
       <Text style={{ padding: 2 }}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
       <View style={{ flex: 1, flexDirection: "row", padding: 2, marginBottom: 20 }}>
         <FontAwesome style={{ marginTop: 5 }} name={'truck'} size={24} color='#82589F' />
-        <Button buttonStyle={{ height: 35, backgroundColor: '#82589F', marginLeft: 10 }} titleStyle={{ fontSize: 15, color: 'white' }} title="Tout est OK, je valide!" type="outline" onPress={() => { handleClick(e._id), setModalVisible(true), setLoading(!loading) }} />
+        <Button buttonStyle={{ height: 35, backgroundColor: '#82589F', marginLeft: 10 }} titleStyle={{ fontSize: 15, color: 'white' }} title="Tout est OK, je valide!" type="outline" onPress={() => { handleClick(e), setModalVisible(true), setLoading(!loading) }} />
 
       </View>
     </View>
@@ -108,8 +107,8 @@ const ProfileBoughtArticleScreen = (props) => {
 
   return (
     <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
-      <View style={{ flexDirection: 'row', width: '100%' }}>
-        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
+       <View style={{ flexDirection: 'row', width: '100%' }}>
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.navigate('Menu')} />
         <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 120 }}>Mes achats</Text>
       </View>
       <ScrollView style={{ marginTop: 10 }}>

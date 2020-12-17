@@ -106,7 +106,8 @@ function SignUpScreens({onSubmitToken,navigation,typeOfAction}) {
           onChangeText={(val) =>setMail(val)}/>
 
           <Input name="password" placeholder='Mot de passe' value={password} autoCorrect={false} returnKeyType="next" autoCapitalize="none"
-          onChangeText={(val) =>setPassword(val)}/>
+          onChangeText={(val) =>setPassword(val)} 
+          secureTextEntry={true}/>
 
           <Input name="PhoneNumb" placeholder='Tél.' value={phoneNumb} keyboardType='numeric' returnKeyType="next"
           onChangeText={(val) =>setPhoneNumb(val)}/>

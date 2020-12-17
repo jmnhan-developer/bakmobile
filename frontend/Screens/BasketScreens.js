@@ -162,7 +162,7 @@ function BasketScreens({ navigation, productId, takeToken }) {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Merci pour votre achat ! Le vendeur {firstName} {lastName} prépare votre colis !</Text>
-              <Text style={styles.modalText}>Une fois la commande reçu, vous pourrez valider celle-ci sur votre compte utilisateur</Text>
+              <Text style={styles.modalText}>Une fois la commande reçue, vous pourrez valider celle-ci sur votre compte utilisateur</Text>
 
 
               <TouchableHighlight

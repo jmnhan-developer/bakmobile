@@ -15,14 +15,9 @@ useEffect(() => {
     const findProducts = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-seller?SellerToken=${props.takeToken}`)
       const body = await data.json()
-
       setProductList(body.products);
-      // setFilterAddList(body.products);
-      console.log('body from get article by seller -------', body);
     }
-
     findProducts()
-
   }, [])
 
   // ---------------- travail sur route delete dans mes annonces
@@ -37,10 +32,7 @@ useEffect(() => {
   }
 
   // ---------------- fin travail sur route delete dans mes annonces
-  console.log(productList);
-
-
-
+  
   function formatDate(date) {
     var newDate = new Date(date);
     var finalFormat = newDate.getDate() + "/" + (newDate.getMonth() + 1) + "/" + newDate.getFullYear();
@@ -64,8 +56,8 @@ useEffect(() => {
   return (
     <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
       <View style={{ flexDirection: 'row', width: '100%' }}>
-        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
-        <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 80 }}>Mes ventes en cours</Text>
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.navigate('Menu')} />
+        <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 120 }}>Mes ventes</Text>
       </View>
       <ScrollView style={{ marginTop: 10 }}>
         {cardList}

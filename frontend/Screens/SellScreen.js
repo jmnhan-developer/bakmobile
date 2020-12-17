@@ -53,6 +53,8 @@ function SellScreen(props) {
   var handleClick = async () => {
 
     if (props.takeToken != '') {
+      clickToClean();
+      props.onSubmitDecreasePhoto();
       var image = JSON.stringify(props.addPhoto);
       const dataArticle = await fetch(`http://${IP_HOST}:3000/articles/create-article`, {
         method: 'POST',
@@ -152,7 +154,6 @@ function SellScreen(props) {
         <Text style={styles.modalText}>Merci d'avoir proposé votre article sur Babies and Kids!</Text>
         <Text style={styles.modalText}>Votre annonce sera en ligne d'ici quelques minutes après sa vérification par notre équipe.</Text>
 
-
         <TouchableHighlight
           style={{ ...styles.openButton, backgroundColor: "#82589F" }}
           onPress={() => {
@@ -165,8 +166,6 @@ function SellScreen(props) {
       </View>
     </View>
   </Modal>
-
-
 
 
   return (
@@ -296,7 +295,7 @@ function SellScreen(props) {
           title="Ajouter mon annonce"
           type="solid"
           buttonStyle={{ backgroundColor: "#82589F" }}
-          onPress={() => { handleClick(); setModalVisible(true); props.onSubmitTypeOfAction(typeOfAction); clickToClean(); props.onSubmitDecreasePhoto() }}
+          onPress={() => { handleClick(); setModalVisible(true); props.onSubmitTypeOfAction(typeOfAction) }}
           containerStyle={{ marginBottom: 20 }}
         />
 
@@ -355,7 +354,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22
-  },    
+  },
 });
 
 function mapDispatchToProps(dispatch) {

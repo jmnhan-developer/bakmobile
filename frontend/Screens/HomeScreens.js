@@ -54,6 +54,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
 
   var colorLike = "lightgrey"
 
+
   
   let lastArticles = filterAddList.map((productId, i) => {
     return <View style={{ width: '47%', margin: 5 }}>

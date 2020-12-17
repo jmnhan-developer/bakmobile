@@ -5,12 +5,8 @@ import {Button, Overlay, Image} from 'react-native-elements';
 import { withNavigationFocus } from 'react-navigation';
 import {connect} from 'react-redux';
 import { Camera } from 'expo-camera';
-
-
-
 // IMAGE PICKER
 import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 // IMAGE PICKER
 import {IP_HOST} from '../variable'
