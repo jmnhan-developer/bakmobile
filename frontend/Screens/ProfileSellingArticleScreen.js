@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet, ScrollView, View, Image } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Text, ScrollView, View, Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
 
 const ProfileSellingArticleScreen = (props) => {
-// const [loading,setLoading]=useState('');
+
 const [productList, setProductList] = useState([]);
 
 
@@ -56,8 +55,8 @@ useEffect(() => {
   return (
     <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
       <View style={{ flexDirection: 'row', width: '100%' }}>
-        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
-        <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 80 }}>Mes ventes en cours</Text>
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.navigate('Menu')} />
+        <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 120 }}>Mes ventes</Text>
       </View>
       <ScrollView style={{ marginTop: 10 }}>
         {cardList}

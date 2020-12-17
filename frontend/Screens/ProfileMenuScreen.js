@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View,AsyncStorage } from 'react-native';
-import {Button, Input, ListItem, Icon} from 'react-native-elements';
+import { View,AsyncStorage } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { connect } from 'react-redux';
@@ -14,22 +14,6 @@ import { connect } from 'react-redux';
           <FontAwesome name="user-circle-o" size={20}  color="#82589F"/>
           <ListItem.Content>
             <ListItem.Title >Mon Profil</ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-
-        <ListItem bottomDivider onPress= {() => navigation.navigate('')}>
-          <FontAwesome name="star" size={20}  color="#82589F"/>
-          <ListItem.Content>
-            <ListItem.Title>Mon évalution (route à finir)</ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-
-        <ListItem bottomDivider onPress= {() => navigation.navigate('')}>
-          <FontAwesome name="heart-o" size={20}  color="#82589F"/>
-          <ListItem.Content>
-            <ListItem.Title>Mes favoris (route à finir)</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>

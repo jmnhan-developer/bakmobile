@@ -1,6 +1,5 @@
 console.disableYellowBox = true;
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, FlatList,SafeAreaView, ImageBackground, ActivityIndicator } from 'react-native';
+import React from 'react';
 import FilterScreen from './Screens/FilterScreen'
 import ProfileScreen from './Screens/ProfileScreen'
 import SellScreen from './Screens/SellScreen'

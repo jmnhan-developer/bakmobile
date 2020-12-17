@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { Input, Image } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
@@ -23,7 +22,6 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
       if (value) {
 
         onSubmitToken(value);
-        console.log('value from HomeScreen:', value);
 
       }
     })
@@ -53,9 +51,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
 
 
   var colorLike = "lightgrey"
-  if (favorate) {
-    colorLike = "red"
-  } 
+
 
   
   let lastArticles = filterAddList.map((productId, i) => {
@@ -70,7 +66,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
         <Image source={{ uri: productId.images[0] }} style={{ height: 250, width: 200 }} />
         <View style={{ flex: 1, flexDirection: 'row', marginTop: 5, justifyContent: "space-between" }}>
           <Text style={{ fontWeight: 'bold' }}>{productId.brand}</Text>
-          <FontAwesome name="heart" size={20} color={colorLike} onPress={() => {setFavorate(!favorate)}}/>
+          <FontAwesome name="heart" size={20} color={colorLike}/>
         </View>
         <Text>{productId.title}</Text>
         <Text>{productId.price}€</Text>
@@ -92,7 +88,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
         onChangeText={(val) => setSearchTerm(val)}
       />
 
-  <Text style={{fontSize:20, fontFamily:'Helvetica', fontWeight:'bold', marginTop:5, marginBottom:10, marginLeft:10}} onPress={()=>setLoading(!loading)}>Les derniers articles mis en vente</Text>
+      <Text style={{fontSize:20, textAlign:'center', marginTop:5, marginBottom:10, marginLeft:10}} onPress={()=>setLoading(!loading)}>Les derniers articles mis en vente</Text>
       
 
       <ScrollView>
@@ -114,11 +110,6 @@ function mapDispatchToProps(dispatch) {
     }
   }
 }
-
-
-
-
-
 
 
 export default connect(
