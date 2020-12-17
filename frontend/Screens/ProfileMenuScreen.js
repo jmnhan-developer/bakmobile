@@ -18,22 +18,6 @@ import { connect } from 'react-redux';
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider onPress= {() => navigation.navigate('')}>
-          <FontAwesome name="star" size={20}  color="#82589F"/>
-          <ListItem.Content>
-            <ListItem.Title>Mon évalution (route à finir)</ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-
-        <ListItem bottomDivider onPress= {() => navigation.navigate('')}>
-          <FontAwesome name="heart-o" size={20}  color="#82589F"/>
-          <ListItem.Content>
-            <ListItem.Title>Mes favoris (route à finir)</ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-
         <ListItem bottomDivider onPress= {() => navigation.navigate('ArticleSell')}>
           <FontAwesome5 name="store" size={18} color="#82589F" />
           <ListItem.Content>
@@ -58,7 +42,7 @@ import { connect } from 'react-redux';
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider onPress= {() => {navigation.navigate('SignIn');AsyncStorage.removeItem("userToken");onSubmitToken()}}>
+        <ListItem bottomDivider onPress= {() => {navigation.navigate('Home');AsyncStorage.removeItem("userToken");onSubmitToken()}}>
           <FontAwesome name="sign-out" size={24} color="#82589F" />
           <ListItem.Content>
             <ListItem.Title >Log Out</ListItem.Title>

@@ -85,7 +85,7 @@ const ProfileScreen = ({ navigation, takeToken }) => {
 
   return (
 
-    <View style={{ flex: 1, marginTop: 30, width: '95%', marginLeft: 10 }}>
+    <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
 
       <View style={{flexDirection:'row', width:'100%'}}>
         <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{marginTop:5}} onPress={() => navigation.goBack()}/>

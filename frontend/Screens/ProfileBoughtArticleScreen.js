@@ -1,6 +1,6 @@
-import React,{useEffect, useState} from 'react';
-import { Text, StyleSheet, ScrollView, View, Image} from 'react-native';
-import {Card, Button} from 'react-native-elements';
+import React, { useEffect, useState } from 'react';
+import { Text, StyleSheet, ScrollView, View, Image, Modal, TouchableHighlight} from 'react-native';
+import { Card, Button } from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { IP_HOST } from '../variable'
@@ -9,30 +9,32 @@ import { IP_HOST } from '../variable'
 
 const ProfileBoughtArticleScreen = (props) => {
 
-const [loading,setLoading]=useState('')
+  const [loading, setLoading] = useState(false)
+  const [modalVisible, setModalVisible]=useState(false)
+
   var handleClick = async (value) => {
-    
-    console.log('value argument from handleClick ProfileBought',value);
-    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value}`) 
+
+    console.log('value argument from handleClick ProfileBought', value);
+    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value}`)
     const body = await data.json()
-    console.log('body from handleClick ProfileBought',body)
-    }
-    
-   
-    const [productList, setProductList] = useState([]);
-    const [productListReceive, setProductListReceive] = useState([]);
-    const [stateOfOrder,setStateOfOrder]= useState('Valider la réception de cet achat')
+    console.log('body from handleClick ProfileBought', body)
+  }
+
+
+  const [productList, setProductList] = useState([]);
+  const [productListReceive, setProductListReceive] = useState([]);
+  const [stateOfOrder, setStateOfOrder] = useState('Valider la réception de cet achat')
 
   useEffect(() => {
-     
+
     console.log('enter useEffect')
     const findProducts = async () => {
 
-      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-buyer?buyerToken=${props.takeToken}`) 
+      const data = await fetch(`http://${IP_HOST}:3000/articles/get-article-by-buyer?buyerToken=${props.takeToken}`)
       const body = await data.json()
-      
-      console.log('body from profilebought screen',body.articlesTab)
-      
+
+      console.log('body from profilebought screen', body.articlesTab)
+
       setProductList(body.articlesTab);
       setProductListReceive(body.articlesTabValidate)
 
@@ -45,45 +47,75 @@ const [loading,setLoading]=useState('')
 
 
 
-  function formatDate(date){
+  function formatDate(date) {
     var newDate = new Date(date);
-    var finalFormat = newDate.getDate()+"/"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+    var finalFormat = newDate.getDate() + "/" + (newDate.getMonth() + 1) + "/" + newDate.getFullYear();
     return finalFormat;
   }
 
   let cardList1 = productList.map((e, i) => {
     return <View>
       <Image style={{ width: "100%", height: 350 }} source={{ uri: e.images[0] }}></Image>
-      <Text style={{ fontSize:22, padding:2}}>{e.title}</Text>
-      <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
-      <View style={{flex:1, flexDirection:"row", padding:2}}>
-        <FontAwesome name={'truck'} size={24} color='#82589F' />
-        <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e._id),setLoading('loading')}}>Tout est OK, je valide!</Text>
-      
+      <Text style={{ fontSize: 22, padding: 2 }}>{e.title}</Text>
+      <Text style={{ padding: 2 }}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
+      <View style={{ flex: 1, flexDirection: "row", padding: 2, marginBottom: 20 }}>
+        <FontAwesome style={{ marginTop: 5 }} name={'truck'} size={24} color='#82589F' />
+        <Button buttonStyle={{ height: 35, backgroundColor: '#82589F', marginLeft: 10 }} titleStyle={{ fontSize: 15, color: 'white' }} title="Tout est OK, je valide!" type="outline" onPress={() => { handleClick(e._id), setModalVisible(true), setLoading(!loading) }} />
+
       </View>
     </View>
   });
   let cardList2 = productListReceive.map((e, i) => {
     return <View>
       <Image style={{ width: "100%", height: 350 }} source={{ uri: e.images[0] }}></Image>
-      <Text style={{ fontSize:22, padding:2}}>{e.title}</Text>
-      <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
-      <View style={{flex:1, flexDirection:"row", padding:2}}>
+      <Text style={{ fontSize: 22, padding: 2 }}>{e.title}</Text>
+      <Text style={{ padding: 2 }}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
+      <View style={{ flex: 1, flexDirection: "row", padding: 2 }}>
         <FontAwesome name={'check'} size={24} color='#82589F' />
-        <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} >Achat validé</Text>
+        <Text style={{ marginTop: 5, marginLeft: 5, marginBottom: 25 }} >Achat validé</Text>
       </View>
     </View>
   });
 
+  let modalDisplay = <Modal
+    animationType="slide"
+    transparent={true}
+    visible={modalVisible}
+    onRequestClose={() => {
+    Alert.alert("Modal has been closed.");
+    }}>
+    <View style={styles.centeredView}>
+      <View style={styles.modalView}>
+        <Text style={styles.modalText}>Merci d'avoir validé votre achat !</Text>
+        <Text style={styles.modalText}>Nous allons procéder au paiement du vendeur.</Text>
+
+
+        <TouchableHighlight
+          style={{ ...styles.openButton, backgroundColor: "#82589F" }}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+            props.navigation.navigate('ArticleBought')
+          }}
+        >
+          <Text style={styles.textStyle}>Voir ma commande</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
+  </Modal>
+
+
+
+
   return (
     <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
-       <View style={{ flexDirection: 'row', width: '100%' }}>
+      <View style={{ flexDirection: 'row', width: '100%' }}>
         <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
         <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 120 }}>Mes achats</Text>
       </View>
-      <ScrollView style={{ marginTop:10}}>
+      <ScrollView style={{ marginTop: 10 }}>
         {cardList1}
         {cardList2}
+        {modalDisplay}
       </ScrollView>
     </View>
   );
@@ -91,11 +123,11 @@ const [loading,setLoading]=useState('')
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   paddingTop: 50,
-   color:'#D6A2E8',
-   fontFamily: 'sans-serif-light'
-   
+    flex: 1,
+    paddingTop: 50,
+    color: '#D6A2E8',
+    fontFamily: 'sans-serif-light'
+
   },
   item: {
     paddingTop: 10,
@@ -103,27 +135,63 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
     borderBottomColor: '#82589F',
-    color:'#82589F',
-    borderBottomWidth:1,
-    
+    color: '#82589F',
+    borderBottomWidth: 1,
+
   },
   icon: {
-    padding:300,
+    padding: 300,
   },
   title: {
-    fontSize:25,
-    fontWeight:'bold',
-    color:'black',
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'black',
     fontFamily: 'sans-serif-light'
-  }
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 50,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },    
 })
 
 function mapStateToProps(state) {
-  return {takeToken:state.token}
+  return { takeToken: state.token }
 }
 
-  
+
 export default connect(
   mapStateToProps,
-    null
+  null
 )(ProfileBoughtArticleScreen)

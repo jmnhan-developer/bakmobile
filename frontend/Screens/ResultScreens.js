@@ -70,9 +70,9 @@ function ResultScreens(props) {
   return (
     <View style={{marginTop:50}}>
 
-      <Text style={{fontSize:18, marginBottom:5, marginLeft:10, fontFamily:'Helvetica', fontWeight:'bold'}}>Les résultats de votre recherche pour :</Text>
+      <Text style={{fontSize:18, marginBottom:5, marginLeft:10, textAlign:'center'}}>Les résultats de votre recherche pour :</Text>
 
-      <Text style={{fontSize:18, marginBottom:5, marginLeft:10,fontFamily:'Helvetica' }}>"{props.Subcat}"</Text>
+      <Text style={{fontSize:18, fontWeight:'bold', marginBottom:5, marginLeft:10, textAlign:'center' }}>"{props.Subcat}"</Text>
 
       <ScrollView> 
         <View style={{flex: 1, flexDirection:'row', width:'95%', flexWrap: 'wrap', justifyContent:"space-between", margin:10}}>

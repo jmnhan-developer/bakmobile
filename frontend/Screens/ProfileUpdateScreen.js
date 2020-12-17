@@ -51,13 +51,11 @@ import {IP_HOST} from '../variable'
 
     return (
 
-      <View style={{flex: 1, marginTop:25, width: '95%', marginLeft:10}}>
-        <FontAwesome name="long-arrow-left" size={24} color="grey"
-            onPress= {() =>navigation.navigate('ProfileUser')}
-        />
-
-        <Text style={{fontSize:15, textAlign:"center", marginTop:5}}>Modification de mes informations personnelles</Text>
-
+      <View style={{flex: 1, marginTop:50, width: '95%', marginLeft:10}}>
+        <View style={{flexDirection:'row'}}>
+          <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{marginTop:5}} onPress= {() =>navigation.navigate('ProfileUser')}/>
+          <Text style={{fontSize:20, textAlign:"center", marginLeft:28, marginTop:5}}>Modification de mes informations personnelles</Text>
+        </View>
         <View style={{backgroundColor:'#D7DBDD', height:1, width:300, marginLeft:50, marginTop:30, marginBottom:5}}></View>
 
         <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled   keyboardVerticalOffset={150}>

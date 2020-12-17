@@ -9,15 +9,13 @@ import { IP_HOST } from '../variable'
 
 
 
-
-
 function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
   const [productList, setProductList] = useState([])
   const [filterAddList, setFilterAddList] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
   const [liked, setLiked] = useState('')
   const [favorate, setFavorate] = useState(false)
-  const [loading,setLoading]=useState('')
+  const [loading,setLoading]=useState(false)
 
 
   useEffect(() => {
@@ -30,7 +28,6 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
       }
     })
   }, [loading]);
-
 
   useEffect(() => {
     const findProducts = async () => {
@@ -56,9 +53,6 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
 
 
   var colorLike = "lightgrey"
-  if (favorate) {
-    colorLike = "red"
-  } 
 
   
   let lastArticles = filterAddList.map((productId, i) => {
@@ -73,7 +67,7 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
         <Image source={{ uri: productId.images[0] }} style={{ height: 250, width: 200 }} />
         <View style={{ flex: 1, flexDirection: 'row', marginTop: 5, justifyContent: "space-between" }}>
           <Text style={{ fontWeight: 'bold' }}>{productId.brand}</Text>
-          <FontAwesome name="heart" size={20} color={colorLike} onPress={() => {setFavorate(!favorate)}}/>
+          <FontAwesome name="heart" size={20} color={colorLike}/>
         </View>
         <Text>{productId.title}</Text>
         <Text>{productId.price}€</Text>
@@ -95,7 +89,8 @@ function HomeScreens({ navigation, onSubmitProduct, onSubmitToken }) {
         onChangeText={(val) => setSearchTerm(val)}
       />
 
-      <Text style={{ fontSize: 20, fontFamily: 'Helvetica', textAlign:'center', marginTop: 5, marginBottom: 10, marginLeft: 10 }}>Les derniers articles mis en vente</Text>
+      <Text style={{fontSize:20, textAlign:'center', marginTop:5, marginBottom:10, marginLeft:10}} onPress={()=>setLoading(!loading)}>Les derniers articles mis en vente</Text>
+      
 
       <ScrollView>
         <View style={{ flex: 1, flexDirection: 'row', width: '95%', flexWrap: 'wrap', justifyContent: "space-between", margin: 10 }}>

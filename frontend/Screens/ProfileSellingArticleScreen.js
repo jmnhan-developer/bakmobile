@@ -58,6 +58,8 @@ useEffect(() => {
       </View>
     </View>
   });
+  
+  
 
   return (
     <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
