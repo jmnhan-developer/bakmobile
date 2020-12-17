@@ -21,7 +21,6 @@ const [walletAmount, setWalletAmount] = useState(0);
     updateWallet()
   },[])
 
-
   return (
     <View style={{flex: 1, marginTop:50, width: '95%', marginLeft:10}}>
 
@@ -33,7 +32,7 @@ const [walletAmount, setWalletAmount] = useState(0);
         <Text style={{fontSize:15}}>Montant en attente</Text>
         <Text style={{fontSize:15}}>0,00€</Text>
       </View>
-
+      
       <View style={{backgroundColor:'#D7DBDD', height:1, width:300, marginLeft:50, marginTop:30, marginBottom:30}}></View>
 
       <View style={{marginTop:20, marginBottom:20, alignItems:'center'}}>

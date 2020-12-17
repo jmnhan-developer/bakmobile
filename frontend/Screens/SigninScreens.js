@@ -68,6 +68,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
       {
        navigation.navigate('Sell')
       }
+      
    }
  console.log(token,'id from AsyncStorage SignIn')
  console.log(tokenIsSubmited,'etat de id submit')

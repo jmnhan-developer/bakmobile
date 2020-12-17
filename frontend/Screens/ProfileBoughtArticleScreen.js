@@ -77,7 +77,7 @@ const [loading,setLoading]=useState(false)
   return (
     <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
        <View style={{ flexDirection: 'row', width: '100%' }}>
-        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.navigate('Menu')} />
         <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 120 }}>Mes achats</Text>
       </View>
       <ScrollView style={{ marginTop:10}}>
