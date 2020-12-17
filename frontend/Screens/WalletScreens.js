@@ -21,7 +21,7 @@ const [walletAmount, setWalletAmount] = useState(0);
       const dataWallet = await fetch(`http://${IP_HOST}:3000/users/get-Wallet?profileToken=${props.takeToken}`)
       // console.log("----------dataWallet     updateWallet---------",dataWallet)
       const body = await dataWallet.json()
-      // console.log("----------body     updateWallet---------",body)
+      console.log("----------body     updateWallet---------",body)
       setWalletAmount(body.dataWallet.moneyWallet);     
     }
     updateWallet()
