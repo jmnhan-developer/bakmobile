@@ -1,4 +1,4 @@
-
+console.disableYellowBox = true;
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, FlatList,SafeAreaView, ImageBackground, ActivityIndicator } from 'react-native';
 import FilterScreen from './Screens/FilterScreen'
@@ -32,16 +32,6 @@ import subcat from './reducers/Filtre.reducer';
 const store = createStore(combineReducers({photo,product,token,typeOfAction,subcat}));
 
 
-var StackNavigatorHome= createStackNavigator({
-   
-  Home:HomeScreens,
-  Product:ProductScreens,
-  SignUp: SignUpScreen, 
-  SignIn:SigninScreens
-
-},{headerMode: 'none'}
-);
-
 var StackNavigatorSearch = createStackNavigator({ 
 
   
@@ -70,23 +60,22 @@ var StackNavigatorProfile = createStackNavigator({
   ArticleBought: ProfileBoughtArticleScreen, 
   ArticleSell: ProfileSellingArticleScreen,
   MyWallet:WalletScreens,
-  ProfileUp:ProfileUpdateScreen
+  ProfileUp:ProfileUpdateScreen,
+  SignUp: SignUpScreen, 
+  SignIn:SigninScreens
 }, 
 
 {headerMode: 'none'}
 
 );  
 
-
-
 var BottomNavigator = createBottomTabNavigator({
   
-  Home:StackNavigatorHome,
+  Home:HomeScreens,
   Vendre: stackNavigatorSell,
   Rechercher: StackNavigatorSearch,
   'Mon Profil': StackNavigatorProfile,
   
-
  },
   {
    defaultNavigationOptions: ({ navigation }) => ({

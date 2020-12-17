@@ -58,7 +58,7 @@ import { connect } from 'react-redux';
           <ListItem.Chevron />
         </ListItem>
 
-        <ListItem bottomDivider onPress= {() => {navigation.navigate('SignIn');AsyncStorage.removeItem("userToken");onSubmitToken()}}>
+        <ListItem bottomDivider onPress= {() => {navigation.navigate('Home');AsyncStorage.removeItem("userToken");onSubmitToken()}}>
           <FontAwesome name="sign-out" size={24} color="#82589F" />
           <ListItem.Content>
             <ListItem.Title >Log Out</ListItem.Title>

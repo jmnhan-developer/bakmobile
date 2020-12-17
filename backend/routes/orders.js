@@ -56,14 +56,14 @@ router.get('/receive-order', async function(req, res, next) {
     {orderState:`validé le ${(formatDate(today))}`} )
     
   //getting the seller current wallet and incrementing with bought product price
-  let findWallet = await userModel.findOne({token:req.query.clientToken})
+  let findWallet = await userModel.findOne({token:req.query.sellerToken})
   let currentWallet = findWallet.moneyWallet
   let updatedWallet = parseInt(currentWallet) + parseInt(req.query.productPrice)
 
   //updating the seller wallet after customer bought the product
     console.log("le prix de l'article est,", req.query.productPrice)
-  let moneyWallet = await userModel.updateOne(
-    {token:req.query.clientToken},
+     let moneyWallet = await userModel.updateOne(
+    {token:req.query.sellerToken},
     {moneyWallet:updatedWallet}
     )
   

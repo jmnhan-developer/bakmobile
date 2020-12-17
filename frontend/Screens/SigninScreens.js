@@ -25,7 +25,6 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   function clickToClean () {
     setMail ("");
     setPassword("");
-      // console.log("----------clean input-----", firstName)
   }
 
   useEffect(() => {
@@ -50,18 +49,14 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
       body:`email=${email}&password=${password}`
     },
     );
-    
-    // console.log("dataUsersXXX", dataUsers)
-    
+       
     const dataConsumers = await dataUsers.json()
     // console.log("dataConsumersjson-Result", dataConsumers)
     console.log('-----------------',dataConsumers.token)
     setIsConnect(dataConsumers.result)
     setIsNotConnect(dataConsumers.error)
     onSubmitToken(dataConsumers.token)
-    
     AsyncStorage.setItem('userToken',dataConsumers.token );
-  
   }
    if(isConnect==true )
    {
@@ -80,7 +75,7 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
   return (
     <View style={{flex: 1, marginTop: 50, alignItems: 'center',justifyContent: 'center'}}>
 
-      <Text style={{marginBottom: 20}}>Connection</Text>
+      <Text style={{marginBottom: 20, fontSize:20}}>Connection</Text>
 
       <ScrollView>
 
@@ -103,14 +98,9 @@ function SigninScreens({navigation,onSubmitToken,typeOfAction}) {
             autoCapitalize="none"
             value={password} 
             autoCorrect={false}
-
+            secureTextEntry={true}
             onChangeText={(val) =>setPassword(val)} />
 
-          <Icon>
-            <FontAwesome name="facebook-f" size={24} color="black" />
-            <FontAwesome name="instagram" size={24} color="black" />
-            <FontAwesome name="twitter" size={24} color="black" />
-          </Icon>
           <Button style={{marginTop:20}}
             title="Me connecter"
             buttonStyle={{ backgroundColor: "#82589F"}}
@@ -161,14 +151,5 @@ export default connect (
   mapStateToProps,
   mapDispatchToProps
 )(SigninScreens);
-
-
-
-// var SignInRedux = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(SigninScreens);
-
-// export default withNavigation(SignInRedux);
 
 

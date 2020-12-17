@@ -9,12 +9,12 @@ import { IP_HOST } from '../variable'
 
 const ProfileBoughtArticleScreen = (props) => {
 
-const [loading,setLoading]=useState('')
+const [loading,setLoading]=useState(false)
 
   var handleClick = async (value) => {
     console.log("JE SUIS VALEUUUUUR:", value)
     console.log("le prix est ", value.price)
-    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value._id}&clientToken=${props.takeToken}&productPrice=${value.price}`) 
+    const data = await fetch(`http://${IP_HOST}:3000/orders/receive-order?idArticle=${value._id}&sellerToken=${value.sellerToken}&productPrice=${value.price}`) 
     const body = await data.json()
     }
     
@@ -58,7 +58,7 @@ const [loading,setLoading]=useState('')
       <Text style={{padding:2}}>{e.price}€ - Date d'achat: {formatDate(e.creationDate)}</Text>
       <View style={{flex:1, flexDirection:"row", padding:2}}>
         <FontAwesome name={'truck'} size={24} color='#82589F' />
-  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e),setLoading('loading')}}>Achat à Valider dés votre réception</Text>
+  <Text style={{marginTop:5, marginLeft:5, marginBottom: 25}} onPress={()=>{handleClick(e),setLoading(!loading)}}>Achat à Valider dés votre réception</Text>
       </View>
     </View>
   });
@@ -76,7 +76,10 @@ const [loading,setLoading]=useState('')
 
   return (
     <View style={{ flex: 1, marginTop: 50, width: '95%', marginLeft: 10 }}>
-      <Text style={{ fontSize: 18, textAlign: "center" }}>Mes achats effectués</Text>
+       <View style={{ flexDirection: 'row', width: '100%' }}>
+        <FontAwesome name="long-arrow-left" size={24} color="#82589F" style={{ marginTop: 5 }} onPress={() => props.navigation.goBack()} />
+        <Text style={{ fontSize: 20, marginTop: 5, marginLeft: 120 }}>Mes achats</Text>
+      </View>
       <ScrollView style={{ marginTop:10}}>
         {cardList1}
         {cardList2}

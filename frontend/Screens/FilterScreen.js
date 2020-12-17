@@ -1,115 +1,115 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useReducer,useState } from 'react';
-import { StyleSheet, Text, View, FlatList,SafeAreaView } from 'react-native';
+import React, { useReducer, useState } from 'react';
+import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
 import { Card, ListItem, Button, CheckBox } from 'react-native-elements'
-import {Picker} from '@react-native-picker/picker';
-import {connect} from 'react-redux';
+import { Picker } from '@react-native-picker/picker';
+import { connect } from 'react-redux';
 
 function FilterScreen(props) {
 
-const [DisplaySubCat, setDisplaySubCat] = useState([]);
+  const [DisplaySubCat, setDisplaySubCat] = useState([]);
 
-const [DisplaySecondFilter1, setDisplaySecondFilter1] =useState(false);
-const [DisplaySecondFilter2, setDisplaySecondFilter2] =useState(false);
-const [DisplaySecondFilter3, setDisplaySecondFilter3] =useState(false);
-const [DisplaySecondFilter4, setDisplaySecondFilter4] =useState(false);
-const [DisplaySecondFilter5, setDisplaySecondFilter5] =useState(false);
-
-
-const [colorButton1,setColorButton1]=useState(false);
-const [colorButton2,setColorButton2]=useState(false);
-const [colorButton3,setColorButton3]=useState(false);
-const [colorButton4,setColorButton4]=useState(false);
-const [colorButton5,setColorButton5]=useState(false);
-
-const [subCatSelected, setSubCatSelected]= useState(false);
-const [subCatName, setSubCatName]= useState('');
+  const [DisplaySecondFilter1, setDisplaySecondFilter1] = useState(false);
+  const [DisplaySecondFilter2, setDisplaySecondFilter2] = useState(false);
+  const [DisplaySecondFilter3, setDisplaySecondFilter3] = useState(false);
+  const [DisplaySecondFilter4, setDisplaySecondFilter4] = useState(false);
+  const [DisplaySecondFilter5, setDisplaySecondFilter5] = useState(false);
 
 
+  const [colorButton1, setColorButton1] = useState(false);
+  const [colorButton2, setColorButton2] = useState(false);
+  const [colorButton3, setColorButton3] = useState(false);
+  const [colorButton4, setColorButton4] = useState(false);
+  const [colorButton5, setColorButton5] = useState(false);
+
+  const [subCatSelected, setSubCatSelected] = useState(false);
+  const [subCatName, setSubCatName] = useState('');
 
 
-var subCat1 = [
-  {subcategory: "Sièges Auto"},
-  {subcategory: "Nacelles"},
-  {subcategory: "Poussettes"},
-  {subcategory: "Landeaux"},
-  {subcategory: "Portes-Bébé"},
-  {subcategory: "Sacs à Langer"},
-  {subcategory: "Autres"},
-]
-
-var subCat2 = [
-  {subcategory: "de 0 à 3 mois"},
-  {subcategory: "de 4 à 6 mois"},
-  {subcategory: "de 7 à 12 mois"},
-  {subcategory: "de 13 à 18 mois"},
-  {subcategory: "de 19 à 24 mois"},
-  {subcategory: "de 2 à 3 ans"},
-  {subcategory: "Autres"},
-]
-
-var subCat3 = [
-  {subcategory: "Baignoires"},
-  {subcategory: "Transats de bain"},
-  {subcategory: "Lingettes-Serviettes"},
-  {subcategory: "Thermometres"},
-  {subcategory: "Jouets de bain"},
-  {subcategory: "Autres"},
-]
-
-var subCat4 = [
-  {subcategory: "Lits bébé"},
-  {subcategory: "Lits de voyage"},
-  {subcategory: "Linges de lit"},
-  {subcategory: "Gigoteuses"},
-  {subcategory: "Veilleuses"},
-  {subcategory: "Babyphones"},
-  {subcategory: "Autres"},
-]
-
-var subCat5 = [
-  {subcategory: "Biberons"},
-  {subcategory: "Chauffe-Biberons"},
-  {subcategory: "Stérilisateurs"},
-  {subcategory: "Robots de Cuisine"},
-  {subcategory: "Vaiselles"},
-  {subcategory: "Accessoires"},
-  {subcategory: "Autres"},
-]
-
- 
-if(DisplaySecondFilter1==true){
-  setDisplaySubCat(subCat1)
-  setDisplaySecondFilter1(false)
-}
-else if (DisplaySecondFilter2==true){
-  setDisplaySubCat(subCat2)
-  setDisplaySecondFilter2(false)
-}
-else if (DisplaySecondFilter3==true){
-  setDisplaySubCat(subCat3)
-  setDisplaySecondFilter3(false)
-}
-else if (DisplaySecondFilter4==true){
-  setDisplaySubCat(subCat4)
-  setDisplaySecondFilter4(false)
-}
-else if (DisplaySecondFilter5==true){
-  setDisplaySubCat(subCat5)
-  setDisplaySecondFilter5(false)
-}
 
 
-var validationButton
+  var subCat1 = [
+    { subcategory: "Sièges Auto" },
+    { subcategory: "Nacelles" },
+    { subcategory: "Poussettes" },
+    { subcategory: "Landeaux" },
+    { subcategory: "Portes-Bébé" },
+    { subcategory: "Sacs à Langer" },
+    { subcategory: "Autres" },
+  ]
 
-if(subCatSelected==true){
- validationButton=
-    <Button
-        buttonStyle={{ marginTop:10, backgroundColor:'#82589F'}}
-        containerStyle={{width:300, height:50, alignSelf:'center'}}
-        title='Rechercher' 
-        onPress= {() => props.navigation.navigate('Result')}/>
-}
+  var subCat2 = [
+    { subcategory: "de 0 à 3 mois" },
+    { subcategory: "de 4 à 6 mois" },
+    { subcategory: "de 7 à 12 mois" },
+    { subcategory: "de 13 à 18 mois" },
+    { subcategory: "de 19 à 24 mois" },
+    { subcategory: "de 2 à 3 ans" },
+    { subcategory: "Autres" },
+  ]
+
+  var subCat3 = [
+    { subcategory: "Baignoires" },
+    { subcategory: "Transats de bain" },
+    { subcategory: "Lingettes-Serviettes" },
+    { subcategory: "Thermometres" },
+    { subcategory: "Jouets de bain" },
+    { subcategory: "Autres" },
+  ]
+
+  var subCat4 = [
+    { subcategory: "Lits bébé" },
+    { subcategory: "Lits de voyage" },
+    { subcategory: "Linges de lit" },
+    { subcategory: "Gigoteuses" },
+    { subcategory: "Veilleuses" },
+    { subcategory: "Babyphones" },
+    { subcategory: "Autres" },
+  ]
+
+  var subCat5 = [
+    { subcategory: "Biberons" },
+    { subcategory: "Chauffe-Biberons" },
+    { subcategory: "Stérilisateurs" },
+    { subcategory: "Robots de Cuisine" },
+    { subcategory: "Vaiselles" },
+    { subcategory: "Accessoires" },
+    { subcategory: "Autres" },
+  ]
+
+
+  if (DisplaySecondFilter1 == true) {
+    setDisplaySubCat(subCat1)
+    setDisplaySecondFilter1(false)
+  }
+  else if (DisplaySecondFilter2 == true) {
+    setDisplaySubCat(subCat2)
+    setDisplaySecondFilter2(false)
+  }
+  else if (DisplaySecondFilter3 == true) {
+    setDisplaySubCat(subCat3)
+    setDisplaySecondFilter3(false)
+  }
+  else if (DisplaySecondFilter4 == true) {
+    setDisplaySubCat(subCat4)
+    setDisplaySecondFilter4(false)
+  }
+  else if (DisplaySecondFilter5 == true) {
+    setDisplaySubCat(subCat5)
+    setDisplaySecondFilter5(false)
+  }
+
+
+  var validationButton
+
+  if (subCatSelected == true) {
+    validationButton =
+      <Button
+        buttonStyle={{ marginTop: 10, backgroundColor: '#82589F' }}
+        containerStyle={{ width: 300, height: 50, alignSelf: 'center' }}
+        title='Rechercher'
+        onPress={() => props.navigation.navigate('Result')} />
+  }
 
   return (
       <View>
@@ -214,35 +214,35 @@ if(subCatSelected==true){
 }
 
 const styles = StyleSheet.create({
-  
-      container: {
-      marginTop:5 ,
-  },
-  titlePage:{
 
-      marginTop:80,
-      marginLeft:75,
-      fontSize:20,
-      marginBottom:80,
+  container: {
+    marginTop: 5,
+  },
+  titlePage: {
+
+    marginTop: 80,
+    marginLeft: 75,
+    fontSize: 20,
+    marginBottom: 80,
   },
   buttonRow: {
-    flexDirection:'row',
-    justifyContent:'space-around',
-    margin:10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    margin: 10,
 
   },
   buttonRow2: {
-    flexDirection:'row',
-    justifyContent:'space-around',
-    margin:70,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    margin: 70,
   }
 
 })
 
 function mapDispatchToProps(dispatch) {
-  return{
-    onSubCatSelected : function (subcat) {
-      dispatch ({type: 'picker', subcat: subcat})
+  return {
+    onSubCatSelected: function (subcat) {
+      dispatch({ type: 'picker', subcat: subcat })
     }
   }
 }

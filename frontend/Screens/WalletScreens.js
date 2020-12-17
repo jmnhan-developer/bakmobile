@@ -3,14 +3,8 @@ import { FlatList, StyleSheet, Text, View, ScrollView, Dimensions} from 'react-n
 import {Input, ListItem, Icon, Divider, Button, SearchBar} from 'react-native-elements';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5 } from '@expo/vector-icons';
-
-import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import {connect} from 'react-redux';
-
 import {IP_HOST} from '../variable'
-
 
 function WalletScreens (props) {
 

@@ -5,6 +5,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import {connect} from 'react-redux';
 import {IP_HOST} from '../variable'
 
+
+
 function SellScreen(props) {
   
   const [titleInput , setTitleInput ] = useState("");
@@ -50,6 +52,8 @@ function SellScreen(props) {
   
   if(props.takeToken!='')
      { 
+    clickToClean();
+    props.onSubmitDecreasePhoto();
     var image = JSON.stringify(props.addPhoto);
     const dataArticle = await fetch(`http://${IP_HOST}:3000/articles/create-article`, {
       method: 'POST',
@@ -65,7 +69,6 @@ function SellScreen(props) {
     props.navigation.navigate('SignIn')
   }
 }
-
  // FILTERS FOR PICKERS
   var subCat1 = [
     {subcategory: "Sièges Auto"},
@@ -267,7 +270,7 @@ function SellScreen(props) {
           title="Ajouter votre annonce"
           type="solid"
           buttonStyle={{backgroundColor: "#82589F"}}
-          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);clickToClean();props.onSubmitDecreasePhoto()}}
+          onPress={() => {handleClick();props.onSubmitTypeOfAction(typeOfAction);}}
           containerStyle={{marginBottom: 20}}
         />
 
