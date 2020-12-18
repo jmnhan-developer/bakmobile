@@ -65,11 +65,11 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction,takeToken 
                 color='#f9ca24'
                 size={20}
               />
-              <Icon name='star-o'
+              <Icon name='star'
                 color='#f9ca24'
                 size={20}
               />
-              <Icon name='star-o'
+              <Icon name='star'
                 color='#f9ca24'
                 size={20}
               />

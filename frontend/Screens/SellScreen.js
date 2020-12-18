@@ -181,7 +181,7 @@ function SellScreen(props) {
           value={titleInput}
           onChangeText={(val) => setTitleInput(val)}
         />
-        <Input style={{ width: '90%' }}
+        <Input style={{ width: '90%' }} multiline={true}
           placeholder="Description de l'article"
           value={desc}
           onChangeText={(val) => setDesc(val)}
