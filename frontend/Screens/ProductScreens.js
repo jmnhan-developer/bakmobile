@@ -26,7 +26,7 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction,takeToken 
       navigation.navigate('SignIn')
     }
   }
-  
+  console.log(productId.sellerToken)
   useEffect(() => {
     const findSeller = async () => {
       const data = await fetch(`http://${IP_HOST}:3000/users/get-seller?SellerToken=${productId.sellerToken}`)
@@ -73,7 +73,7 @@ function ProductScreens({ navigation, productId, onSubmitTypeOfAction,takeToken 
                 color='#f9ca24'
                 size={20}
               />
-              <Text style={{ marginLeft: 10 }}>46 évaluation</Text>
+              <Text style={{ marginLeft: 10 }}>46 évaluations</Text>
             </View>
           </View>
           <Icon style={{ marginLeft: 150 }}

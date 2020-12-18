@@ -6,7 +6,8 @@ import { IP_HOST } from '../variable'
 
 
 function SignUpScreens({ onSubmitToken, navigation, typeOfAction }) {
-
+  
+  const [gender, setGender] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setMail] = useState('')

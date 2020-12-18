@@ -57,7 +57,7 @@ router.post('/sign-up', async function(req,res,next){
     }
   }
   
-
+  console.log(saveUser);
   res.json({result, saveUser, error})
 })
 

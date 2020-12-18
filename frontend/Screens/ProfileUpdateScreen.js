@@ -90,7 +90,7 @@ const ProfileUpdateScreen = ({ navigation, takeToken }) => {
           </View>
 
           <Button title="Valider" buttonStyle={{ backgroundColor: "#82589F" }} type="solid"
-            onPress={() => { handleClick(); navigation.navigate('ProfileUser') }} />
+            onPress={() => { handleClick(); navigation.navigate('Home') }} />
 
         </ScrollView>
 
